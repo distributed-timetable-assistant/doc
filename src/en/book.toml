@@ -1,5 +1,5 @@
 [book]
 authors = ["Hasan Karimi"]
 language = "en"
-src = "src/en"
+src = "."
 title = "DTA — Distributed Timetable Assistant"
