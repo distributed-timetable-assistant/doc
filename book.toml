@@ -1,0 +1,5 @@
+[book]
+authors = ["Hasan Karimi"]
+language = "en"
+src = "src"
+title = "DTA — Distributed Timetable Assistant"
