@@ -7,8 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: node
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y musl-tools
