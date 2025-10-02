@@ -1,0 +1,39 @@
+name: Main
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: node
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - run: rustup update nightly && rustup default nightly
+      - run: cargo install mdbook
+      - run: mdbook build
+      - name: Upload Static Pages
+        uses: actions/upload-artifact@v2
+        with:
+          name: static-pages
+          path: book
+
+  deploy-github-pages:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download Static Pages
+        uses: actions/download-artifact@v2
+        with:
+          name: static-pages
+          path: book
+      - name: Deploy To The Github Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          branch: gh-pages
+          folder: book
