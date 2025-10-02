@@ -16,7 +16,7 @@ jobs:
       - run: cargo install mdbook
       - run: mdbook build
       - name: Upload Static Pages
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: static-pages
           path: book
@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Download Static Pages
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: static-pages
           path: book
