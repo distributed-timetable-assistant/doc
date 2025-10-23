@@ -1,16 +1,11 @@
 # Overview
 
-The Distributed Timetable Assistant (DTA) is a decentralized platform designed to automate and optimize educational scheduling across multiple institutions, instructors, and learners.
-Unlike traditional centralized scheduling systems, DTA distributes the process of generating and evaluating timetable solutions among multiple independent microservices — allowing scalability, fault tolerance, and open participation.
+The Distributed Timetable Assistant (DTA) is a decentralized platform designed to automate and optimize educational scheduling across multiple institutions, instructors, supervisors, and learners. Unlike traditional centralized scheduling systems, DTA distributes the process of generating and evaluating timetable solutions across multiple independent microservices, enabling scalability, fault tolerance, and open participation.
 
-Each educational organization (called an Academy) defines its own set of courses, instructors, learners, and facilities. These details are packaged into structured data units known as Institution Packets.
-DTA then exposes these packets to a distributed network of scheduler services, where each participant (human or automated) can propose optimized scheduling solutions.
-Accepted solutions are validated and rewarded via an internal token-based mechanism, creating an open marketplace for scheduling computation.
+Each educational organization defines its own set of courses, instructors, supervisors, learners, and facilities. Organizations can specify existing participants or define new ones exclusively for their context. Each instructor, supervisor, and learner also registers in the system, providing their availability and individual preferences. These details are packaged into structured data units known as Institution Packets.
 
-The platform is built with modularity and interoperability in mind.
-Its backend consists of Rust-based microservices orchestrated via Kubernetes, while the frontend provides web interfaces for administrators, instructors, and organizations to manage their data and visualize results.
-Through this distributed architecture, DTA enables flexible, large-scale, and community-driven educational scheduling — suitable for schools, universities, and online training platforms
+DTA exposes these packets to a distributed network of scheduler services, where participants — human or automated — can propose optimized scheduling solutions. Proposed solutions are validated, scored, and evaluated for rewards before being suggested to the corresponding organization. Accepted solutions receive rewards, and the process of improving schedules can continue iteratively, enabling everyone to collaboratively refine timetables to achieve the best possible outcome. Solvers can even propose adjustments to the organization’s parameters, helping schedules converge faster or escape potential deadlocks.
 
-|                                                                                      ![overview-flowchart.png](images/overview-flowchart.png)                                                                                      | 
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:| 
-| *The figure illustrates how academies define their data as Institution Packets, which are processed by the distributed scheduler network. Validated solutions are rewarded through DTA’s decentralized incentive system.* |
+The platform is built with modularity and interoperability in mind. Its backend consists of Rust-based microservices orchestrated via Kubernetes, while the frontend provides web interfaces for administrators, instructors, and organizations to manage their data and visualize results. Through this distributed architecture, DTA enables flexible, large-scale, and community-driven educational scheduling — suitable for schools, universities, and online training platforms.
+
+![overview-flowchart.png](images/overview-flowchart.png)
