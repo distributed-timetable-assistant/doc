@@ -19,3 +19,6 @@
 - [Deployment](deployment/README.md)
   - [Infrastructure](deployment/infrastructure/README.md)
   - [Environments](deployment/environments/README.md)
+- [Appendix](appendix/README.md)
+  - [Contributing](appendix/contributing.md)
+  - [Glossary](appendix/glossary.md)
