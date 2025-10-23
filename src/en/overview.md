@@ -11,6 +11,6 @@ The platform is built with modularity and interoperability in mind.
 Its backend consists of Rust-based microservices orchestrated via Kubernetes, while the frontend provides web interfaces for administrators, instructors, and organizations to manage their data and visualize results.
 Through this distributed architecture, DTA enables flexible, large-scale, and community-driven educational scheduling — suitable for schools, universities, and online training platforms
 
-|                                                                                      ![overview-flowchart.png](../../extra/images/overview-flowchart.png)                                                                                      | 
+|                                                                                      ![overview-flowchart.png](images/overview-flowchart.png)                                                                                      | 
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:| 
 | *The figure illustrates how academies define their data as Institution Packets, which are processed by the distributed scheduler network. Validated solutions are rewarded through DTA’s decentralized incentive system.* |

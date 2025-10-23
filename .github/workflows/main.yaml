@@ -9,9 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update && sudo apt-get install -y musl-tools
-      - run: rustup update nightly && rustup default nightly
-      - run: cargo install mdbook
+      - run: sudo apt-get update && sudo apt-get install -y mdbook
       - run: mdbook build src/en -d ../../book/en
       - name: Upload Static Pages
         uses: actions/upload-artifact@v4
