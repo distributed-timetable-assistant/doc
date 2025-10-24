@@ -1,7 +1,7 @@
 # Summary
 
-- [Overview](overview.md)
 - [Introduction](intro.md)
+- [Overview](overview.md)
 - [Design](design/README.md)
 - [Architecture](architecture/README.md)
 - [Development](development/README.md)
