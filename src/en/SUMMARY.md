@@ -22,3 +22,4 @@
 - [Appendix](appendix/README.md)
   - [Contributing](appendix/contributing.md)
   - [Glossary](appendix/glossary.md)
+- [License](license.md)
