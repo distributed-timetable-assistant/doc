@@ -22,4 +22,4 @@
 - [Appendix](appendix/README.md)
   - [Contributing](appendix/contributing.md)
   - [Glossary](appendix/glossary.md)
-- [License](https://github.com/distributed-timetable-assistant/.github/blob/main/LICENSE)
+- [License](license.md)
