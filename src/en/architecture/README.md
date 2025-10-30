@@ -8,22 +8,22 @@ The Distributed Timetable Assistant (DTA) is a Kubernetes-first microservices pl
 
 ## Service summary table
 
-| Group                        |          Service | Persistence / stores               |  Self-hostable |
-| ---------------------------- | ---------------: | ---------------------------------- | :------------: |
-| **Resource services**        |   packet-manager | Elasticsearch (primary index)      |        ✅       |
-|                              |           people | PostgreSQL                         |        ✅       |
-|                              |     organization | PostgreSQL                         |        ✅       |
-|                              |        resources | PostgreSQL                         |        ✅       |
-|                              |         subjects | PostgreSQL                         |        ✅       |
-| **Processor services**       |  basic-scheduler | PostgreSQL + Redis                 |        ✅       |
-|                              | manual-scheduler | PostgreSQL + Redis                 |        ✅       |
-| **Cloud-exclusive platform** |           wallet | PostgreSQL                         | ❌ (cloud-only) |
-|                              | timetable-ranker | (ephemeral & DB as needed)         |        ❌       |
-|                              |  packet-analyzer | (analytics store; may use ES/PSQL) |        ❌       |
-|                              |     notification | PostgreSQL                         |        ❌       |
-| **Infrastructure**           |          ingress | —                                  |        —       |
-|                              |            kafka | — (stateful)                       |        —       |
-|                              |         keycloak | PostgreSQL (Keycloak DB)           |        —       |
+| Group                        |          Service | Persistence / stores               | Self-hostable |
+|------------------------------|-----------------:| ---------------------------------- |:-------------:|
+| **Resource services**        |   packet-manager | Elasticsearch (primary index)      |       ✅       |
+|                              |           people | PostgreSQL                         |       ✅       |
+|                              |     organization | PostgreSQL                         |       ✅       |
+|                              |        resources | PostgreSQL                         |       ✅       |
+|                              |         subjects | PostgreSQL                         |       ✅       |
+| **Processor services**       |  basic-scheduler | PostgreSQL + Redis                 |       ✅       |
+|                              | manual-scheduler | PostgreSQL + Redis                 |       ✅       |
+|                              |  packet-analyzer | PostgreSQL                         |       ✅       |
+|                              | timetable-ranker | (ephemeral & DB as needed)         |       ✅       |
+| **Cloud-exclusive platform** |           wallet | (analytics store; may use ES/PSQL) |       ❌       |
+|                              |     notification | PostgreSQL                         |       ❌       |
+| **Infrastructure**           |          ingress | —                                  |       —       |
+|                              |            kafka | — (stateful)                       |       —       |
+|                              |         keycloak | PostgreSQL (Keycloak DB)           |       —       |
 
 ---
 
@@ -84,18 +84,6 @@ Processors consume domain events, run scheduling logic, and publish candidates/r
 * **Persistence:** **PostgreSQL** + **Redis** for ephemeral session state.
 * **Behavior:** Accepts operator edits, publishes modifications to Kafka so ranker/notification can react.
 
----
-
-### Cloud-exclusive platform services (hosted only)
-
-Services that the platform provides but are not part of the baseline self-host offering.
-
-#### `wallet`
-
-* **Role:** Marketplace ledger/credits management for solvers, microservices and institutions.
-* **Persistence:** **PostgreSQL** (transactional ledger).
-* **Security:** Strong auditing; integrate with external payment providers for top-ups.
-
 #### `timetable-ranker`
 
 * **Role:** Scores and ranks candidate timetables from multiple schedulers (features from packet-analyzer + telemetry).
@@ -107,6 +95,18 @@ Services that the platform provides but are not part of the baseline self-host o
 * **Role:** Feature extraction and analytics for submitted packets (complexity, conflict density, resource usage).
 * **Persistence:** Analytical store (Elasticsearch or analytic Postgres), intermediate caches.
 * **Use:** Feeds features to the ranker and to metric dashboards.
+
+---
+
+### Cloud-exclusive platform services (hosted only)
+
+Services that the platform provides but are not part of the baseline self-host offering.
+
+#### `wallet`
+
+* **Role:** Marketplace ledger/credits management for solvers, microservices and institutions.
+* **Persistence:** **PostgreSQL** (transactional ledger).
+* **Security:** Strong auditing; integrate with external payment providers for top-ups.
 
 #### `notification`
 
