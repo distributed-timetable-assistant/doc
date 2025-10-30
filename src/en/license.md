@@ -1,4 +1,4 @@
-## License
+## **License**
 
 The Distributed Timetable Assistant (DTA) project, including its source code, design, documentation, and conceptual framework, is the exclusive intellectual property of its owner.
 

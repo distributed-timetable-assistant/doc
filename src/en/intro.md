@@ -1,4 +1,4 @@
-# Introduction
+# **Introduction**
 
 Educational scheduling is inherently complex, involving multiple institutions, instructors, supervisors, learners, and limited resources such as classrooms, labs, and physical locations. Traditional centralized scheduling systems often struggle to balance these constraints efficiently, leading to suboptimal timetables, conflicts, and a heavy administrative burden. They rarely accommodate individual preferences, geographic considerations, or adapt quickly to changing circumstances.
 

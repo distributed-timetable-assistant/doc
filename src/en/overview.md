@@ -1,4 +1,4 @@
-# Overview
+# **Overview**
 
 The Distributed Timetable Assistant (DTA) is a decentralized platform designed to automate and optimize educational scheduling across multiple institutions, instructors, supervisors, and learners. Unlike traditional centralized scheduling systems, DTA distributes the process of generating and evaluating timetable solutions across multiple independent microservices, enabling scalability, fault tolerance, and open participation.
 
