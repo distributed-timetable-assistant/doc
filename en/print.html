@@ -176,18 +176,147 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+                        <h1 id="introduction"><a class="header" href="#introduction"><strong>Introduction</strong></a></h1>
 <p>Educational scheduling is inherently complex, involving multiple institutions, instructors, supervisors, learners, and limited resources such as classrooms, labs, and physical locations. Traditional centralized scheduling systems often struggle to balance these constraints efficiently, leading to suboptimal timetables, conflicts, and a heavy administrative burden. They rarely accommodate individual preferences, geographic considerations, or adapt quickly to changing circumstances.</p>
 <p>The Distributed Timetable Assistant (DTA) was created to address these challenges. By decentralizing the scheduling process, DTA enables a collaborative ecosystem where human and automated participants can propose, validate, and iteratively refine timetable solutions. Each organization defines its own participants, courses, constraints, and resource availability, while independent scheduler services work to optimize schedules across the network. The platform also considers practical constraints, such as locations, distances, and resource utilization, ensuring that generated timetables are feasible, realistic, and efficient for both institutions and participants.</p>
 <p>Designed for schools, universities, and online training platforms, DTA offers a scalable, fault-tolerant, and flexible approach to educational planning. Its distributed architecture fosters community-driven collaboration, encourages iterative improvement, and ensures high-quality timetables that better meet the operational needs of institutions, the personal preferences of instructors and learners, and the logistical realities of educational environments.</p>
 <p><img src="images/intro.png" alt="intro.png" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview"><strong>Overview</strong></a></h1>
 <p>The Distributed Timetable Assistant (DTA) is a decentralized platform designed to automate and optimize educational scheduling across multiple institutions, instructors, supervisors, and learners. Unlike traditional centralized scheduling systems, DTA distributes the process of generating and evaluating timetable solutions across multiple independent microservices, enabling scalability, fault tolerance, and open participation.</p>
 <p>Each educational organization defines its own set of courses, instructors, supervisors, learners, and facilities. Organizations can specify existing participants or define new ones exclusively for their context. Each instructor, supervisor, and learner also registers in the system, providing their availability and individual preferences. These details are packaged into structured data units known as Institution Packets.</p>
 <p>DTA exposes these packets to a distributed network of scheduler services, where participants — human or automated — can propose optimized scheduling solutions. Proposed solutions are validated, scored, and evaluated for rewards before being suggested to the corresponding organization. Accepted solutions receive rewards, and the process of improving schedules can continue iteratively, enabling everyone to collaboratively refine timetables to achieve the best possible outcome. Solvers can even propose adjustments to the organization’s parameters, helping schedules converge faster or escape potential deadlocks.</p>
 <p>The platform is built with modularity and interoperability in mind. Its backend consists of Rust-based microservices orchestrated via Kubernetes, while the frontend provides web interfaces for administrators, instructors, and organizations to manage their data and visualize results. Through this distributed architecture, DTA enables flexible, large-scale, and community-driven educational scheduling — suitable for schools, universities, and online training platforms.</p>
 <p><img src="images/overview-flowchart.png" alt="overview-flowchart.png" /></p>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h2 id="license"><a class="header" href="#license">License</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture"><strong>Architecture</strong></a></h1>
+<p>The Distributed Timetable Assistant (DTA) is a Kubernetes-first microservices platform with clear separation of concerns: <strong>Resource Services</strong>, <strong>Processor Services</strong>, <strong>Cloud-exclusive Platform Services</strong>, and <strong>Infrastructure Services</strong>. Resource and Processor services can be run as cloud-shared services (tiered plans) <strong>or</strong> deployed self-hosted inside customer environments; cloud-exclusive services are only available from the hosted platform. The architecture uses Kafka as the central event bus, Postgres/Elasticsearch/Redis for state, and Keycloak for identity.</p>
+<p><img src="architecture/../images/architecture.png" alt="DTA Architecture diagram" /></p>
+<hr />
+<h2 id="service-summary-table"><a class="header" href="#service-summary-table">Service summary table</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Group</th><th style="text-align: right">Service</th><th>Persistence / stores</th><th style="text-align: center">Self-hostable</th></tr></thead><tbody>
+<tr><td><strong>Resource services</strong></td><td style="text-align: right">packet-manager</td><td>Elasticsearch (primary index)</td><td style="text-align: center">✅</td></tr>
+<tr><td></td><td style="text-align: right">people</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
+<tr><td></td><td style="text-align: right">organization</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
+<tr><td></td><td style="text-align: right">resources</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
+<tr><td></td><td style="text-align: right">subjects</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
+<tr><td><strong>Processor services</strong></td><td style="text-align: right">basic-scheduler</td><td>PostgreSQL + Redis</td><td style="text-align: center">✅</td></tr>
+<tr><td></td><td style="text-align: right">manual-scheduler</td><td>PostgreSQL + Redis</td><td style="text-align: center">✅</td></tr>
+<tr><td><strong>Cloud-exclusive platform</strong></td><td style="text-align: right">wallet</td><td>PostgreSQL</td><td style="text-align: center">❌ (cloud-only)</td></tr>
+<tr><td></td><td style="text-align: right">timetable-ranker</td><td>(ephemeral &amp; DB as needed)</td><td style="text-align: center">❌</td></tr>
+<tr><td></td><td style="text-align: right">packet-analyzer</td><td>(analytics store; may use ES/PSQL)</td><td style="text-align: center">❌</td></tr>
+<tr><td></td><td style="text-align: right">notification</td><td>PostgreSQL</td><td style="text-align: center">❌</td></tr>
+<tr><td><strong>Infrastructure</strong></td><td style="text-align: right">ingress</td><td>—</td><td style="text-align: center">—</td></tr>
+<tr><td></td><td style="text-align: right">kafka</td><td>— (stateful)</td><td style="text-align: center">—</td></tr>
+<tr><td></td><td style="text-align: right">keycloak</td><td>PostgreSQL (Keycloak DB)</td><td style="text-align: center">—</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="service-details"><a class="header" href="#service-details">Service details</a></h2>
+<h3 id="resource-services-self-hostable--cloud-shared"><a class="header" href="#resource-services-self-hostable--cloud-shared">Resource services (self-hostable / cloud-shared)</a></h3>
+<p>These services contain canonical domain data and publish domain events to Kafka. They are the primary candidates for customer self-hosting when data locality is required.</p>
+<h4 id="packet-manager"><a class="header" href="#packet-manager"><code>packet-manager</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Manages timetable packets (submissions, search index, versions), stores indexed representations and search metadata.</li>
+<li><strong>Persistence:</strong> <strong>Elasticsearch</strong> (primary index); may also keep metadata in PostgreSQL if needed.</li>
+<li><strong>API:</strong> REST/gRPC endpoints for create/read/update/search; produces events (e.g., <code>packet.created</code>, <code>packet.updated</code>) to Kafka.</li>
+<li><strong>Deployment hints:</strong> Stateful/managed ES or operator (ECK / Opensearch operator) for reliability; replicas and index lifecycle policies required.</li>
+</ul>
+<h4 id="people"><a class="header" href="#people"><code>people</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Stores learner, instructor, supervisor profiles, credentials metadata, availability calendars (links to time-blocks).</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong>.</li>
+<li><strong>API / Events:</strong> CRUD endpoints; emits <code>person.created</code> / <code>person.updated</code> / <code>person.availability.changed</code> events to Kafka.</li>
+<li><strong>Self-host notes:</strong> Allow sync/backups for institutions that want to keep identity locally.</li>
+</ul>
+<h4 id="organization"><a class="header" href="#organization"><code>organization</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Stores organization metadata (schools, universities, academies, facility providers, solver registrations).</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong>.</li>
+<li><strong>Events:</strong> <code>organization.*</code> domain events for changes in facility availability, policies, or membership.</li>
+</ul>
+<h4 id="resources"><a class="header" href="#resources"><code>resources</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Catalog of educational materials and facility metadata (rooms, equipment), attachments or pointers to object storage.</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> (metadata) and object store (S3) for large assets; may index in Elasticsearch for content search.</li>
+<li><strong>Events:</strong> <code>resource.*</code> events for material updates affecting scheduling.</li>
+</ul>
+<h4 id="subjects"><a class="header" href="#subjects"><code>subjects</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Canonical subject definitions (e.g., “Physics 2”), mapping of subjects to curricula and competency metadata.</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong>.</li>
+<li><strong>Events:</strong> <code>subject.*</code> events used by schedulers and packet analyzers.</li>
+</ul>
+<hr />
+<h3 id="processor-services-self-hostable--cloud-shared"><a class="header" href="#processor-services-self-hostable--cloud-shared">Processor services (self-hostable / cloud-shared)</a></h3>
+<p>Processors consume domain events, run scheduling logic, and publish candidates/results.</p>
+<h4 id="basic-scheduler"><a class="header" href="#basic-scheduler"><code>basic-scheduler</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Automated timetable generator (batch/stream mode) that creates candidate timetables based on constraints and resource availability.</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> (durable job / result store) + <strong>Redis</strong> (caches, distributed locks, ephemeral job state, worker queues).</li>
+<li><strong>Integration:</strong> Subscribes to Kafka topics (resource updates, new packets); writes candidates back to <code>packet-manager</code> (or to a results topic).</li>
+<li><strong>Scaling:</strong> Horizontal workers; Redis-backed queues for task distribution.</li>
+</ul>
+<h4 id="manual-scheduler"><a class="header" href="#manual-scheduler"><code>manual-scheduler</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Human-in-the-loop scheduling assistant supporting GUI-based edits, conflict resolution, and confirmations.</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> + <strong>Redis</strong> for ephemeral session state.</li>
+<li><strong>Behavior:</strong> Accepts operator edits, publishes modifications to Kafka so ranker/notification can react.</li>
+</ul>
+<hr />
+<h3 id="cloud-exclusive-platform-services-hosted-only"><a class="header" href="#cloud-exclusive-platform-services-hosted-only">Cloud-exclusive platform services (hosted only)</a></h3>
+<p>Services that the platform provides but are not part of the baseline self-host offering.</p>
+<h4 id="wallet"><a class="header" href="#wallet"><code>wallet</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Marketplace ledger/credits management for solvers, microservices and institutions.</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> (transactional ledger).</li>
+<li><strong>Security:</strong> Strong auditing; integrate with external payment providers for top-ups.</li>
+</ul>
+<h4 id="timetable-ranker"><a class="header" href="#timetable-ranker"><code>timetable-ranker</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Scores and ranks candidate timetables from multiple schedulers (features from packet-analyzer + telemetry).</li>
+<li><strong>Persistence / storage:</strong> May use an analytics DB or cache; primary operation is stream processing of candidate events.</li>
+<li><strong>Integration:</strong> Consumes candidates from Kafka, emits <code>candidate.ranked</code> events.</li>
+</ul>
+<h4 id="packet-analyzer"><a class="header" href="#packet-analyzer"><code>packet-analyzer</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Feature extraction and analytics for submitted packets (complexity, conflict density, resource usage).</li>
+<li><strong>Persistence:</strong> Analytical store (Elasticsearch or analytic Postgres), intermediate caches.</li>
+<li><strong>Use:</strong> Feeds features to the ranker and to metric dashboards.</li>
+</ul>
+<h4 id="notification"><a class="header" href="#notification"><code>notification</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Centralized subscription and delivery engine (email, push, SMS integrations).</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> for subscription config and templates.</li>
+<li><strong>Integration:</strong> Consumes events (e.g., <code>candidate.finalized</code>, <code>wallet.balance.low</code>) and triggers deliveries.</li>
+</ul>
+<hr />
+<h3 id="infrastructure-services-cluster-level"><a class="header" href="#infrastructure-services-cluster-level">Infrastructure services (cluster-level)</a></h3>
+<p>Cross-cutting components required by all services.</p>
+<h4 id="ingress"><a class="header" href="#ingress"><code>ingress</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Tenant-aware edge routing, TLS termination, path-based or host-based routing for self-hosted vs cloud endpoints.</li>
+<li><strong>Examples:</strong> NGINX Ingress, Traefik, or a cloud load balancer.</li>
+</ul>
+<h4 id="kafka"><a class="header" href="#kafka"><code>kafka</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Central event bus used for decoupling producers (resource &amp; platform services) and consumers (processors, analytics).</li>
+<li><strong>Operational:</strong> Multi-zone replication, topic retention/policy, schema registry recommended for event contracts (Avro/Protobuf).</li>
+</ul>
+<h4 id="keycloak"><a class="header" href="#keycloak"><code>keycloak</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Identity and access management (OAuth2/OpenID Connect). Centralized realm and client configuration.</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> backing store for Keycloak data.</li>
+<li><strong>Notes:</strong> For self-hosted installs, allow integration with the institution’s IAM or run a local Keycloak instance.</li>
+</ul>
+<hr />
+<h2 id="how-the-pieces-interact-short-flow"><a class="header" href="#how-the-pieces-interact-short-flow">How the pieces interact (short flow)</a></h2>
+<ol>
+<li>Clients → <strong>Ingress</strong> → authenticated via <strong>Keycloak</strong>.</li>
+<li>CRUD on domain entities → Resource services (Postgres / ES) → emit domain events to <strong>Kafka</strong>.</li>
+<li>Processor services consume Kafka, produce candidate timetables → write results back to <code>packet-manager</code> and emit ranked/candidate events.</li>
+<li><code>packet-analyzer</code> and <code>timetable-ranker</code> consume streams to score and finalize selections.</li>
+<li>Platform services (<code>wallet</code>, <code>notification</code>) handle transactions and user communication for marketplace actions.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h2 id="license"><a class="header" href="#license"><strong>License</strong></a></h2>
 <p>The Distributed Timetable Assistant (DTA) project, including its source code, design, documentation, and conceptual framework, is the exclusive intellectual property of its owner.</p>
 <p>No part of this project — including but not limited to the ideas, algorithms, architectural design, or implementation details — may be copied, reproduced, modified, distributed, or utilized in any form, whether commercial or non-commercial, without explicit prior written permission from the owner.</p>
 <p>Unauthorized use, replication, or distribution of any component of this project constitutes a violation of intellectual property rights and may lead to legal action.</p>
