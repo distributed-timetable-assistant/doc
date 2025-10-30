@@ -200,9 +200,9 @@
 <tr><td></td><td style="text-align: right">subjects</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
 <tr><td><strong>Processor services</strong></td><td style="text-align: right">basic-scheduler</td><td>PostgreSQL + Redis</td><td style="text-align: center">✅</td></tr>
 <tr><td></td><td style="text-align: right">manual-scheduler</td><td>PostgreSQL + Redis</td><td style="text-align: center">✅</td></tr>
-<tr><td><strong>Cloud-exclusive platform</strong></td><td style="text-align: right">wallet</td><td>PostgreSQL</td><td style="text-align: center">❌ (cloud-only)</td></tr>
-<tr><td></td><td style="text-align: right">timetable-ranker</td><td>(ephemeral &amp; DB as needed)</td><td style="text-align: center">❌</td></tr>
-<tr><td></td><td style="text-align: right">packet-analyzer</td><td>(analytics store; may use ES/PSQL)</td><td style="text-align: center">❌</td></tr>
+<tr><td></td><td style="text-align: right">packet-analyzer</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
+<tr><td></td><td style="text-align: right">timetable-ranker</td><td>(ephemeral &amp; DB as needed)</td><td style="text-align: center">✅</td></tr>
+<tr><td><strong>Cloud-exclusive platform</strong></td><td style="text-align: right">wallet</td><td>(analytics store; may use ES/PSQL)</td><td style="text-align: center">❌</td></tr>
 <tr><td></td><td style="text-align: right">notification</td><td>PostgreSQL</td><td style="text-align: center">❌</td></tr>
 <tr><td><strong>Infrastructure</strong></td><td style="text-align: right">ingress</td><td>—</td><td style="text-align: center">—</td></tr>
 <tr><td></td><td style="text-align: right">kafka</td><td>— (stateful)</td><td style="text-align: center">—</td></tr>
@@ -261,15 +261,6 @@
 <li><strong>Persistence:</strong> <strong>PostgreSQL</strong> + <strong>Redis</strong> for ephemeral session state.</li>
 <li><strong>Behavior:</strong> Accepts operator edits, publishes modifications to Kafka so ranker/notification can react.</li>
 </ul>
-<hr />
-<h3 id="cloud-exclusive-platform-services-hosted-only"><a class="header" href="#cloud-exclusive-platform-services-hosted-only">Cloud-exclusive platform services (hosted only)</a></h3>
-<p>Services that the platform provides but are not part of the baseline self-host offering.</p>
-<h4 id="wallet"><a class="header" href="#wallet"><code>wallet</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Marketplace ledger/credits management for solvers, microservices and institutions.</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> (transactional ledger).</li>
-<li><strong>Security:</strong> Strong auditing; integrate with external payment providers for top-ups.</li>
-</ul>
 <h4 id="timetable-ranker"><a class="header" href="#timetable-ranker"><code>timetable-ranker</code></a></h4>
 <ul>
 <li><strong>Role:</strong> Scores and ranks candidate timetables from multiple schedulers (features from packet-analyzer + telemetry).</li>
@@ -281,6 +272,15 @@
 <li><strong>Role:</strong> Feature extraction and analytics for submitted packets (complexity, conflict density, resource usage).</li>
 <li><strong>Persistence:</strong> Analytical store (Elasticsearch or analytic Postgres), intermediate caches.</li>
 <li><strong>Use:</strong> Feeds features to the ranker and to metric dashboards.</li>
+</ul>
+<hr />
+<h3 id="cloud-exclusive-platform-services-hosted-only"><a class="header" href="#cloud-exclusive-platform-services-hosted-only">Cloud-exclusive platform services (hosted only)</a></h3>
+<p>Services that the platform provides but are not part of the baseline self-host offering.</p>
+<h4 id="wallet"><a class="header" href="#wallet"><code>wallet</code></a></h4>
+<ul>
+<li><strong>Role:</strong> Marketplace ledger/credits management for solvers, microservices and institutions.</li>
+<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> (transactional ledger).</li>
+<li><strong>Security:</strong> Strong auditing; integrate with external payment providers for top-ups.</li>
 </ul>
 <h4 id="notification"><a class="header" href="#notification"><code>notification</code></a></h4>
 <ul>
