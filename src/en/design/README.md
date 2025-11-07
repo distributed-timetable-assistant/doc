@@ -9,7 +9,7 @@ This design focuses on extensibility, fairness, scalability, and reactive evalua
 
 Below is the sequence of interactions between the main entities in DTA.
 
-![DTA Sequence Diagram](A_flowchart_diagram_illustrates_a_process_for_educ.png)
+![DTA Sequence Diagram](images/design.png)
 
 ---
 
@@ -89,4 +89,6 @@ DTA is designed for continuous evolution:
 The DTA design provides a robust foundation for a decentralized, competitive scheduling ecosystem.  
 It ensures that institutions receive high-quality timetables while solvers are fairly rewarded for their computational and algorithmic contributions.  
 The system’s modular architecture allows the marketplace, evaluation engine, and solver environment to evolve independently while maintaining consistency and integrity.
+
+---
 
