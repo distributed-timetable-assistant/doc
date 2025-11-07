@@ -267,7 +267,7 @@ This design focuses on extensibility, fairness, scalability, and reactive evalua
 <hr />
 <h2 id="sequence-diagram"><a class="header" href="#sequence-diagram">Sequence Diagram</a></h2>
 <p>Below is the sequence of interactions between the main entities in DTA.</p>
-<p><img src="design/A_flowchart_diagram_illustrates_a_process_for_educ.png" alt="DTA Sequence Diagram" /></p>
+<p><img src="design/images/design.png" alt="DTA Sequence Diagram" /></p>
 <hr />
 <h2 id="design-flow"><a class="header" href="#design-flow">Design Flow</a></h2>
 <ol>
@@ -375,6 +375,7 @@ Additional modules (e.g., verification services, audit trails, or external valid
 <p>The DTA design provides a robust foundation for a decentralized, competitive scheduling ecosystem.<br />
 It ensures that institutions receive high-quality timetables while solvers are fairly rewarded for their computational and algorithmic contributions.<br />
 The system’s modular architecture allows the marketplace, evaluation engine, and solver environment to evolve independently while maintaining consistency and integrity.</p>
+<hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture"><strong>Architecture</strong></a></h1>
 <p>The Distributed Timetable Assistant (DTA) is a Kubernetes-first microservices platform with clear separation of concerns: <strong>Resource Services</strong>, <strong>Processor Services</strong>, <strong>Cloud-exclusive Platform Services</strong>, and <strong>Infrastructure Services</strong>. Resource and Processor services can be run as cloud-shared services (tiered plans) <strong>or</strong> deployed self-hosted inside customer environments; cloud-exclusive services are only available from the hosted platform. The architecture uses Kafka as the central event bus, Postgres/Elasticsearch/Redis for state, and Keycloak for identity.</p>
 <p><img src="architecture/../images/architecture.png" alt="DTA Architecture diagram" /></p>
