@@ -3,13 +3,7 @@
 The **Distributed Timetable Assistant (DTA)** design defines how the system components interact to process scheduling requests, evaluate generated timetables, and reward distributed solvers.  
 This design focuses on extensibility, fairness, scalability, and reactive evaluation mechanisms that continuously adapt to resource state changes.
 
----
-
-## Sequence Diagram
-
-Below is the sequence of interactions between the main entities in DTA.
-
-![DTA Sequence Diagram](images/design.png)
+![Distributed Timetable Assistant Design](../images/design.png)
 
 ---
 
@@ -91,4 +85,5 @@ It ensures that institutions receive high-quality timetables while solvers are f
 The system’s modular architecture allows the marketplace, evaluation engine, and solver environment to evolve independently while maintaining consistency and integrity.
 
 ---
+
 
