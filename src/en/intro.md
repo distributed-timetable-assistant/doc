@@ -1,9 +1,56 @@
 # **Introduction**
 
-Educational scheduling is inherently complex, involving multiple institutions, instructors, supervisors, learners, and limited resources such as classrooms, labs, and physical locations. Traditional centralized scheduling systems often struggle to balance these constraints efficiently, leading to suboptimal timetables, conflicts, and a heavy administrative burden. They rarely accommodate individual preferences, geographic considerations, or adapt quickly to changing circumstances.
+The **Distributed Timetable Assistant (DTA)** is a decentralized platform designed to automate and optimize educational scheduling across multiple institutions, instructors, supervisors, and learners.  
+Unlike traditional centralized systems, DTA distributes the process of generating and evaluating timetable solutions across independent microservices — enabling scalability, flexibility, and open participation.
 
-The Distributed Timetable Assistant (DTA) was created to address these challenges. By decentralizing the scheduling process, DTA enables a collaborative ecosystem where human and automated participants can propose, validate, and iteratively refine timetable solutions. Each organization defines its own participants, courses, constraints, and resource availability, while independent scheduler services work to optimize schedules across the network. The platform also considers practical constraints, such as locations, distances, and resource utilization, ensuring that generated timetables are feasible, realistic, and efficient for both institutions and participants.
+![Distributed Timetable Assistant Overview](images/intro.png)
+*Figure: DTA Overview – A decentralized ecosystem for educational scheduling.*
 
-Designed for schools, universities, and online training platforms, DTA offers a scalable, fault-tolerant, and flexible approach to educational planning. Its distributed architecture fosters community-driven collaboration, encourages iterative improvement, and ensures high-quality timetables that better meet the operational needs of institutions, the personal preferences of instructors and learners, and the logistical realities of educational environments.
+---
 
-![intro.png](images/intro.png)
+## Vision
+
+DTA aims to create an **open, collaborative, and distributed scheduling ecosystem** where educational organizations and independent solver nodes can interact through a shared marketplace.  
+This approach allows institutions to:
+- Delegate scheduling tasks to distributed solvers.
+- Define specific academic constraints and preferences.
+- Receive optimized timetable solutions without exposing sensitive internal data.
+
+---
+
+## Key Concepts
+
+### 1. Decentralized Scheduling
+Each educational institution defines its own packet of rules, participants, and facilities. These packets are sent to the DTA network, where independent solver microservices propose scheduling solutions.
+
+### 2. Solver Marketplace
+DTA operates as a **shared solver marketplace**, allowing contributors to:
+- Deploy their own solver services.
+- Compete or collaborate in producing optimal timetables.
+- Earn rewards for accepted or high-quality solutions.
+
+### 3. Privacy and Autonomy
+Institutions maintain **control over their data** while participating in the distributed ecosystem.  
+DTA ensures:
+- Private deployment options.
+- Secure communication between solvers and institutions.
+- Configurable visibility and data-sharing levels.
+
+---
+
+## Core Capabilities
+
+- **Collaborative Matchstage:** Enables multiple solvers to refine solutions iteratively.  
+- **Open Solver Contribution:** Developers can publish and monetize their solver algorithms.  
+- **Self-Hosted Resource Services:** Institutions can host their own scheduling nodes.  
+- **Private Deployment Option:** Provides flexibility for sensitive or local environments.  
+- **Privacy and Anonymity:** Protects organizational and participant data in shared environments.
+
+---
+
+## Scalability and Reliability
+
+DTA is built for **scalability, fault tolerance, and flexibility**, leveraging distributed microservices to handle scheduling workloads efficiently.  
+Through iterative refinement and peer collaboration, the system improves scheduling quality over time while maintaining high system resilience.
+
+---
