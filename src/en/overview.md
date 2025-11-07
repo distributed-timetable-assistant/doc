@@ -1,11 +1,53 @@
 # **Overview**
 
-The Distributed Timetable Assistant (DTA) is a decentralized platform designed to automate and optimize educational scheduling across multiple institutions, instructors, supervisors, and learners. Unlike traditional centralized scheduling systems, DTA distributes the process of generating and evaluating timetable solutions across multiple independent microservices, enabling scalability, fault tolerance, and open participation.
+The **Distributed Timetable Assistant (DTA)** is a **decentralized scheduling platform** that automates and optimizes the creation of educational timetables across institutions, instructors, supervisors, and learners.  
+Unlike traditional centralized scheduling systems, DTA distributes both computation and decision-making across a network of independent microservices, enabling scalability, flexibility, and community participation.
 
-Each educational organization defines its own set of courses, instructors, supervisors, learners, and facilities. Organizations can specify existing participants or define new ones exclusively for their context. Each instructor, supervisor, and learner also registers in the system, providing their availability and individual preferences. These details are packaged into structured data units known as Institution Packets.
+![Distributed Timetable Assistant — Core Concepts](images/overview-flowchart.png)  
+*Figure: DTA core concepts — Institution Packets, independent solver services, privacy, real-world awareness, and architectural strengths.*
 
-DTA exposes these packets to a distributed network of scheduler services, where participants — human or automated — can propose optimized scheduling solutions. Proposed solutions are validated, scored, and evaluated for rewards before being suggested to the corresponding organization. Accepted solutions receive rewards, and the process of improving schedules can continue iteratively, enabling everyone to collaboratively refine timetables to achieve the best possible outcome. Solvers can even propose adjustments to the organization’s parameters, helping schedules converge faster or escape potential deadlocks.
+---
 
-The platform is built with modularity and interoperability in mind. Its backend consists of Rust-based microservices orchestrated via Kubernetes, while the frontend provides web interfaces for administrators, instructors, and organizations to manage their data and visualize results. Through this distributed architecture, DTA enables flexible, large-scale, and community-driven educational scheduling — suitable for schools, universities, and online training platforms.
+## Concept Summary
 
-![overview-flowchart.png](images/overview-flowchart.png)
+Each organization defines its own set of courses, instructors, learners, supervisors, and available facilities, together with academic rules and preferences.  
+These definitions are packaged into structured data units called **Institution Packets**, which are then shared within the DTA ecosystem. Independent solver services — either human-managed or automated — can access these packets, propose optimized scheduling solutions, and receive rewards for accepted results. The diagram above visualizes how institutions, the DTA core, and independent solvers interact.
+
+---
+
+## Core Principles
+
+### 1. Decentralization
+DTA eliminates reliance on a central scheduling engine by distributing scheduling logic across independent solver microservices. Each solver contributes computational power and optimization algorithms to the shared ecosystem.
+
+### 2. Collaboration and Reward
+Participants can compete or collaborate in proposing solutions. Accepted timetables are rewarded through a built-in incentive mechanism that promotes fairness, innovation, and continuous improvement.
+
+### 3. Privacy and Control
+Institutions retain full control over their internal data and can configure their visibility level in the network. This privacy-first approach allows sensitive environments to benefit from distributed scheduling without exposing confidential information.
+
+### 4. Real-world Awareness
+DTA models practical, operational constraints to ensure produced timetables are feasible and actionable. These include:
+- Classroom and lab availability.  
+- Instructor and learner availability and preferences.  
+- Physical locations and travel distances between facilities.  
+- Time overlaps, capacity limits, and other scheduling feasibility checks.
+
+---
+
+## Architectural Strengths
+
+DTA’s distributed architecture is designed to deliver:
+
+- **Scalability:** Workloads and optimization tasks can be shared across multiple solver nodes to handle large, heterogeneous scheduling problems.  
+- **Fault Tolerance:** Independent microservices and solver nodes reduce single points of failure and increase overall system resilience.  
+- **Autonomy:** Each institution can operate independently (self-hosting, private deployments) while participating in the shared marketplace.  
+- **Continuous Improvement:** Iterative refinement and solver competition/collaboration improve schedule quality over time.
+
+---
+
+## Summary
+
+By combining **decentralized computation**, **privacy-first design**, and an **open solver marketplace**, DTA establishes a collaborative, realistic, and self-improving ecosystem for educational scheduling. It is designed to serve schools, universities, and online learning environments worldwide—helping institutions produce timetables that are not only optimized mathematically but practical in the real world.
+
+---
