@@ -1,89 +1,43 @@
 # **Design**
 
-The **Distributed Timetable Assistant (DTA)** design defines how the system components interact to process scheduling requests, evaluate generated timetables, and reward distributed solvers.  
-This design focuses on extensibility, fairness, scalability, and reactive evaluation mechanisms that continuously adapt to resource state changes.
+The **Distributed Timetable Assistant (DTA)** design focuses on extensibility, fairness, and reactive evaluation. It provides the abstract mechanisms that enable the marketplace described in the [Overview](../overview.md).
 
 ![Distributed Timetable Assistant Design](../images/design.png)
 
 ---
 
-## Design Flow
+## Core Mechanisms
 
-1. **Packet Submission**
-   - Each educational institution defines its available resources (instructors, learners, facilities, time blocks, etc.) and associated scheduling rules.
-   - These definitions are packaged into an **Institution Packet** and submitted to the DTA platform via the API Gateway.
+### 1. The Marketplace
+The marketplace is the decoupling layer between Institutions (demand) and Solvers (supply). It ensures that:
+*   **Discovery:** Solvers can find problems that match their capabilities.
+*   **Transparency:** All transactions and evaluations are verifiable.
+*   **Competition:** Multiple solvers can attempt the same problem, driving up solution quality.
 
-2. **Packet Analysis**
-   - The **Packet Analyzer Service** evaluates the received packet.
-   - It determines:
-     - The **complexity** of the scheduling problem.
-     - The **estimated reward** range for solving it.
-   - Metadata (difficulty, constraints, reward model) is registered in the marketplace.
+### 2. Reactive Evaluation & Scoring
+DTA employs a **reactive** scoring model. Solution scores are not static; they adjust based on the changing state of resources.
+*   **Dynamic Scoring:** If a resource (e.g., a specific lab) becomes overbooked globally, solutions relying on it may see their scores drop in real-time.
+*   **Fairness:** The system penalizes conflicts and rewards efficient resource usage proportionally.
 
-3. **Solver Participation**
-   - Authorized **Solver Services** (independent distributed microservices) discover open packets through the marketplace API.
-   - Interested solvers fetch the packet and attempt to produce feasible timetables by optimizing for:
-     - Rule satisfaction
-     - Resource utilization
-     - Temporal and spatial constraints
-   - Each solver submits its proposed timetable solution back to DTA.
+### 3. Extensibility
+The platform is designed to evolve without breaking existing contracts:
+*   **Reward Models:** New ways to incentivize solvers (e.g., tokens, reputation) can be plugged in.
+*   **Gamification:** Leaderboards and challenges can be added to the solver layer.
+*   **Pluggable Validators:** Institutions can add custom validation logic for their specific constraints.
 
-4. **Reactive Evaluation & Scoring**
-   - The **Evaluation Engine** scores each proposed solution based on:
-     - The number and priority of satisfied rules
-     - Penalties for conflicts or resource overuse
-     - Quality metrics (balance, fairness, efficiency)
-   - The **reward** is calculated proportionally to the score.
-   - Scores and rewards are **reactively updated** whenever the resource state changes, ensuring fair valuation of solutions in dynamic environments.
-
-5. **Institution Decision & Payment**
-   - The institution reviews all proposed schedules (only seeing their **score**, **demo**, and **reward** preview).
-   - Once a preferred schedule is selected:
-     - The institution confirms and pays the associated cost.
-     - The DTA updates the **global resource state** according to the chosen timetable.
-
-6. **Unsolved or Remaining Problems**
-   - Parts of the scheduling problem that remain unsolved can stay in the processing queue.
-   - Other solver services can continue submitting new proposals if the institution remains open to further solutions.
+### 4. Flexible Processing & Privacy
+The system supports various processing models to suit different privacy and security needs:
+*   **Self-Hosted Processing:** Institutions can run their own solver services to keep data entirely within their infrastructure.
+*   **Conditional Processing:** Requests can be routed to specific solvers that meet certain criteria (e.g., "only trusted partners").
+*   **Anonymized Processing:** Data can be passed through an anonymization layer before reaching public solvers. The results are transparently de-anonymized upon return, allowing the community to solve the problem without seeing sensitive identity data.
 
 ---
 
-## Extensibility
-
-DTA is designed for continuous evolution:
-
-- **Reward Models:**  
-  New reward models can be introduced (e.g., dynamic token systems, credit multipliers, or milestone bonuses).
-
-- **Gamification Layer:**  
-  To encourage participation, DTA can support leaderboard rankings, badges for solver achievements, and seasonal challenges.
-
-- **Adaptive Scoring:**  
-  Scoring algorithms can be improved to consider multi-objective optimization, including fairness, priority balancing, or energy efficiency of scheduling computations.
-
-- **Marketplace Plug-ins:**  
-  Additional modules (e.g., verification services, audit trails, or external validators) can be added to enhance transparency and reliability.
-
----
-
-## Core Design Principles
+## Design Principles
 
 | Principle | Description |
 |------------|-------------|
-| **Decentralization** | Solving and evaluation are distributed among independent microservices. |
-| **Transparency** | Every evaluation and reward is traceable and verifiable. |
-| **Reactivity** | Solution scores automatically adjust with changing resource states. |
-| **Scalability** | New solver instances can join dynamically to increase computational throughput. |
-| **Extensibility** | Supports future features such as gamified reward systems or advanced scoring. |
-
----
-
-## Summary
-
-The DTA design provides a robust foundation for a decentralized, competitive scheduling ecosystem.  
-It ensures that institutions receive high-quality timetables while solvers are fairly rewarded for their computational and algorithmic contributions.  
-The system’s modular architecture allows the marketplace, evaluation engine, and solver environment to evolve independently while maintaining consistency and integrity.
-
----
-
-
+| **Decentralization** | Logic is distributed; no single central scheduler controls the outcome. |
+| **Transparency** | Evaluation rules and rewards are clear to all participants. |
+| **Reactivity** | The system adapts to state changes in real-time. |
+| **Scalability** | Adding more solvers linearly increases the system's problem-solving capacity. |
