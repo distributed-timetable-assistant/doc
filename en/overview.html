@@ -176,43 +176,51 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="overview"><a class="header" href="#overview"><strong>Overview</strong></a></h1>
-<p>The <strong>Distributed Timetable Assistant (DTA)</strong> is a <strong>decentralized scheduling platform</strong> that automates and optimizes the creation of educational timetables across institutions, instructors, supervisors, and learners.<br />
-Unlike traditional centralized scheduling systems, DTA distributes both computation and decision-making across a network of independent microservices, enabling scalability, flexibility, and community participation.</p>
-<p><img src="images/overview-flowchart.png" alt="Distributed Timetable Assistant — Core Concepts" /><br />
-<em>Figure: DTA core concepts — Institution Packets, independent solver services, privacy, real-world awareness, and architectural strengths.</em></p>
-<hr />
-<h2 id="concept-summary"><a class="header" href="#concept-summary">Concept Summary</a></h2>
-<p>Each organization defines its own set of courses, instructors, learners, supervisors, and available facilities, together with academic rules and preferences.<br />
-These definitions are packaged into structured data units called <strong>Institution Packets</strong>, which are then shared within the DTA ecosystem. Independent solver services — either human-managed or automated — can access these packets, propose optimized scheduling solutions, and receive rewards for accepted results. The diagram above visualizes how institutions, the DTA core, and independent solvers interact.</p>
-<hr />
-<h2 id="core-principles"><a class="header" href="#core-principles">Core Principles</a></h2>
-<h3 id="1-decentralization"><a class="header" href="#1-decentralization">1. Decentralization</a></h3>
-<p>DTA eliminates reliance on a central scheduling engine by distributing scheduling logic across independent solver microservices. Each solver contributes computational power and optimization algorithms to the shared ecosystem.</p>
-<h3 id="2-collaboration-and-reward"><a class="header" href="#2-collaboration-and-reward">2. Collaboration and Reward</a></h3>
-<p>Participants can compete or collaborate in proposing solutions. Accepted timetables are rewarded through a built-in incentive mechanism that promotes fairness, innovation, and continuous improvement.</p>
-<h3 id="3-privacy-and-control"><a class="header" href="#3-privacy-and-control">3. Privacy and Control</a></h3>
-<p>Institutions retain full control over their internal data and can configure their visibility level in the network. This privacy-first approach allows sensitive environments to benefit from distributed scheduling without exposing confidential information.</p>
-<h3 id="4-real-world-awareness"><a class="header" href="#4-real-world-awareness">4. Real-world Awareness</a></h3>
-<p>DTA models practical, operational constraints to ensure produced timetables are feasible and actionable. These include:</p>
+<h2 id="the-challenge"><a class="header" href="#the-challenge">The Challenge</a></h2>
+<p>Educational scheduling is inherently complex. It involves balancing the needs of multiple stakeholders—institutions, instructors, supervisors, and learners—against limited resources like classrooms and labs. Traditional centralized systems often struggle with this complexity, leading to rigid schedules that fail to accommodate individual preferences or adapt to changes.</p>
+<h2 id="the-dta-solution"><a class="header" href="#the-dta-solution">The DTA Solution</a></h2>
+<p>The <strong>Distributed Timetable Assistant (DTA)</strong> addresses these challenges through decentralization. It creates a marketplace where scheduling problems are matched with independent solvers.</p>
+<h3 id="key-concepts"><a class="header" href="#key-concepts">Key Concepts</a></h3>
 <ul>
-<li>Classroom and lab availability.</li>
-<li>Instructor and learner availability and preferences.</li>
-<li>Physical locations and travel distances between facilities.</li>
-<li>Time overlaps, capacity limits, and other scheduling feasibility checks.</li>
+<li><strong>Institution Packets:</strong> Structured data units where organizations define their participants, courses, constraints, and resources.</li>
+<li><strong>Solver Services:</strong> Independent microservices (human or automated) that propose timetable solutions.</li>
+<li><strong>Marketplace:</strong> The ecosystem where packets are published and solutions are traded.</li>
 </ul>
-<hr />
-<h2 id="architectural-strengths"><a class="header" href="#architectural-strengths">Architectural Strengths</a></h2>
-<p>DTA’s distributed architecture is designed to deliver:</p>
+<h3 id="unique-features"><a class="header" href="#unique-features">Unique Features</a></h3>
+<h4 id="1-open-ecosystem"><a class="header" href="#1-open-ecosystem">1. Open Ecosystem</a></h4>
+<p>DTA is not just for schools. It is a platform where <strong>anyone</strong> can register and manage resources.</p>
 <ul>
-<li><strong>Scalability:</strong> Workloads and optimization tasks can be shared across multiple solver nodes to handle large, heterogeneous scheduling problems.</li>
-<li><strong>Fault Tolerance:</strong> Independent microservices and solver nodes reduce single points of failure and increase overall system resilience.</li>
-<li><strong>Autonomy:</strong> Each institution can operate independently (self-hosting, private deployments) while participating in the shared marketplace.</li>
-<li><strong>Continuous Improvement:</strong> Iterative refinement and solver competition/collaboration improve schedule quality over time.</li>
+<li><strong>Participants:</strong> Teachers, students, supervisors.</li>
+<li><strong>Facilities:</strong> Schools, universities, gyms, laboratories, and more.</li>
+<li><strong>Sharing:</strong> Users can share their availability or resources (e.g., a lab renting out empty slots) with the entire network.</li>
 </ul>
-<hr />
-<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
-<p>By combining <strong>decentralized computation</strong>, <strong>privacy-first design</strong>, and an <strong>open solver marketplace</strong>, DTA establishes a collaborative, realistic, and self-improving ecosystem for educational scheduling. It is designed to serve schools, universities, and online learning environments worldwide—helping institutions produce timetables that are not only optimized mathematically but practical in the real world.</p>
-<hr />
+<h4 id="2-hybrid-resource-management"><a class="header" href="#2-hybrid-resource-management">2. Hybrid Resource Management</a></h4>
+<p>Institutions can define resources in a flexible, hybrid manner:</p>
+<ul>
+<li><strong>Dedicated:</strong> Use your own private list of teachers and rooms.</li>
+<li><strong>Shared:</strong> Request resources from the public pool.</li>
+<li><strong>Conditional:</strong> Define rules like <em>"If our internal math teachers are fully booked, request a certified math teacher from the platform."</em>
+This applies to all resource types—instructors, classrooms, or even specific equipment.</li>
+</ul>
+<h4 id="3-a-hub-for-academic-research"><a class="header" href="#3-a-hub-for-academic-research">3. A Hub for Academic Research</a></h4>
+<p>Educational timetabling is a vibrant field of research, with dedicated conferences like <strong>PATAT</strong> (Practice and Theory of Automated Timetabling) and international competitions (ITC).
+DTA provides a perfect real-world testbed for researchers:</p>
+<ul>
+<li><strong>Real Data:</strong> Researchers can test their algorithms on real-world constraints and data (anonymized if needed).</li>
+<li><strong>Benchmarking:</strong> The marketplace acts as a live benchmark where new algorithms can compete against existing ones.</li>
+<li><strong>Implementation:</strong> Students and academics can publish their solvers as microservices, moving their work from theoretical papers to practical application.</li>
+</ul>
+<h2 id="how-it-works-the-user-journey"><a class="header" href="#how-it-works-the-user-journey">How It Works (The User Journey)</a></h2>
+<ol>
+<li><strong>Definition:</strong> An institution defines its requirements (courses, teachers, rooms) and bundles them into an <strong>Institution Packet</strong>.</li>
+<li><strong>Submission:</strong> The packet is submitted to the DTA network.</li>
+<li><strong>Discovery:</strong> Independent <strong>Solver Services</strong> discover the packet and analyze its complexity.</li>
+<li><strong>Solving:</strong> Solvers generate proposed timetables, optimizing for constraints and preferences.</li>
+<li><strong>Evaluation:</strong> The system scores proposals based on quality, fairness, and rule satisfaction.</li>
+<li><strong>Selection:</strong> The institution selects the best solution, and the winning solver is rewarded.</li>
+</ol>
+<p>This process allows for iterative improvement, where schedules can be refined over time to achieve the best possible outcome for everyone involved.</p>
+<p><img src="images/overview-flowchart.png" alt="Overview Flowchart" /></p>
 
                     </main>
 

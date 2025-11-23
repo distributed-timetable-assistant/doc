@@ -177,330 +177,144 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction"><strong>Introduction</strong></a></h1>
-<p>The <strong>Distributed Timetable Assistant (DTA)</strong> is a decentralized platform designed to automate and optimize educational scheduling across multiple institutions, instructors, supervisors, and learners.<br />
-Unlike traditional centralized systems, DTA distributes the process of generating and evaluating timetable solutions across independent microservices — enabling scalability, flexibility, and open participation.</p>
-<p><img src="images/intro.png" alt="Distributed Timetable Assistant Overview" />
-<em>Figure: DTA Overview – A decentralized ecosystem for educational scheduling.</em></p>
-<hr />
-<h2 id="vision"><a class="header" href="#vision">Vision</a></h2>
-<p>DTA aims to create an <strong>open, collaborative, and distributed scheduling ecosystem</strong> where educational organizations and independent solver nodes can interact through a shared marketplace.<br />
-This approach allows institutions to:</p>
-<ul>
-<li>Delegate scheduling tasks to distributed solvers.</li>
-<li>Define specific academic constraints and preferences.</li>
-<li>Receive optimized timetable solutions without exposing sensitive internal data.</li>
-</ul>
-<hr />
-<h2 id="key-concepts"><a class="header" href="#key-concepts">Key Concepts</a></h2>
-<h3 id="1-decentralized-scheduling"><a class="header" href="#1-decentralized-scheduling">1. Decentralized Scheduling</a></h3>
-<p>Each educational institution defines its own packet of rules, participants, and facilities. These packets are sent to the DTA network, where independent solver microservices propose scheduling solutions.</p>
-<h3 id="2-solver-marketplace"><a class="header" href="#2-solver-marketplace">2. Solver Marketplace</a></h3>
-<p>DTA operates as a <strong>shared solver marketplace</strong>, allowing contributors to:</p>
-<ul>
-<li>Deploy their own solver services.</li>
-<li>Compete or collaborate in producing optimal timetables.</li>
-<li>Earn rewards for accepted or high-quality solutions.</li>
-</ul>
-<h3 id="3-privacy-and-autonomy"><a class="header" href="#3-privacy-and-autonomy">3. Privacy and Autonomy</a></h3>
-<p>Institutions maintain <strong>control over their data</strong> while participating in the distributed ecosystem.<br />
-DTA ensures:</p>
-<ul>
-<li>Private deployment options.</li>
-<li>Secure communication between solvers and institutions.</li>
-<li>Configurable visibility and data-sharing levels.</li>
-</ul>
-<hr />
-<h2 id="core-capabilities"><a class="header" href="#core-capabilities">Core Capabilities</a></h2>
-<ul>
-<li><strong>Collaborative Matchstage:</strong> Enables multiple solvers to refine solutions iteratively.</li>
-<li><strong>Open Solver Contribution:</strong> Developers can publish and monetize their solver algorithms.</li>
-<li><strong>Self-Hosted Resource Services:</strong> Institutions can host their own scheduling nodes.</li>
-<li><strong>Private Deployment Option:</strong> Provides flexibility for sensitive or local environments.</li>
-<li><strong>Privacy and Anonymity:</strong> Protects organizational and participant data in shared environments.</li>
-</ul>
-<hr />
-<h2 id="scalability-and-reliability"><a class="header" href="#scalability-and-reliability">Scalability and Reliability</a></h2>
-<p>DTA is built for <strong>scalability, fault tolerance, and flexibility</strong>, leveraging distributed microservices to handle scheduling workloads efficiently.<br />
-Through iterative refinement and peer collaboration, the system improves scheduling quality over time while maintaining high system resilience.</p>
-<hr />
+<p>The <strong>Distributed Timetable Assistant (DTA)</strong> is a decentralized platform designed to revolutionize educational scheduling. By moving away from traditional, centralized algorithms, DTA empowers institutions, instructors, and learners to collaboratively build optimized timetables.</p>
+<p>Instead of a single bottleneck, DTA uses a network of independent <strong>Solver Services</strong> that compete to solve scheduling problems defined by <strong>Institution Packets</strong>. This approach ensures scalability, fairness, and the ability to handle complex, real-world constraints that centralized systems often miss.</p>
+<p>For a deeper dive into how DTA works, see the <a href="overview.html">Overview</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview"><strong>Overview</strong></a></h1>
-<p>The <strong>Distributed Timetable Assistant (DTA)</strong> is a <strong>decentralized scheduling platform</strong> that automates and optimizes the creation of educational timetables across institutions, instructors, supervisors, and learners.<br />
-Unlike traditional centralized scheduling systems, DTA distributes both computation and decision-making across a network of independent microservices, enabling scalability, flexibility, and community participation.</p>
-<p><img src="images/overview-flowchart.png" alt="Distributed Timetable Assistant — Core Concepts" /><br />
-<em>Figure: DTA core concepts — Institution Packets, independent solver services, privacy, real-world awareness, and architectural strengths.</em></p>
-<hr />
-<h2 id="concept-summary"><a class="header" href="#concept-summary">Concept Summary</a></h2>
-<p>Each organization defines its own set of courses, instructors, learners, supervisors, and available facilities, together with academic rules and preferences.<br />
-These definitions are packaged into structured data units called <strong>Institution Packets</strong>, which are then shared within the DTA ecosystem. Independent solver services — either human-managed or automated — can access these packets, propose optimized scheduling solutions, and receive rewards for accepted results. The diagram above visualizes how institutions, the DTA core, and independent solvers interact.</p>
-<hr />
-<h2 id="core-principles"><a class="header" href="#core-principles">Core Principles</a></h2>
-<h3 id="1-decentralization"><a class="header" href="#1-decentralization">1. Decentralization</a></h3>
-<p>DTA eliminates reliance on a central scheduling engine by distributing scheduling logic across independent solver microservices. Each solver contributes computational power and optimization algorithms to the shared ecosystem.</p>
-<h3 id="2-collaboration-and-reward"><a class="header" href="#2-collaboration-and-reward">2. Collaboration and Reward</a></h3>
-<p>Participants can compete or collaborate in proposing solutions. Accepted timetables are rewarded through a built-in incentive mechanism that promotes fairness, innovation, and continuous improvement.</p>
-<h3 id="3-privacy-and-control"><a class="header" href="#3-privacy-and-control">3. Privacy and Control</a></h3>
-<p>Institutions retain full control over their internal data and can configure their visibility level in the network. This privacy-first approach allows sensitive environments to benefit from distributed scheduling without exposing confidential information.</p>
-<h3 id="4-real-world-awareness"><a class="header" href="#4-real-world-awareness">4. Real-world Awareness</a></h3>
-<p>DTA models practical, operational constraints to ensure produced timetables are feasible and actionable. These include:</p>
+<h2 id="the-challenge"><a class="header" href="#the-challenge">The Challenge</a></h2>
+<p>Educational scheduling is inherently complex. It involves balancing the needs of multiple stakeholders—institutions, instructors, supervisors, and learners—against limited resources like classrooms and labs. Traditional centralized systems often struggle with this complexity, leading to rigid schedules that fail to accommodate individual preferences or adapt to changes.</p>
+<h2 id="the-dta-solution"><a class="header" href="#the-dta-solution">The DTA Solution</a></h2>
+<p>The <strong>Distributed Timetable Assistant (DTA)</strong> addresses these challenges through decentralization. It creates a marketplace where scheduling problems are matched with independent solvers.</p>
+<h3 id="key-concepts"><a class="header" href="#key-concepts">Key Concepts</a></h3>
 <ul>
-<li>Classroom and lab availability.</li>
-<li>Instructor and learner availability and preferences.</li>
-<li>Physical locations and travel distances between facilities.</li>
-<li>Time overlaps, capacity limits, and other scheduling feasibility checks.</li>
+<li><strong>Institution Packets:</strong> Structured data units where organizations define their participants, courses, constraints, and resources.</li>
+<li><strong>Solver Services:</strong> Independent microservices (human or automated) that propose timetable solutions.</li>
+<li><strong>Marketplace:</strong> The ecosystem where packets are published and solutions are traded.</li>
 </ul>
-<hr />
-<h2 id="architectural-strengths"><a class="header" href="#architectural-strengths">Architectural Strengths</a></h2>
-<p>DTA’s distributed architecture is designed to deliver:</p>
+<h3 id="unique-features"><a class="header" href="#unique-features">Unique Features</a></h3>
+<h4 id="1-open-ecosystem"><a class="header" href="#1-open-ecosystem">1. Open Ecosystem</a></h4>
+<p>DTA is not just for schools. It is a platform where <strong>anyone</strong> can register and manage resources.</p>
 <ul>
-<li><strong>Scalability:</strong> Workloads and optimization tasks can be shared across multiple solver nodes to handle large, heterogeneous scheduling problems.</li>
-<li><strong>Fault Tolerance:</strong> Independent microservices and solver nodes reduce single points of failure and increase overall system resilience.</li>
-<li><strong>Autonomy:</strong> Each institution can operate independently (self-hosting, private deployments) while participating in the shared marketplace.</li>
-<li><strong>Continuous Improvement:</strong> Iterative refinement and solver competition/collaboration improve schedule quality over time.</li>
+<li><strong>Participants:</strong> Teachers, students, supervisors.</li>
+<li><strong>Facilities:</strong> Schools, universities, gyms, laboratories, and more.</li>
+<li><strong>Sharing:</strong> Users can share their availability or resources (e.g., a lab renting out empty slots) with the entire network.</li>
 </ul>
-<hr />
-<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
-<p>By combining <strong>decentralized computation</strong>, <strong>privacy-first design</strong>, and an <strong>open solver marketplace</strong>, DTA establishes a collaborative, realistic, and self-improving ecosystem for educational scheduling. It is designed to serve schools, universities, and online learning environments worldwide—helping institutions produce timetables that are not only optimized mathematically but practical in the real world.</p>
-<hr />
+<h4 id="2-hybrid-resource-management"><a class="header" href="#2-hybrid-resource-management">2. Hybrid Resource Management</a></h4>
+<p>Institutions can define resources in a flexible, hybrid manner:</p>
+<ul>
+<li><strong>Dedicated:</strong> Use your own private list of teachers and rooms.</li>
+<li><strong>Shared:</strong> Request resources from the public pool.</li>
+<li><strong>Conditional:</strong> Define rules like <em>"If our internal math teachers are fully booked, request a certified math teacher from the platform."</em>
+This applies to all resource types—instructors, classrooms, or even specific equipment.</li>
+</ul>
+<h4 id="3-a-hub-for-academic-research"><a class="header" href="#3-a-hub-for-academic-research">3. A Hub for Academic Research</a></h4>
+<p>Educational timetabling is a vibrant field of research, with dedicated conferences like <strong>PATAT</strong> (Practice and Theory of Automated Timetabling) and international competitions (ITC).
+DTA provides a perfect real-world testbed for researchers:</p>
+<ul>
+<li><strong>Real Data:</strong> Researchers can test their algorithms on real-world constraints and data (anonymized if needed).</li>
+<li><strong>Benchmarking:</strong> The marketplace acts as a live benchmark where new algorithms can compete against existing ones.</li>
+<li><strong>Implementation:</strong> Students and academics can publish their solvers as microservices, moving their work from theoretical papers to practical application.</li>
+</ul>
+<h2 id="how-it-works-the-user-journey"><a class="header" href="#how-it-works-the-user-journey">How It Works (The User Journey)</a></h2>
+<ol>
+<li><strong>Definition:</strong> An institution defines its requirements (courses, teachers, rooms) and bundles them into an <strong>Institution Packet</strong>.</li>
+<li><strong>Submission:</strong> The packet is submitted to the DTA network.</li>
+<li><strong>Discovery:</strong> Independent <strong>Solver Services</strong> discover the packet and analyze its complexity.</li>
+<li><strong>Solving:</strong> Solvers generate proposed timetables, optimizing for constraints and preferences.</li>
+<li><strong>Evaluation:</strong> The system scores proposals based on quality, fairness, and rule satisfaction.</li>
+<li><strong>Selection:</strong> The institution selects the best solution, and the winning solver is rewarded.</li>
+</ol>
+<p>This process allows for iterative improvement, where schedules can be refined over time to achieve the best possible outcome for everyone involved.</p>
+<p><img src="images/overview-flowchart.png" alt="Overview Flowchart" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="design"><a class="header" href="#design"><strong>Design</strong></a></h1>
-<p>The <strong>Distributed Timetable Assistant (DTA)</strong> design defines how the system components interact to process scheduling requests, evaluate generated timetables, and reward distributed solvers.<br />
-This design focuses on extensibility, fairness, scalability, and reactive evaluation mechanisms that continuously adapt to resource state changes.</p>
+<p>The <strong>Distributed Timetable Assistant (DTA)</strong> design focuses on extensibility, fairness, and reactive evaluation. It provides the abstract mechanisms that enable the marketplace described in the <a href="design/../overview.html">Overview</a>.</p>
 <p><img src="design/../images/design.png" alt="Distributed Timetable Assistant Design" /></p>
 <hr />
-<h2 id="design-flow"><a class="header" href="#design-flow">Design Flow</a></h2>
-<ol>
-<li>
-<p><strong>Packet Submission</strong></p>
+<h2 id="core-mechanisms"><a class="header" href="#core-mechanisms">Core Mechanisms</a></h2>
+<h3 id="1-the-marketplace"><a class="header" href="#1-the-marketplace">1. The Marketplace</a></h3>
+<p>The marketplace is the decoupling layer between Institutions (demand) and Solvers (supply). It ensures that:</p>
 <ul>
-<li>Each educational institution defines its available resources (instructors, learners, facilities, time blocks, etc.) and associated scheduling rules.</li>
-<li>These definitions are packaged into an <strong>Institution Packet</strong> and submitted to the DTA platform via the API Gateway.</li>
+<li><strong>Discovery:</strong> Solvers can find problems that match their capabilities.</li>
+<li><strong>Transparency:</strong> All transactions and evaluations are verifiable.</li>
+<li><strong>Competition:</strong> Multiple solvers can attempt the same problem, driving up solution quality.</li>
 </ul>
-</li>
-<li>
-<p><strong>Packet Analysis</strong></p>
+<h3 id="2-reactive-evaluation--scoring"><a class="header" href="#2-reactive-evaluation--scoring">2. Reactive Evaluation &amp; Scoring</a></h3>
+<p>DTA employs a <strong>reactive</strong> scoring model. Solution scores are not static; they adjust based on the changing state of resources.</p>
 <ul>
-<li>The <strong>Packet Analyzer Service</strong> evaluates the received packet.</li>
-<li>It determines:
-<ul>
-<li>The <strong>complexity</strong> of the scheduling problem.</li>
-<li>The <strong>estimated reward</strong> range for solving it.</li>
+<li><strong>Dynamic Scoring:</strong> If a resource (e.g., a specific lab) becomes overbooked globally, solutions relying on it may see their scores drop in real-time.</li>
+<li><strong>Fairness:</strong> The system penalizes conflicts and rewards efficient resource usage proportionally.</li>
 </ul>
-</li>
-<li>Metadata (difficulty, constraints, reward model) is registered in the marketplace.</li>
-</ul>
-</li>
-<li>
-<p><strong>Solver Participation</strong></p>
+<h3 id="3-extensibility"><a class="header" href="#3-extensibility">3. Extensibility</a></h3>
+<p>The platform is designed to evolve without breaking existing contracts:</p>
 <ul>
-<li>Authorized <strong>Solver Services</strong> (independent distributed microservices) discover open packets through the marketplace API.</li>
-<li>Interested solvers fetch the packet and attempt to produce feasible timetables by optimizing for:
-<ul>
-<li>Rule satisfaction</li>
-<li>Resource utilization</li>
-<li>Temporal and spatial constraints</li>
+<li><strong>Reward Models:</strong> New ways to incentivize solvers (e.g., tokens, reputation) can be plugged in.</li>
+<li><strong>Gamification:</strong> Leaderboards and challenges can be added to the solver layer.</li>
+<li><strong>Pluggable Validators:</strong> Institutions can add custom validation logic for their specific constraints.</li>
 </ul>
-</li>
-<li>Each solver submits its proposed timetable solution back to DTA.</li>
-</ul>
-</li>
-<li>
-<p><strong>Reactive Evaluation &amp; Scoring</strong></p>
+<h3 id="4-flexible-processing--privacy"><a class="header" href="#4-flexible-processing--privacy">4. Flexible Processing &amp; Privacy</a></h3>
+<p>The system supports various processing models to suit different privacy and security needs:</p>
 <ul>
-<li>The <strong>Evaluation Engine</strong> scores each proposed solution based on:
-<ul>
-<li>The number and priority of satisfied rules</li>
-<li>Penalties for conflicts or resource overuse</li>
-<li>Quality metrics (balance, fairness, efficiency)</li>
-</ul>
-</li>
-<li>The <strong>reward</strong> is calculated proportionally to the score.</li>
-<li>Scores and rewards are <strong>reactively updated</strong> whenever the resource state changes, ensuring fair valuation of solutions in dynamic environments.</li>
-</ul>
-</li>
-<li>
-<p><strong>Institution Decision &amp; Payment</strong></p>
-<ul>
-<li>The institution reviews all proposed schedules (only seeing their <strong>score</strong>, <strong>demo</strong>, and <strong>reward</strong> preview).</li>
-<li>Once a preferred schedule is selected:
-<ul>
-<li>The institution confirms and pays the associated cost.</li>
-<li>The DTA updates the <strong>global resource state</strong> according to the chosen timetable.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Unsolved or Remaining Problems</strong></p>
-<ul>
-<li>Parts of the scheduling problem that remain unsolved can stay in the processing queue.</li>
-<li>Other solver services can continue submitting new proposals if the institution remains open to further solutions.</li>
-</ul>
-</li>
-</ol>
-<hr />
-<h2 id="extensibility"><a class="header" href="#extensibility">Extensibility</a></h2>
-<p>DTA is designed for continuous evolution:</p>
-<ul>
-<li>
-<p><strong>Reward Models:</strong><br />
-New reward models can be introduced (e.g., dynamic token systems, credit multipliers, or milestone bonuses).</p>
-</li>
-<li>
-<p><strong>Gamification Layer:</strong><br />
-To encourage participation, DTA can support leaderboard rankings, badges for solver achievements, and seasonal challenges.</p>
-</li>
-<li>
-<p><strong>Adaptive Scoring:</strong><br />
-Scoring algorithms can be improved to consider multi-objective optimization, including fairness, priority balancing, or energy efficiency of scheduling computations.</p>
-</li>
-<li>
-<p><strong>Marketplace Plug-ins:</strong><br />
-Additional modules (e.g., verification services, audit trails, or external validators) can be added to enhance transparency and reliability.</p>
-</li>
+<li><strong>Self-Hosted Processing:</strong> Institutions can run their own solver services to keep data entirely within their infrastructure.</li>
+<li><strong>Conditional Processing:</strong> Requests can be routed to specific solvers that meet certain criteria (e.g., "only trusted partners").</li>
+<li><strong>Anonymized Processing:</strong> Data can be passed through an anonymization layer before reaching public solvers. The results are transparently de-anonymized upon return, allowing the community to solve the problem without seeing sensitive identity data.</li>
 </ul>
 <hr />
-<h2 id="core-design-principles"><a class="header" href="#core-design-principles">Core Design Principles</a></h2>
+<h2 id="design-principles"><a class="header" href="#design-principles">Design Principles</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Principle</th><th>Description</th></tr></thead><tbody>
-<tr><td><strong>Decentralization</strong></td><td>Solving and evaluation are distributed among independent microservices.</td></tr>
-<tr><td><strong>Transparency</strong></td><td>Every evaluation and reward is traceable and verifiable.</td></tr>
-<tr><td><strong>Reactivity</strong></td><td>Solution scores automatically adjust with changing resource states.</td></tr>
-<tr><td><strong>Scalability</strong></td><td>New solver instances can join dynamically to increase computational throughput.</td></tr>
-<tr><td><strong>Extensibility</strong></td><td>Supports future features such as gamified reward systems or advanced scoring.</td></tr>
+<tr><td><strong>Decentralization</strong></td><td>Logic is distributed; no single central scheduler controls the outcome.</td></tr>
+<tr><td><strong>Transparency</strong></td><td>Evaluation rules and rewards are clear to all participants.</td></tr>
+<tr><td><strong>Reactivity</strong></td><td>The system adapts to state changes in real-time.</td></tr>
+<tr><td><strong>Scalability</strong></td><td>Adding more solvers linearly increases the system's problem-solving capacity.</td></tr>
 </tbody></table>
-</div>
-<hr />
-<h2 id="summary-1"><a class="header" href="#summary-1">Summary</a></h2>
-<p>The DTA design provides a robust foundation for a decentralized, competitive scheduling ecosystem.<br />
-It ensures that institutions receive high-quality timetables while solvers are fairly rewarded for their computational and algorithmic contributions.<br />
-The system’s modular architecture allows the marketplace, evaluation engine, and solver environment to evolve independently while maintaining consistency and integrity.</p>
-<hr />
-<div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture"><strong>Architecture</strong></a></h1>
-<p>The Distributed Timetable Assistant (DTA) is a Kubernetes-first microservices platform with clear separation of concerns: <strong>Resource Services</strong>, <strong>Processor Services</strong>, <strong>Cloud-exclusive Platform Services</strong>, and <strong>Infrastructure Services</strong>. Resource and Processor services can be run as cloud-shared services (tiered plans) <strong>or</strong> deployed self-hosted inside customer environments; cloud-exclusive services are only available from the hosted platform. The architecture uses Kafka as the central event bus, Postgres/Elasticsearch/Redis for state, and Keycloak for identity.</p>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture"><strong>Architecture</strong></a></h1>
+<p>The DTA platform is built as a set of <strong>Kubernetes-native microservices</strong>. It enforces a clear separation between data management (Resources), logic (Processors), and platform utilities.</p>
+<p><strong>Deployment Flexibility:</strong></p>
+<ul>
+<li><strong>Full Self-Hosting:</strong> The entire platform can be deployed on-premise for complete control.</li>
+<li><strong>Hybrid:</strong> Use the public cloud for some services (e.g., the marketplace) while keeping sensitive Resource Services self-hosted.</li>
+<li><strong>Service-Level:</strong> Individual services can be swapped or hosted independently.</li>
+</ul>
+<p><strong>Key Tech Stack:</strong></p>
+<ul>
+<li><strong>Communication:</strong> Kafka (Event Bus), gRPC/REST.</li>
+<li><strong>State:</strong> PostgreSQL (Relational), Elasticsearch (Search/Index), Redis (Cache/Ephemeral).</li>
+<li><strong>Identity:</strong> Keycloak.</li>
+</ul>
 <p><img src="architecture/../images/architecture.png" alt="DTA Architecture diagram" /></p>
 <hr />
-<h2 id="service-summary-table"><a class="header" href="#service-summary-table">Service summary table</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Group</th><th style="text-align: right">Service</th><th>Persistence / stores</th><th style="text-align: center">Self-hostable</th></tr></thead><tbody>
-<tr><td><strong>Resource services</strong></td><td style="text-align: right">packet-manager</td><td>Elasticsearch (primary index)</td><td style="text-align: center">✅</td></tr>
-<tr><td></td><td style="text-align: right">people</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
-<tr><td></td><td style="text-align: right">organization</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
-<tr><td></td><td style="text-align: right">resources</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
-<tr><td></td><td style="text-align: right">subjects</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
-<tr><td><strong>Processor services</strong></td><td style="text-align: right">basic-scheduler</td><td>PostgreSQL + Redis</td><td style="text-align: center">✅</td></tr>
-<tr><td></td><td style="text-align: right">manual-scheduler</td><td>PostgreSQL + Redis</td><td style="text-align: center">✅</td></tr>
-<tr><td></td><td style="text-align: right">packet-analyzer</td><td>PostgreSQL</td><td style="text-align: center">✅</td></tr>
-<tr><td></td><td style="text-align: right">timetable-ranker</td><td>(ephemeral &amp; DB as needed)</td><td style="text-align: center">✅</td></tr>
-<tr><td><strong>Cloud-exclusive platform</strong></td><td style="text-align: right">wallet</td><td>(analytics store; may use ES/PSQL)</td><td style="text-align: center">❌</td></tr>
-<tr><td></td><td style="text-align: right">notification</td><td>PostgreSQL</td><td style="text-align: center">❌</td></tr>
-<tr><td><strong>Infrastructure</strong></td><td style="text-align: right">ingress</td><td>—</td><td style="text-align: center">—</td></tr>
-<tr><td></td><td style="text-align: right">kafka</td><td>— (stateful)</td><td style="text-align: center">—</td></tr>
-<tr><td></td><td style="text-align: right">keycloak</td><td>PostgreSQL (Keycloak DB)</td><td style="text-align: center">—</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h2 id="service-details"><a class="header" href="#service-details">Service details</a></h2>
-<h3 id="resource-services-self-hostable--cloud-shared"><a class="header" href="#resource-services-self-hostable--cloud-shared">Resource services (self-hostable / cloud-shared)</a></h3>
-<p>These services contain canonical domain data and publish domain events to Kafka. They are the primary candidates for customer self-hosting when data locality is required.</p>
-<h4 id="packet-manager"><a class="header" href="#packet-manager"><code>packet-manager</code></a></h4>
+<h2 id="service-groups"><a class="header" href="#service-groups">Service Groups</a></h2>
+<h3 id="1-resource-services-the-truth"><a class="header" href="#1-resource-services-the-truth">1. Resource Services (The "Truth")</a></h3>
+<p>These services manage the canonical domain data. They are the source of truth for the system.</p>
 <ul>
-<li><strong>Role:</strong> Manages timetable packets (submissions, search index, versions), stores indexed representations and search metadata.</li>
-<li><strong>Persistence:</strong> <strong>Elasticsearch</strong> (primary index); may also keep metadata in PostgreSQL if needed.</li>
-<li><strong>API:</strong> REST/gRPC endpoints for create/read/update/search; produces events (e.g., <code>packet.created</code>, <code>packet.updated</code>) to Kafka.</li>
-<li><strong>Deployment hints:</strong> Stateful/managed ES or operator (ECK / Opensearch operator) for reliability; replicas and index lifecycle policies required.</li>
+<li><strong><code>packet-manager</code></strong>: Manages submission packets and their lifecycle. Uses <strong>Elasticsearch</strong> for high-performance search.</li>
+<li><strong><code>people</code></strong>: Manages profiles (instructors, students) and availability.</li>
+<li><strong><code>organization</code></strong>: Manages school/university metadata.</li>
+<li><strong><code>resources</code></strong>: Manages physical assets (rooms, equipment).</li>
+<li><strong><code>subjects</code></strong>: Manages curriculum and subject definitions.</li>
 </ul>
-<h4 id="people"><a class="header" href="#people"><code>people</code></a></h4>
+<h3 id="2-processor-services-the-workers"><a class="header" href="#2-processor-services-the-workers">2. Processor Services (The "Workers")</a></h3>
+<p>These services consume events and perform heavy lifting.</p>
 <ul>
-<li><strong>Role:</strong> Stores learner, instructor, supervisor profiles, credentials metadata, availability calendars (links to time-blocks).</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong>.</li>
-<li><strong>API / Events:</strong> CRUD endpoints; emits <code>person.created</code> / <code>person.updated</code> / <code>person.availability.changed</code> events to Kafka.</li>
-<li><strong>Self-host notes:</strong> Allow sync/backups for institutions that want to keep identity locally.</li>
+<li><strong><code>basic-scheduler</code></strong>: An automated solver that generates timetables. Uses <strong>Redis</strong> for job queues.</li>
+<li><strong><code>manual-scheduler</code></strong>: Supports human-in-the-loop editing.</li>
+<li><strong><code>packet-analyzer</code></strong>: Extracts features (complexity, constraints) from packets to guide solvers.</li>
+<li><strong><code>timetable-ranker</code></strong>: Stream processor that scores incoming solutions.</li>
 </ul>
-<h4 id="organization"><a class="header" href="#organization"><code>organization</code></a></h4>
+<h3 id="3-platform--infrastructure"><a class="header" href="#3-platform--infrastructure">3. Platform &amp; Infrastructure</a></h3>
 <ul>
-<li><strong>Role:</strong> Stores organization metadata (schools, universities, academies, facility providers, solver registrations).</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong>.</li>
-<li><strong>Events:</strong> <code>organization.*</code> domain events for changes in facility availability, policies, or membership.</li>
-</ul>
-<h4 id="resources"><a class="header" href="#resources"><code>resources</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Catalog of educational materials and facility metadata (rooms, equipment), attachments or pointers to object storage.</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> (metadata) and object store (S3) for large assets; may index in Elasticsearch for content search.</li>
-<li><strong>Events:</strong> <code>resource.*</code> events for material updates affecting scheduling.</li>
-</ul>
-<h4 id="subjects"><a class="header" href="#subjects"><code>subjects</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Canonical subject definitions (e.g., “Physics 2”), mapping of subjects to curricula and competency metadata.</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong>.</li>
-<li><strong>Events:</strong> <code>subject.*</code> events used by schedulers and packet analyzers.</li>
+<li><strong><code>wallet</code></strong>: Manages credits and transactions (Cloud-exclusive).</li>
+<li><strong><code>notification</code></strong>: Handles alerts and messages.</li>
+<li><strong><code>kafka</code></strong>: The central nervous system. All services publish/subscribe to domain events here.</li>
+<li><strong><code>ingress</code></strong>: Handles routing and load balancing.</li>
 </ul>
 <hr />
-<h3 id="processor-services-self-hostable--cloud-shared"><a class="header" href="#processor-services-self-hostable--cloud-shared">Processor services (self-hostable / cloud-shared)</a></h3>
-<p>Processors consume domain events, run scheduling logic, and publish candidates/results.</p>
-<h4 id="basic-scheduler"><a class="header" href="#basic-scheduler"><code>basic-scheduler</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Automated timetable generator (batch/stream mode) that creates candidate timetables based on constraints and resource availability.</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> (durable job / result store) + <strong>Redis</strong> (caches, distributed locks, ephemeral job state, worker queues).</li>
-<li><strong>Integration:</strong> Subscribes to Kafka topics (resource updates, new packets); writes candidates back to <code>packet-manager</code> (or to a results topic).</li>
-<li><strong>Scaling:</strong> Horizontal workers; Redis-backed queues for task distribution.</li>
-</ul>
-<h4 id="manual-scheduler"><a class="header" href="#manual-scheduler"><code>manual-scheduler</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Human-in-the-loop scheduling assistant supporting GUI-based edits, conflict resolution, and confirmations.</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> + <strong>Redis</strong> for ephemeral session state.</li>
-<li><strong>Behavior:</strong> Accepts operator edits, publishes modifications to Kafka so ranker/notification can react.</li>
-</ul>
-<h4 id="timetable-ranker"><a class="header" href="#timetable-ranker"><code>timetable-ranker</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Scores and ranks candidate timetables from multiple schedulers (features from packet-analyzer + telemetry).</li>
-<li><strong>Persistence / storage:</strong> May use an analytics DB or cache; primary operation is stream processing of candidate events.</li>
-<li><strong>Integration:</strong> Consumes candidates from Kafka, emits <code>candidate.ranked</code> events.</li>
-</ul>
-<h4 id="packet-analyzer"><a class="header" href="#packet-analyzer"><code>packet-analyzer</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Feature extraction and analytics for submitted packets (complexity, conflict density, resource usage).</li>
-<li><strong>Persistence:</strong> Analytical store (Elasticsearch or analytic Postgres), intermediate caches.</li>
-<li><strong>Use:</strong> Feeds features to the ranker and to metric dashboards.</li>
-</ul>
-<hr />
-<h3 id="cloud-exclusive-platform-services-hosted-only"><a class="header" href="#cloud-exclusive-platform-services-hosted-only">Cloud-exclusive platform services (hosted only)</a></h3>
-<p>Services that the platform provides but are not part of the baseline self-host offering.</p>
-<h4 id="wallet"><a class="header" href="#wallet"><code>wallet</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Marketplace ledger/credits management for solvers, microservices and institutions.</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> (transactional ledger).</li>
-<li><strong>Security:</strong> Strong auditing; integrate with external payment providers for top-ups.</li>
-</ul>
-<h4 id="notification"><a class="header" href="#notification"><code>notification</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Centralized subscription and delivery engine (email, push, SMS integrations).</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> for subscription config and templates.</li>
-<li><strong>Integration:</strong> Consumes events (e.g., <code>candidate.finalized</code>, <code>wallet.balance.low</code>) and triggers deliveries.</li>
-</ul>
-<hr />
-<h3 id="infrastructure-services-cluster-level"><a class="header" href="#infrastructure-services-cluster-level">Infrastructure services (cluster-level)</a></h3>
-<p>Cross-cutting components required by all services.</p>
-<h4 id="ingress"><a class="header" href="#ingress"><code>ingress</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Tenant-aware edge routing, TLS termination, path-based or host-based routing for self-hosted vs cloud endpoints.</li>
-<li><strong>Examples:</strong> NGINX Ingress, Traefik, or a cloud load balancer.</li>
-</ul>
-<h4 id="kafka"><a class="header" href="#kafka"><code>kafka</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Central event bus used for decoupling producers (resource &amp; platform services) and consumers (processors, analytics).</li>
-<li><strong>Operational:</strong> Multi-zone replication, topic retention/policy, schema registry recommended for event contracts (Avro/Protobuf).</li>
-</ul>
-<h4 id="keycloak"><a class="header" href="#keycloak"><code>keycloak</code></a></h4>
-<ul>
-<li><strong>Role:</strong> Identity and access management (OAuth2/OpenID Connect). Centralized realm and client configuration.</li>
-<li><strong>Persistence:</strong> <strong>PostgreSQL</strong> backing store for Keycloak data.</li>
-<li><strong>Notes:</strong> For self-hosted installs, allow integration with the institution’s IAM or run a local Keycloak instance.</li>
-</ul>
-<hr />
-<h2 id="how-the-pieces-interact-short-flow"><a class="header" href="#how-the-pieces-interact-short-flow">How the pieces interact (short flow)</a></h2>
+<h2 id="technical-interaction-flow"><a class="header" href="#technical-interaction-flow">Technical Interaction Flow</a></h2>
+<p>The system relies on an <strong>Event-Driven Architecture</strong>:</p>
 <ol>
-<li>Clients → <strong>Ingress</strong> → authenticated via <strong>Keycloak</strong>.</li>
-<li>CRUD on domain entities → Resource services (Postgres / ES) → emit domain events to <strong>Kafka</strong>.</li>
-<li>Processor services consume Kafka, produce candidate timetables → write results back to <code>packet-manager</code> and emit ranked/candidate events.</li>
-<li><code>packet-analyzer</code> and <code>timetable-ranker</code> consume streams to score and finalize selections.</li>
-<li>Platform services (<code>wallet</code>, <code>notification</code>) handle transactions and user communication for marketplace actions.</li>
+<li><strong>Ingestion:</strong> API calls to Resource Services emit events (e.g., <code>packet.created</code>) to Kafka.</li>
+<li><strong>Processing:</strong> Processor Services (like <code>basic-scheduler</code>) subscribe to these topics.</li>
+<li><strong>Result Publication:</strong> Processors publish results (e.g., <code>candidate.created</code>) back to Kafka.</li>
+<li><strong>Aggregation:</strong> Analytics services (<code>timetable-ranker</code>) consume result streams to update scores in real-time.</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h2 id="license"><a class="header" href="#license"><strong>License</strong></a></h2>
 <p>The Distributed Timetable Assistant (DTA) project, including its source code, design, documentation, and conceptual framework, is the exclusive intellectual property of its owner.</p>
