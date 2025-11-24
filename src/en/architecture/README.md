@@ -1,6 +1,6 @@
 # **Architecture**
 
-The DTA platform is built as a set of **Kubernetes-native microservices**. It enforces a clear separation between data management (Resources), logic (Processors), and platform utilities.
+The DiTA platform is built as a set of **Kubernetes-native microservices**. It enforces a clear separation between data management (Resources), logic (Processors), and platform utilities.
 
 **Deployment Flexibility:**
 *   **Full Self-Hosting:** The entire platform can be deployed on-premise for complete control.
@@ -12,7 +12,7 @@ The DTA platform is built as a set of **Kubernetes-native microservices**. It en
 *   **State:** PostgreSQL (Relational), Elasticsearch (Search/Index), Redis (Cache/Ephemeral).
 *   **Identity:** Keycloak.
 
-![DTA Architecture diagram](../images/architecture.png)
+![DiTA Architecture diagram](../images/architecture.png)
 
 ---
 

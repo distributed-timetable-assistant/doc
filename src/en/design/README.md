@@ -1,6 +1,6 @@
 # **Design**
 
-The **Distributed Timetable Assistant (DTA)** design focuses on extensibility, fairness, and reactive evaluation. It provides the abstract mechanisms that enable the marketplace described in the [Overview](../overview.md).
+The **Distributed Timetable Assistant (DiTA)** design focuses on extensibility, fairness, and reactive evaluation. It provides the abstract mechanisms that enable the marketplace described in the [Overview](../overview.md).
 
 ![Distributed Timetable Assistant Design](../images/design.png)
 
@@ -15,7 +15,7 @@ The marketplace is the decoupling layer between Institutions (demand) and Solver
 *   **Competition:** Multiple solvers can attempt the same problem, driving up solution quality.
 
 ### 2. Reactive Evaluation & Scoring
-DTA employs a **reactive** scoring model. Solution scores are not static; they adjust based on the changing state of resources.
+DiTA employs a **reactive** scoring model. Solution scores are not static; they adjust based on the changing state of resources.
 *   **Dynamic Scoring:** If a resource (e.g., a specific lab) becomes overbooked globally, solutions relying on it may see their scores drop in real-time.
 *   **Fairness:** The system penalizes conflicts and rewards efficient resource usage proportionally.
 
