@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Design - DTA — Distributed Timetable Assistant</title>
+        <title>Design - DiTA — Distributed Timetable Assistant</title>
 
 
         <!-- Custom HTML head -->
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">DTA — Distributed Timetable Assistant</h1>
+                    <h1 class="menu-title">DiTA — Distributed Timetable Assistant</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -176,7 +176,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="design"><a class="header" href="#design"><strong>Design</strong></a></h1>
-<p>The <strong>Distributed Timetable Assistant (DTA)</strong> design focuses on extensibility, fairness, and reactive evaluation. It provides the abstract mechanisms that enable the marketplace described in the <a href="../overview.html">Overview</a>.</p>
+<p>The <strong>Distributed Timetable Assistant (DiTA)</strong> design focuses on extensibility, fairness, and reactive evaluation. It provides the abstract mechanisms that enable the marketplace described in the <a href="../overview.html">Overview</a>.</p>
 <p><img src="../images/design.png" alt="Distributed Timetable Assistant Design" /></p>
 <hr />
 <h2 id="core-mechanisms"><a class="header" href="#core-mechanisms">Core Mechanisms</a></h2>
@@ -188,7 +188,7 @@
 <li><strong>Competition:</strong> Multiple solvers can attempt the same problem, driving up solution quality.</li>
 </ul>
 <h3 id="2-reactive-evaluation--scoring"><a class="header" href="#2-reactive-evaluation--scoring">2. Reactive Evaluation &amp; Scoring</a></h3>
-<p>DTA employs a <strong>reactive</strong> scoring model. Solution scores are not static; they adjust based on the changing state of resources.</p>
+<p>DiTA employs a <strong>reactive</strong> scoring model. Solution scores are not static; they adjust based on the changing state of resources.</p>
 <ul>
 <li><strong>Dynamic Scoring:</strong> If a resource (e.g., a specific lab) becomes overbooked globally, solutions relying on it may see their scores drop in real-time.</li>
 <li><strong>Fairness:</strong> The system penalizes conflicts and rewards efficient resource usage proportionally.</li>

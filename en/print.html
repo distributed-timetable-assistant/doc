@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>DTA — Distributed Timetable Assistant</title>
+        <title>DiTA — Distributed Timetable Assistant</title>
         <meta name="robots" content="noindex">
 
 
@@ -139,7 +139,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">DTA — Distributed Timetable Assistant</h1>
+                    <h1 class="menu-title">DiTA — Distributed Timetable Assistant</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,14 +177,14 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction"><strong>Introduction</strong></a></h1>
-<p>The <strong>Distributed Timetable Assistant (DTA)</strong> is a decentralized platform designed to revolutionize educational scheduling. By moving away from traditional, centralized algorithms, DTA empowers institutions, instructors, and learners to collaboratively build optimized timetables.</p>
-<p>Instead of a single bottleneck, DTA uses a network of independent <strong>Solver Services</strong> that compete to solve scheduling problems defined by <strong>Institution Packets</strong>. This approach ensures scalability, fairness, and the ability to handle complex, real-world constraints that centralized systems often miss.</p>
-<p>For a deeper dive into how DTA works, see the <a href="overview.html">Overview</a>.</p>
+<p>The <strong>Distributed Timetable Assistant (DiTA)</strong> is a decentralized platform designed to revolutionize educational scheduling. By moving away from traditional, centralized algorithms, DiTA empowers institutions, instructors, and learners to collaboratively build optimized timetables.</p>
+<p>Instead of a single bottleneck, DiTA uses a network of independent <strong>Solver Services</strong> that compete to solve scheduling problems defined by <strong>Institution Packets</strong>. This approach ensures scalability, fairness, and the ability to handle complex, real-world constraints that centralized systems often miss.</p>
+<p>For a deeper dive into how DiTA works, see the <a href="overview.html">Overview</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview"><strong>Overview</strong></a></h1>
 <h2 id="the-challenge"><a class="header" href="#the-challenge">The Challenge</a></h2>
 <p>Educational scheduling is inherently complex. It involves balancing the needs of multiple stakeholders—institutions, instructors, supervisors, and learners—against limited resources like classrooms and labs. Traditional centralized systems often struggle with this complexity, leading to rigid schedules that fail to accommodate individual preferences or adapt to changes.</p>
-<h2 id="the-dta-solution"><a class="header" href="#the-dta-solution">The DTA Solution</a></h2>
-<p>The <strong>Distributed Timetable Assistant (DTA)</strong> addresses these challenges through decentralization. It creates a marketplace where scheduling problems are matched with independent solvers.</p>
+<h2 id="the-dita-solution"><a class="header" href="#the-dita-solution">The DiTA Solution</a></h2>
+<p>The <strong>Distributed Timetable Assistant (DiTA)</strong> addresses these challenges through decentralization. It creates a marketplace where scheduling problems are matched with independent solvers.</p>
 <h3 id="key-concepts"><a class="header" href="#key-concepts">Key Concepts</a></h3>
 <ul>
 <li><strong>Institution Packets:</strong> Structured data units where organizations define their participants, courses, constraints, and resources.</li>
@@ -193,7 +193,7 @@
 </ul>
 <h3 id="unique-features"><a class="header" href="#unique-features">Unique Features</a></h3>
 <h4 id="1-open-ecosystem"><a class="header" href="#1-open-ecosystem">1. Open Ecosystem</a></h4>
-<p>DTA is not just for schools. It is a platform where <strong>anyone</strong> can register and manage resources.</p>
+<p>DiTA is not just for schools. It is a platform where <strong>anyone</strong> can register and manage resources.</p>
 <ul>
 <li><strong>Participants:</strong> Teachers, students, supervisors.</li>
 <li><strong>Facilities:</strong> Schools, universities, gyms, laboratories, and more.</li>
@@ -209,7 +209,7 @@ This applies to all resource types—instructors, classrooms, or even specific e
 </ul>
 <h4 id="3-a-hub-for-academic-research"><a class="header" href="#3-a-hub-for-academic-research">3. A Hub for Academic Research</a></h4>
 <p>Educational timetabling is a vibrant field of research, with dedicated conferences like <strong>PATAT</strong> (Practice and Theory of Automated Timetabling) and international competitions (ITC).
-DTA provides a perfect real-world testbed for researchers:</p>
+DiTA provides a perfect real-world testbed for researchers:</p>
 <ul>
 <li><strong>Real Data:</strong> Researchers can test their algorithms on real-world constraints and data (anonymized if needed).</li>
 <li><strong>Benchmarking:</strong> The marketplace acts as a live benchmark where new algorithms can compete against existing ones.</li>
@@ -218,7 +218,7 @@ DTA provides a perfect real-world testbed for researchers:</p>
 <h2 id="how-it-works-the-user-journey"><a class="header" href="#how-it-works-the-user-journey">How It Works (The User Journey)</a></h2>
 <ol>
 <li><strong>Definition:</strong> An institution defines its requirements (courses, teachers, rooms) and bundles them into an <strong>Institution Packet</strong>.</li>
-<li><strong>Submission:</strong> The packet is submitted to the DTA network.</li>
+<li><strong>Submission:</strong> The packet is submitted to the DiTA network.</li>
 <li><strong>Discovery:</strong> Independent <strong>Solver Services</strong> discover the packet and analyze its complexity.</li>
 <li><strong>Solving:</strong> Solvers generate proposed timetables, optimizing for constraints and preferences.</li>
 <li><strong>Evaluation:</strong> The system scores proposals based on quality, fairness, and rule satisfaction.</li>
@@ -227,7 +227,7 @@ DTA provides a perfect real-world testbed for researchers:</p>
 <p>This process allows for iterative improvement, where schedules can be refined over time to achieve the best possible outcome for everyone involved.</p>
 <p><img src="images/overview-flowchart.png" alt="Overview Flowchart" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="design"><a class="header" href="#design"><strong>Design</strong></a></h1>
-<p>The <strong>Distributed Timetable Assistant (DTA)</strong> design focuses on extensibility, fairness, and reactive evaluation. It provides the abstract mechanisms that enable the marketplace described in the <a href="design/../overview.html">Overview</a>.</p>
+<p>The <strong>Distributed Timetable Assistant (DiTA)</strong> design focuses on extensibility, fairness, and reactive evaluation. It provides the abstract mechanisms that enable the marketplace described in the <a href="design/../overview.html">Overview</a>.</p>
 <p><img src="design/../images/design.png" alt="Distributed Timetable Assistant Design" /></p>
 <hr />
 <h2 id="core-mechanisms"><a class="header" href="#core-mechanisms">Core Mechanisms</a></h2>
@@ -239,7 +239,7 @@ DTA provides a perfect real-world testbed for researchers:</p>
 <li><strong>Competition:</strong> Multiple solvers can attempt the same problem, driving up solution quality.</li>
 </ul>
 <h3 id="2-reactive-evaluation--scoring"><a class="header" href="#2-reactive-evaluation--scoring">2. Reactive Evaluation &amp; Scoring</a></h3>
-<p>DTA employs a <strong>reactive</strong> scoring model. Solution scores are not static; they adjust based on the changing state of resources.</p>
+<p>DiTA employs a <strong>reactive</strong> scoring model. Solution scores are not static; they adjust based on the changing state of resources.</p>
 <ul>
 <li><strong>Dynamic Scoring:</strong> If a resource (e.g., a specific lab) becomes overbooked globally, solutions relying on it may see their scores drop in real-time.</li>
 <li><strong>Fairness:</strong> The system penalizes conflicts and rewards efficient resource usage proportionally.</li>
@@ -267,7 +267,7 @@ DTA provides a perfect real-world testbed for researchers:</p>
 <tr><td><strong>Scalability</strong></td><td>Adding more solvers linearly increases the system's problem-solving capacity.</td></tr>
 </tbody></table>
 </div><div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture"><strong>Architecture</strong></a></h1>
-<p>The DTA platform is built as a set of <strong>Kubernetes-native microservices</strong>. It enforces a clear separation between data management (Resources), logic (Processors), and platform utilities.</p>
+<p>The DiTA platform is built as a set of <strong>Kubernetes-native microservices</strong>. It enforces a clear separation between data management (Resources), logic (Processors), and platform utilities.</p>
 <p><strong>Deployment Flexibility:</strong></p>
 <ul>
 <li><strong>Full Self-Hosting:</strong> The entire platform can be deployed on-premise for complete control.</li>
@@ -280,7 +280,7 @@ DTA provides a perfect real-world testbed for researchers:</p>
 <li><strong>State:</strong> PostgreSQL (Relational), Elasticsearch (Search/Index), Redis (Cache/Ephemeral).</li>
 <li><strong>Identity:</strong> Keycloak.</li>
 </ul>
-<p><img src="architecture/../images/architecture.png" alt="DTA Architecture diagram" /></p>
+<p><img src="architecture/../images/architecture.png" alt="DiTA Architecture diagram" /></p>
 <hr />
 <h2 id="service-groups"><a class="header" href="#service-groups">Service Groups</a></h2>
 <h3 id="1-resource-services-the-truth"><a class="header" href="#1-resource-services-the-truth">1. Resource Services (The "Truth")</a></h3>
@@ -317,10 +317,10 @@ DTA provides a perfect real-world testbed for researchers:</p>
 <li><strong>Aggregation:</strong> Analytics services (<code>timetable-ranker</code>) consume result streams to update scores in real-time.</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h2 id="license"><a class="header" href="#license"><strong>License</strong></a></h2>
-<p>The Distributed Timetable Assistant (DTA) project, including its source code, design, documentation, and conceptual framework, is the exclusive intellectual property of its owner.</p>
+<p>The Distributed Timetable Assistant (DiTA) project, including its source code, design, documentation, and conceptual framework, is the exclusive intellectual property of its owner.</p>
 <p>No part of this project — including but not limited to the ideas, algorithms, architectural design, or implementation details — may be copied, reproduced, modified, distributed, or utilized in any form, whether commercial or non-commercial, without explicit prior written permission from the owner.</p>
 <p>Unauthorized use, replication, or distribution of any component of this project constitutes a violation of intellectual property rights and may lead to legal action.</p>
-<p>© 2025 DTA Project. All Rights Reserved.</p>
+<p>© 2025 DiTA Project. All Rights Reserved.</p>
 
                     </main>
 
