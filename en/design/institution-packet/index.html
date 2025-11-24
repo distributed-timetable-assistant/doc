@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Architecture - DiTA — Distributed Timetable Assistant</title>
+        <title>Institution Packet - DiTA — Distributed Timetable Assistant</title>
 
 
         <!-- Custom HTML head -->
@@ -12,34 +12,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../";
+            const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex.js";
+            window.path_to_searchindex_js = "../../searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -106,7 +106,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -141,7 +141,7 @@
                     <h1 class="menu-title">DiTA — Distributed Timetable Assistant</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -175,66 +175,97 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="architecture"><a class="header" href="#architecture"><strong>Architecture</strong></a></h1>
-<p>The DiTA platform is built as a set of <strong>Kubernetes-native microservices</strong>. It enforces a clear separation between data management (Resources), logic (Processors), and platform utilities.</p>
-<p><strong>Deployment Flexibility:</strong></p>
-<ul>
-<li><strong>Full Self-Hosting:</strong> The entire platform can be deployed on-premise for complete control.</li>
-<li><strong>Hybrid:</strong> Use the public cloud for some services (e.g., the marketplace) while keeping sensitive Resource Services self-hosted.</li>
-<li><strong>Service-Level:</strong> Individual services can be swapped or hosted independently.</li>
-</ul>
-<p><strong>Key Tech Stack:</strong></p>
-<ul>
-<li><strong>Communication:</strong> Kafka (Event Bus), gRPC/REST.</li>
-<li><strong>State:</strong> PostgreSQL (Relational), Elasticsearch (Search/Index), Redis (Cache/Ephemeral).</li>
-<li><strong>Identity:</strong> Keycloak.</li>
-</ul>
-<p><img src="../images/architecture.png" alt="DiTA Architecture diagram" /></p>
-<hr />
-<h2 id="service-groups"><a class="header" href="#service-groups">Service Groups</a></h2>
-<h3 id="1-resource-services-the-truth"><a class="header" href="#1-resource-services-the-truth">1. Resource Services (The "Truth")</a></h3>
-<p>These services manage the canonical domain data. They are the source of truth for the system.</p>
-<ul>
-<li><strong><code>packet-manager</code></strong>: Manages submission packets and their lifecycle. Uses <strong>Elasticsearch</strong> for high-performance search.</li>
-<li><strong><code>people</code></strong>: Manages profiles (instructors, students) and availability.</li>
-<li><strong><code>organization</code></strong>: Manages school/university metadata.</li>
-<li><strong><code>resources</code></strong>: Manages physical assets (rooms, equipment).</li>
-<li><strong><code>subjects</code></strong>: Manages curriculum and subject definitions.</li>
-</ul>
-<h3 id="2-processor-services-the-workers"><a class="header" href="#2-processor-services-the-workers">2. Processor Services (The "Workers")</a></h3>
-<p>These services consume events and perform heavy lifting.</p>
-<ul>
-<li><strong><code>basic-scheduler</code></strong>: An automated solver that generates timetables. Uses <strong>Redis</strong> for job queues.</li>
-<li><strong><code>manual-scheduler</code></strong>: Supports human-in-the-loop editing.</li>
-<li><strong><code>packet-analyzer</code></strong>: Extracts features (complexity, constraints) from packets to guide solvers.</li>
-<li><strong><code>timetable-ranker</code></strong>: Stream processor that scores incoming solutions.</li>
-</ul>
-<h3 id="3-platform--infrastructure"><a class="header" href="#3-platform--infrastructure">3. Platform &amp; Infrastructure</a></h3>
-<ul>
-<li><strong><code>wallet</code></strong>: Manages credits and transactions (Cloud-exclusive).</li>
-<li><strong><code>notification</code></strong>: Handles alerts and messages.</li>
-<li><strong><code>kafka</code></strong>: The central nervous system. All services publish/subscribe to domain events here.</li>
-<li><strong><code>ingress</code></strong>: Handles routing and load balancing.</li>
-</ul>
-<hr />
-<h2 id="technical-interaction-flow"><a class="header" href="#technical-interaction-flow">Technical Interaction Flow</a></h2>
-<p>The system relies on an <strong>Event-Driven Architecture</strong>:</p>
-<ol>
-<li><strong>Ingestion:</strong> API calls to Resource Services emit events (e.g., <code>packet.created</code>) to Kafka.</li>
-<li><strong>Processing:</strong> Processor Services (like <code>basic-scheduler</code>) subscribe to these topics.</li>
-<li><strong>Result Publication:</strong> Processors publish results (e.g., <code>candidate.created</code>) back to Kafka.</li>
-<li><strong>Aggregation:</strong> Analytics services (<code>timetable-ranker</code>) consume result streams to update scores in real-time.</li>
-</ol>
+                        <pre><code class="language-yaml">apiVersion: apps/v1
+kind: InstitutionPacket
+name: University of Queensland
+address:
+availabilities: # Availability define specific time ranges along with availability status for scheduling purposes.
+  - action: Add # Add, Remove
+    add-type: WeeklyPeriod # DailyPeriod, WeeklyPeriod, MonthlyPeriod, YearlyPeriod, Blocks, Block
+    first-day-of-week: Sunday # Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+    time-cells:
+      - action: Add # Add, Remove
+        add-type: DailyPeriod
+        rules: []
+        time-cells:
+          - action: Add # Add, Remove
+            add-type: Block
+            start: 08:00
+            end: 09:30
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+          - action: Add # Add, Remove
+            add-type: Block
+            start: 09:45
+            end: 11:15
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+          - action: Add # Add, Remove
+            add-type: Block
+            start: 11:30
+            end: 13:00
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+        start: Sunday
+        end: Thursday
+      - action: Add # Add, Remove
+        add-type: Blocks
+        rules: []
+        time-cells:
+          - action: Add # Add, Remove
+            add-type: Block
+            start: FridayT08:00
+            end: FridayT09:30
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+          - action: Add # Add, Remove
+            add-type: Block
+            start: FridayT09:45
+            end: FridayT11:15
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+          - action: Add # Add, Remove
+            add-type: Block
+            start: FridayT11:30
+            end: FridayT13:00
+            status: Undesired # Available, Unavailable, Preferred, Undesired
+            rules: []
+    start: 2025-07-23T07:43:06+10:00
+    end: 2026-07-23T07:43:06+10:00
+  - action: Remove # Add, Remove
+    remove-type: Holidays
+    country: "au-qld"
+    start: 2025-07-23T07:43:06+10:00
+    end: 2026-07-23T07:43:06+10:00
+facilities: # Facilities represent physical spaces such as classrooms, labs, gyms, or conference halls that can be scheduled for use.
+learners: # Learners are individuals who enroll in courses to receive training or education.
+instructors: # Instructors are individuals responsible for teaching and guiding learners in one or more courses.
+supervisors: # Individuals assigned to supervise or manage the facility.
+resources: # Resources are educational materials such as books, videos, or documents linked to subjects.
+subjects: # Subjects define standard educational topics such as “Physics 2” that can be taught across multiple courses.
+courses: # Courses are scheduled offerings of a subject, typically linked to a specific instructor and academy.
+units: # Organizational units such as schools, departments, or training centers, each with their own scheduling and resources.
+  - name: Faculty of Health and Behavioural Sciences
+    address:
+    availabilities:
+    facilities:
+    learners:
+    instructors:
+    supervisors:
+    resources:
+    subjects:
+    courses:
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../design/institution-packet/units.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../design/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../development/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../design/institution-packet/availabilities.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -244,11 +275,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../design/institution-packet/units.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../design/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../development/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../design/institution-packet/availabilities.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -263,13 +294,13 @@
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

@@ -266,7 +266,144 @@ DiTA provides a perfect real-world testbed for researchers:</p>
 <tr><td><strong>Reactivity</strong></td><td>The system adapts to state changes in real-time.</td></tr>
 <tr><td><strong>Scalability</strong></td><td>Adding more solvers linearly increases the system's problem-solving capacity.</td></tr>
 </tbody></table>
-</div><div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture"><strong>Architecture</strong></a></h1>
+</div><div style="break-before: page; page-break-before: always;"></div><pre><code class="language-yaml">apiVersion: apps/v1
+kind: InstitutionPacket
+name: University of Queensland
+address:
+availabilities: # Availability define specific time ranges along with availability status for scheduling purposes.
+  - action: Add # Add, Remove
+    add-type: WeeklyPeriod # DailyPeriod, WeeklyPeriod, MonthlyPeriod, YearlyPeriod, Blocks, Block
+    first-day-of-week: Sunday # Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+    time-cells:
+      - action: Add # Add, Remove
+        add-type: DailyPeriod
+        rules: []
+        time-cells:
+          - action: Add # Add, Remove
+            add-type: Block
+            start: 08:00
+            end: 09:30
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+          - action: Add # Add, Remove
+            add-type: Block
+            start: 09:45
+            end: 11:15
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+          - action: Add # Add, Remove
+            add-type: Block
+            start: 11:30
+            end: 13:00
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+        start: Sunday
+        end: Thursday
+      - action: Add # Add, Remove
+        add-type: Blocks
+        rules: []
+        time-cells:
+          - action: Add # Add, Remove
+            add-type: Block
+            start: FridayT08:00
+            end: FridayT09:30
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+          - action: Add # Add, Remove
+            add-type: Block
+            start: FridayT09:45
+            end: FridayT11:15
+            status: Available # Available, Unavailable, Preferred, Undesired
+            rules: []
+          - action: Add # Add, Remove
+            add-type: Block
+            start: FridayT11:30
+            end: FridayT13:00
+            status: Undesired # Available, Unavailable, Preferred, Undesired
+            rules: []
+    start: 2025-07-23T07:43:06+10:00
+    end: 2026-07-23T07:43:06+10:00
+  - action: Remove # Add, Remove
+    remove-type: Holidays
+    country: "au-qld"
+    start: 2025-07-23T07:43:06+10:00
+    end: 2026-07-23T07:43:06+10:00
+facilities: # Facilities represent physical spaces such as classrooms, labs, gyms, or conference halls that can be scheduled for use.
+learners: # Learners are individuals who enroll in courses to receive training or education.
+instructors: # Instructors are individuals responsible for teaching and guiding learners in one or more courses.
+supervisors: # Individuals assigned to supervise or manage the facility.
+resources: # Resources are educational materials such as books, videos, or documents linked to subjects.
+subjects: # Subjects define standard educational topics such as “Physics 2” that can be taught across multiple courses.
+courses: # Courses are scheduled offerings of a subject, typically linked to a specific instructor and academy.
+units: # Organizational units such as schools, departments, or training centers, each with their own scheduling and resources.
+  - name: Faculty of Health and Behavioural Sciences
+    address:
+    availabilities:
+    facilities:
+    learners:
+    instructors:
+    supervisors:
+    resources:
+    subjects:
+    courses:
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="availabilities"><a class="header" href="#availabilities">Availabilities</a></h1>
+<p>Availability define specific time ranges along with availability status for scheduling purposes.</p>
+<h2 id="time-units"><a class="header" href="#time-units">Time Units</a></h2>
+<ul>
+<li>
+<p><strong>time_cell</strong></p>
+<ul>
+<li>A basic unit of time allocation.</li>
+<li>Can contain a list of <code>rules</code> to define constraints or specific behaviors.</li>
+</ul>
+</li>
+<li>
+<p><strong>day_cell</strong></p>
+<ul>
+<li>start: 00:00</li>
+<li>end: 23:59</li>
+</ul>
+</li>
+<li>
+<p><strong>week_cell</strong></p>
+<ul>
+<li>day_cell</li>
+<li>day_of_week: FRIDAY</li>
+</ul>
+</li>
+<li>
+<p><strong>month_cell</strong></p>
+<ul>
+<li>day_cell</li>
+<li>day_of_month: 31</li>
+</ul>
+</li>
+<li>
+<p><strong>year_cell</strong></p>
+<ul>
+<li>month_cell</li>
+<li>month_of_year: 12</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="facilities"><a class="header" href="#facilities">Facilities</a></h1>
+<p>Facilities represent physical spaces such as classrooms, labs, gyms, or conference halls that can be scheduled for use.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="learners"><a class="header" href="#learners">Learners</a></h1>
+<p>Learners are individuals who enroll in courses to receive training or education.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="instructors"><a class="header" href="#instructors">Instructors</a></h1>
+<p>Instructors are individuals responsible for teaching and guiding learners in one or more courses.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="supervisors"><a class="header" href="#supervisors">Supervisors</a></h1>
+<p>Individuals assigned to supervise or manage the facility.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="resources"><a class="header" href="#resources">Resources</a></h1>
+<p>Resources are educational materials such as books, videos, or documents linked to subjects.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="subjects"><a class="header" href="#subjects">Subjects</a></h1>
+<p>Subjects define standard educational topics such as “Physics 2” that can be taught across multiple courses.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="courses"><a class="header" href="#courses">Courses</a></h1>
+<p>Courses are scheduled offerings of a subject, typically linked to a specific instructor and academy.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="units"><a class="header" href="#units">Units</a></h1>
+<p>Organizational units such as schools, departments, or training centers, each with their own scheduling and resources.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture"><strong>Architecture</strong></a></h1>
 <p>The DiTA platform is built as a set of <strong>Kubernetes-native microservices</strong>. It enforces a clear separation between data management (Resources), logic (Processors), and platform utilities.</p>
 <p><strong>Deployment Flexibility:</strong></p>
 <ul>
