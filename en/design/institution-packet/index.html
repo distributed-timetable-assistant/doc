@@ -175,7 +175,24 @@
 
                 <div id="content" class="content">
                     <main>
-                        <pre><code class="language-yaml">apiVersion: apps/v1
+                        <h1 id="institution-packet"><a class="header" href="#institution-packet">Institution Packet</a></h1>
+<p>The Institution Packet defines the complete structure and data for an institution within the DITA system. It serves as the root configuration that encompasses all aspects of an institution's scheduling and resource management, including availabilities, facilities, learners, instructors, and more.</p>
+<h2 id="components"><a class="header" href="#components">Components</a></h2>
+<p>The Institution Packet is composed of several aggregates, each responsible for a specific domain of the institution's data:</p>
+<ul>
+<li><strong><a href="availabilities.html">Availabilities</a></strong>: Defines time ranges and availability status for scheduling (e.g., term dates, daily schedules, holidays).</li>
+<li><strong><a href="facilities.html">Facilities</a></strong>: Physical spaces such as classrooms, labs, and conference halls.</li>
+<li><strong><a href="learners.html">Learners</a></strong>: Individuals enrolled in courses.</li>
+<li><strong><a href="instructors.html">Instructors</a></strong>: Individuals responsible for teaching courses.</li>
+<li><strong><a href="supervisors.html">Supervisors</a></strong>: Individuals who manage facilities or other resources.</li>
+<li><strong><a href="resources.html">Resources</a></strong>: Educational materials like books and equipment.</li>
+<li><strong><a href="subjects.html">Subjects</a></strong>: Standard educational topics (e.g., "Physics 101").</li>
+<li><strong><a href="courses.html">Courses</a></strong>: Scheduled offerings of subjects.</li>
+<li><strong><a href="units.html">Units</a></strong>: Organizational units like departments or schools.</li>
+</ul>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<p>Below is an example of a complete Institution Packet configuration in YAML format.</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: InstitutionPacket
 name: University of Queensland
 address:
