@@ -1,3 +1,25 @@
+# Institution Packet
+
+The Institution Packet defines the complete structure and data for an institution within the DITA system. It serves as the root configuration that encompasses all aspects of an institution's scheduling and resource management, including availabilities, facilities, learners, instructors, and more.
+
+## Components
+
+The Institution Packet is composed of several aggregates, each responsible for a specific domain of the institution's data:
+
+- **[Availabilities](availabilities.md)**: Defines time ranges and availability status for scheduling (e.g., term dates, daily schedules, holidays).
+- **[Facilities](facilities.md)**: Physical spaces such as classrooms, labs, and conference halls.
+- **[Learners](learners.md)**: Individuals enrolled in courses.
+- **[Instructors](instructors.md)**: Individuals responsible for teaching courses.
+- **[Supervisors](supervisors.md)**: Individuals who manage facilities or other resources.
+- **[Resources](resources.md)**: Educational materials like books and equipment.
+- **[Subjects](subjects.md)**: Standard educational topics (e.g., "Physics 101").
+- **[Courses](courses.md)**: Scheduled offerings of subjects.
+- **[Units](units.md)**: Organizational units like departments or schools.
+
+## Example
+
+Below is an example of a complete Institution Packet configuration in YAML format.
+
 ```yaml
 apiVersion: apps/v1
 kind: InstitutionPacket
