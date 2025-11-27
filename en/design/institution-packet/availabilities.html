@@ -176,45 +176,107 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="availabilities"><a class="header" href="#availabilities">Availabilities</a></h1>
-<p>Availability define specific time ranges along with availability status for scheduling purposes.</p>
-<h2 id="time-units"><a class="header" href="#time-units">Time Units</a></h2>
+<p>Availabilities define specific time ranges along with availability status for scheduling purposes. This system allows for complex scheduling rules including recurring patterns, specific date ranges, and exception handling (like holidays).</p>
+<h2 id="structure"><a class="header" href="#structure">Structure</a></h2>
+<p>An availability entry consists of a hierarchical structure of time definitions.</p>
+<h3 id="top-level-fields"><a class="header" href="#top-level-fields">Top-Level Fields</a></h3>
 <ul>
-<li>
-<p><strong>time_cell</strong></p>
+<li><strong>action</strong>: The operation to perform.
 <ul>
-<li>A basic unit of time allocation.</li>
-<li>Can contain a list of <code>rules</code> to define constraints or specific behaviors.</li>
+<li><code>Add</code>: Adds availability for the specified period.</li>
+<li><code>Remove</code>: Removes availability (e.g., for holidays or exceptions).</li>
 </ul>
 </li>
-<li>
-<p><strong>day_cell</strong></p>
+<li><strong>add-type</strong> (for <code>Add</code> action): Defines the scope of the addition.
 <ul>
-<li>start: 00:00</li>
-<li>end: 23:59</li>
+<li><code>WeeklyPeriod</code>: A recurring weekly pattern.</li>
+<li><code>DailyPeriod</code>: A recurring daily pattern.</li>
+<li><code>MonthlyPeriod</code>: A recurring monthly pattern.</li>
+<li><code>YearlyPeriod</code>: A recurring yearly pattern.</li>
+<li><code>Blocks</code>: A collection of specific time blocks.</li>
+<li><code>Block</code>: A single specific time block.</li>
 </ul>
 </li>
-<li>
-<p><strong>week_cell</strong></p>
+<li><strong>remove-type</strong> (for <code>Remove</code> action): Defines the scope of removal.
 <ul>
-<li>day_cell</li>
-<li>day_of_week: FRIDAY</li>
+<li><code>Holidays</code>: Removes time based on public holidays for a specific region.</li>
 </ul>
 </li>
-<li>
-<p><strong>month_cell</strong></p>
+<li><strong>start</strong>: The start date/time of the availability period (ISO 8601 format).</li>
+<li><strong>end</strong>: The end date/time of the availability period (ISO 8601 format).</li>
+<li><strong>country</strong> (for <code>Holidays</code>): The country code (e.g., "ir", "au-qld") to fetch public holidays for.</li>
+</ul>
+<h3 id="time-cells"><a class="header" href="#time-cells">Time Cells</a></h3>
+<p>Time cells are nested units that define the granularity of the schedule.</p>
 <ul>
-<li>day_cell</li>
-<li>day_of_month: 31</li>
+<li><strong>action</strong>: <code>Add</code> or <code>Remove</code>.</li>
+<li><strong>add-type</strong>: The type of time cell (e.g., <code>DailyPeriod</code>, <code>Block</code>).</li>
+<li><strong>start</strong>: Start constraint for the cell (e.g., <code>08:00</code>, <code>Monday</code>).</li>
+<li><strong>end</strong>: End constraint for the cell.</li>
+<li><strong>status</strong>: The availability status for this slot.
+<ul>
+<li><code>Available</code>: The time is free to be booked.</li>
+<li><code>Unavailable</code>: The time cannot be booked.</li>
+<li><code>Preferred</code>: The time is preferred for booking.</li>
+<li><code>Undesired</code>: The time is not preferred but can be used if necessary.</li>
 </ul>
 </li>
-<li>
-<p><strong>year_cell</strong></p>
+<li><strong>rules</strong>: A list of specific constraints or behaviors (optional).</li>
+</ul>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<h3 id="iranian-school-schedule"><a class="header" href="#iranian-school-schedule">Iranian School Schedule</a></h3>
+<p>This example demonstrates a school schedule for an Iranian institution.</p>
 <ul>
-<li>month_cell</li>
-<li>month_of_year: 12</li>
+<li><strong>Days</strong>: Saturday to Wednesday.</li>
+<li><strong>Hours</strong>: 08:00 to 13:00.</li>
+<li><strong>Structure</strong>: Three 1.5-hour blocks per day.</li>
+<li><strong>Term</strong>: Start of Mehr (approx. Sept 23) to End of Khordad (approx. June 21).</li>
+<li><strong>Holidays</strong>: Iranian public holidays are excluded.</li>
 </ul>
-</li>
-</ul>
+<pre><code class="language-yaml">availabilities:
+  # Define the main school term schedule
+  - action: Add
+    add-type: WeeklyPeriod
+    first-day-of-week: Saturday
+    start: 2025-09-23T00:00:00+03:30 # Start of Mehr
+    end: 2026-06-21T23:59:59+03:30   # End of Khordad
+    time-cells:
+      - action: Add
+        add-type: DailyPeriod
+        start: Saturday
+        end: Wednesday
+        time-cells:
+          # First Block: 08:00 - 09:30
+          - action: Add
+            add-type: Block
+            start: 08:00
+            end: 09:30
+            status: Available
+            rules: []
+          
+          # Second Block: 09:45 - 11:15 (15 min break)
+          - action: Add
+            add-type: Block
+            start: 09:45
+            end: 11:15
+            status: Available
+            rules: []
+            
+          # Third Block: 11:30 - 13:00 (15 min break)
+          - action: Add
+            add-type: Block
+            start: 11:30
+            end: 13:00
+            status: Available
+            rules: []
+
+  # Remove Iranian Public Holidays
+  - action: Remove
+    remove-type: Holidays
+    country: "ir"
+    start: 2025-09-23T00:00:00+03:30
+    end: 2026-06-21T23:59:59+03:30
+</code></pre>
 
                     </main>
 
