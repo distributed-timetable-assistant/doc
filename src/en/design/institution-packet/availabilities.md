@@ -41,57 +41,93 @@ Time cells are nested units that define the granularity of the schedule.
 
 ## Examples
 
-### Iranian School Schedule
+### Brisbane Middle School Schedule
 
-This example demonstrates a school schedule for an Iranian institution.
-- **Days**: Saturday to Wednesday.
-- **Hours**: 08:00 to 13:00.
-- **Structure**: Three 1.5-hour blocks per day.
-- **Term**: Start of Mehr (approx. Sept 23) to End of Khordad (approx. June 21).
-- **Holidays**: Iranian public holidays are excluded.
+This example demonstrates a school schedule for a middle school in Brisbane, Australia.
+- **Days**: Monday to Friday.
+- **Hours**: 08:30 to 15:10.
+- **Structure**: 6 periods with 2 breaks (Morning Tea and Lunch).
+- **Term**: Term 1 (Jan 28) to Term 4 (Dec 12) for 2025.
+- **Holidays**: Queensland public holidays are excluded.
 
 ```yaml
 availabilities:
-  # Define the main school term schedule
+  # Define the main school term schedule for 2025
   - action: Add
     add-type: WeeklyPeriod
-    first-day-of-week: Saturday
-    start: 2025-09-23T00:00:00+03:30 # Start of Mehr
-    end: 2026-06-21T23:59:59+03:30   # End of Khordad
+    first-day-of-week: Monday
+    start: 2025-01-28T00:00:00+10:00 # Start of Term 1
+    end: 2025-12-12T23:59:59+10:00   # End of Term 4
     time-cells:
       - action: Add
         add-type: DailyPeriod
-        start: Saturday
-        end: Wednesday
+        start: Monday
+        end: Friday
         time-cells:
-          # First Block: 08:00 - 09:30
+          # Period 1: 08:30 - 09:20
           - action: Add
             add-type: Block
-            start: 08:00
-            end: 09:30
+            start: 08:30
+            end: 09:20
             status: Available
             rules: []
-          
-          # Second Block: 09:45 - 11:15 (15 min break)
+
+          # Period 2: 09:20 - 10:10
           - action: Add
             add-type: Block
-            start: 09:45
-            end: 11:15
+            start: 09:20
+            end: 10:10
             status: Available
             rules: []
-            
-          # Third Block: 11:30 - 13:00 (15 min break)
+
+          # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
+
+          # Period 3: 10:40 - 11:30
+          - action: Add
+            add-type: Block
+            start: 10:40
+            end: 11:30
+            status: Available
+            rules: []
+
+          # Period 4: 11:30 - 12:20
           - action: Add
             add-type: Block
             start: 11:30
+            end: 12:20
+            status: Available
+            rules: []
+
+          # Consolidation: 12:20 - 13:00
+          - action: Add
+            add-type: Block
+            start: 12:20
             end: 13:00
             status: Available
             rules: []
 
-  # Remove Iranian Public Holidays
+          # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
+
+          # Period 5: 13:30 - 14:20
+          - action: Add
+            add-type: Block
+            start: 13:30
+            end: 14:20
+            status: Available
+            rules: []
+
+          # Period 6: 14:20 - 15:10
+          - action: Add
+            add-type: Block
+            start: 14:20
+            end: 15:10
+            status: Available
+            rules: []
+
+  # Remove Queensland Public Holidays
   - action: Remove
     remove-type: Holidays
-    country: "ir"
-    start: 2025-09-23T00:00:00+03:30
-    end: 2026-06-21T23:59:59+03:30
+    country: "au-qld"
+    start: 2025-01-28T00:00:00+10:00
+    end: 2025-12-12T23:59:59+10:00
 ```
