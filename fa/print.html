@@ -1,0 +1,607 @@
+<!DOCTYPE HTML>
+<html lang="fa" class="light sidebar-visible" dir="rtl">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>DiTA — دستیار جدول زمانی توزیع‌شده</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">DiTA — دستیار جدول زمانی توزیع‌شده</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="مقدمه"><a class="header" href="#مقدمه"><strong>مقدمه</strong></a></h1>
+<p><strong>دستیار جدول زمانی توزیع‌شده (DiTA)</strong> یک پلتفرم غیرمتمرکز است که برای تحول در زمان‌بندی آموزشی طراحی شده است. DiTA با فاصله گرفتن از الگوریتم‌های سنتی و متمرکز، به موسسات، مدرسان و یادگیرندگان این قدرت را می‌دهد تا به صورت مشترک جداول زمانی بهینه‌ای بسازند.</p>
+<p>به جای یک گلوگاه واحد، DiTA از شبکه‌ای از <strong>سرویس‌های حل‌کننده (Solver Services)</strong> مستقل استفاده می‌کند که برای حل مسائل زمان‌بندی تعریف‌شده توسط <strong>بسته‌های موسسه (Institution Packets)</strong> رقابت می‌کنند. این رویکرد مقیاس‌پذیری، عدالت و توانایی مدیریت محدودیت‌های پیچیده دنیای واقعی را که سیستم‌های متمرکز اغلب از دست می‌دهند، تضمین می‌کند.</p>
+<p>برای بررسی عمیق‌تر نحوه کار DiTA، <a href="overview.html">نمای کلی</a> را ببینید.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="نمای-کلی"><a class="header" href="#نمای-کلی"><strong>نمای کلی</strong></a></h1>
+<h2 id="چالش"><a class="header" href="#چالش">چالش</a></h2>
+<p>زمان‌بندی آموزشی ذاتاً پیچیده است. این امر شامل ایجاد تعادل بین نیازهای ذینفعان متعدد - موسسات، مدرسان، ناظران و یادگیرندگان - در برابر منابع محدودی مانند کلاس‌های درس و آزمایشگاه‌ها است. سیستم‌های متمرکز سنتی اغلب با این پیچیدگی دست و پنجه نرم می‌کنند که منجر به برنامه‌های خشک می‌شود که در برآوردن ترجیحات فردی یا سازگاری با تغییرات ناتوان هستند.</p>
+<h2 id="راهکار-dita"><a class="header" href="#راهکار-dita">راهکار DiTA</a></h2>
+<p><strong>دستیار جدول زمانی توزیع‌شده (DiTA)</strong> این چالش‌ها را از طریق عدم تمرکز حل می‌کند. این پلتفرم بازاری ایجاد می‌کند که در آن مسائل زمان‌بندی با حل‌کنندگان مستقل مطابقت داده می‌شوند.</p>
+<h3 id="مفاهیم-کلیدی"><a class="header" href="#مفاهیم-کلیدی">مفاهیم کلیدی</a></h3>
+<ul>
+<li><strong>بسته‌های موسسه (Institution Packets):</strong> واحدهای داده ساختاریافته که در آن سازمان‌ها شرکت‌کنندگان، دروس، محدودیت‌ها و منابع خود را تعریف می‌کنند.</li>
+<li><strong>سرویس‌های حل‌کننده (Solver Services):</strong> میکروسرویس‌های مستقل (انسانی یا خودکار) که راه‌حل‌های جدول زمانی را پیشنهاد می‌دهند.</li>
+<li><strong>بازار (Marketplace):</strong> اکوسیستمی که در آن بسته‌ها منتشر می‌شوند و راه‌حل‌ها مبادله می‌شوند.</li>
+</ul>
+<h3 id="ویژگیهای-منحصر-به-فرد"><a class="header" href="#ویژگیهای-منحصر-به-فرد">ویژگی‌های منحصر به فرد</a></h3>
+<h4 id="۱-اکوسیستم-باز"><a class="header" href="#۱-اکوسیستم-باز">۱. اکوسیستم باز</a></h4>
+<p>پلتفرم DiTA فقط برای مدارس نیست. این پلتفرمی است که <strong>هر کسی</strong> می‌تواند در آن ثبت نام کند و منابع را مدیریت کند.</p>
+<ul>
+<li><strong>شرکت‌کنندگان:</strong> معلمان، دانش‌آموزان، ناظران.</li>
+<li><strong>امکانات:</strong> مدارس، دانشگاه‌ها، باشگاه‌ها، آزمایشگاه‌ها و موارد دیگر.</li>
+<li><strong>اشتراک‌گذاری:</strong> کاربران می‌توانند دسترس‌پذیری یا منابع خود را (مثلاً آزمایشگاهی که اسلات‌های خالی خود را اجاره می‌دهد) با کل شبکه به اشتراک بگذارند.</li>
+</ul>
+<h4 id="۲-مدیریت-منابع-ترکیبی"><a class="header" href="#۲-مدیریت-منابع-ترکیبی">۲. مدیریت منابع ترکیبی</a></h4>
+<p>موسسات می‌توانند منابع را به روشی منعطف و ترکیبی تعریف کنند:</p>
+<ul>
+<li><strong>اختصاصی:</strong> استفاده از لیست خصوصی معلمان و اتاق‌های خودتان.</li>
+<li><strong>مشترک:</strong> درخواست منابع از استخر عمومی.</li>
+<li><strong>شرطی:</strong> تعریف قوانینی مانند <em>"اگر معلمان ریاضی داخلی ما کاملاً رزرو شده‌اند، یک معلم ریاضی تایید شده از پلتفرم درخواست کن."</em>
+این امر برای همه انواع منابع - مدرسان، کلاس‌های درس یا حتی تجهیزات خاص - صدق می‌کند.</li>
+</ul>
+<h4 id="۳-مرکزی-برای-تحقیقات-آکادمیک"><a class="header" href="#۳-مرکزی-برای-تحقیقات-آکادمیک">۳. مرکزی برای تحقیقات آکادمیک</a></h4>
+<p>زمان‌بندی آموزشی یک حوزه تحقیقاتی پویا است، با کنفرانس‌های اختصاصی مانند <strong>PATAT</strong> (Practice and Theory of Automated Timetabling) و مسابقات بین‌المللی (ITC).
+پلتفرم DiTA یک بستر آزمایشی دنیای واقعی کامل برای محققان فراهم می‌کند:</p>
+<ul>
+<li><strong>داده‌های واقعی:</strong> محققان می‌توانند الگوریتم‌های خود را روی محدودیت‌ها و داده‌های دنیای واقعی (در صورت نیاز ناشناس‌سازی شده) آزمایش کنند.</li>
+<li><strong>بنچمارک:</strong> بازار به عنوان یک بنچمارک زنده عمل می‌کند که در آن الگوریتم‌های جدید می‌توانند با الگوریتم‌های موجود رقابت کنند.</li>
+<li><strong>پیاده‌سازی:</strong> دانشجویان و دانشگاهیان می‌توانند حل‌کنندگان خود را به عنوان میکروسرویس منتشر کنند و کار خود را از مقالات نظری به کاربرد عملی منتقل کنند.</li>
+</ul>
+<h2 id="چگونه-کار-میکند-سفر-کاربر"><a class="header" href="#چگونه-کار-میکند-سفر-کاربر">چگونه کار می‌کند (سفر کاربر)</a></h2>
+<p>۱.  <strong>تعریف:</strong> یک موسسه نیازمندی‌های خود (دروس، معلمان، اتاق‌ها) را تعریف می‌کند و آنها را در یک <strong>بسته موسسه</strong> دسته‌بندی می‌کند.
+۲.  <strong>ارسال:</strong> بسته به شبکه DiTA ارسال می‌شود.
+۳.  <strong>کشف:</strong> <strong>سرویس‌های حل‌کننده</strong> مستقل بسته را کشف و پیچیدگی آن را تحلیل می‌کنند.
+۴.  <strong>حل کردن:</strong> حل‌کنندگان جداول زمانی پیشنهادی را با بهینه‌سازی برای محدودیت‌ها و ترجیحات تولید می‌کنند.
+۵.  <strong>ارزیابی:</strong> سیستم پیشنهادات را بر اساس کیفیت، عدالت و رعایت قوانین امتیازدهی می‌کند.
+۶.  <strong>انتخاب:</strong> موسسه بهترین راه‌حل را انتخاب می‌کند و حل‌کننده برنده پاداش می‌گیرد.</p>
+<p>این فرآیند امکان بهبود تکراری را فراهم می‌کند، جایی که برنامه‌ها می‌توانند در طول زمان اصلاح شوند تا به بهترین نتیجه ممکن برای همه افراد درگیر برسند.</p>
+<p><img src="images/overview-flowchart.png" alt="فلوچارت نمای کلی" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="طراحی"><a class="header" href="#طراحی"><strong>طراحی</strong></a></h1>
+<p>طراحی <strong>دستیار جدول زمانی توزیع‌شده (DiTA)</strong> بر قابلیت توسعه، عدالت و ارزیابی واکنشی (Reactive) تمرکز دارد. این طراحی مکانیسم‌های انتزاعی را فراهم می‌کند که بازار توصیف‌شده در <a href="design/../overview.html">نمای کلی</a> را فعال می‌سازد.</p>
+<p><img src="design/../images/design.png" alt="طراحی دستیار جدول زمانی توزیع‌شده" /></p>
+<hr />
+<h2 id="مکانیسمهای-اصلی"><a class="header" href="#مکانیسمهای-اصلی">مکانیسم‌های اصلی</a></h2>
+<h3 id="۱-بازار-the-marketplace"><a class="header" href="#۱-بازار-the-marketplace">۱. بازار (The Marketplace)</a></h3>
+<p>بازار لایه جداسازی بین موسسات (تقاضا) و حل‌کنندگان (عرضه) است. این لایه تضمین می‌کند که:</p>
+<ul>
+<li><strong>کشف:</strong> حل‌کنندگان می‌توانند مسائلی را که با توانایی‌هایشان مطابقت دارد پیدا کنند.</li>
+<li><strong>شفافیت:</strong> تمام تراکنش‌ها و ارزیابی‌ها قابل تأیید هستند.</li>
+<li><strong>رقابت:</strong> چندین حل‌کننده می‌توانند برای حل یک مسئله تلاش کنند که منجر به افزایش کیفیت راه‌حل می‌شود.</li>
+</ul>
+<h3 id="۲-ارزیابی-و-امتیازدهی-واکنشی"><a class="header" href="#۲-ارزیابی-و-امتیازدهی-واکنشی">۲. ارزیابی و امتیازدهی واکنشی</a></h3>
+<p>پلتفرم DiTA از یک مدل امتیازدهی <strong>واکنشی (Reactive)</strong> استفاده می‌کند. امتیازات راه‌حل‌ها ثابت نیستند؛ آنها بر اساس تغییر وضعیت منابع تنظیم می‌شوند.</p>
+<ul>
+<li><strong>امتیازدهی پویا:</strong> اگر یک منبع (مثلاً یک آزمایشگاه خاص) به صورت سراسری رزرو بیش از حد شود، امتیاز راه‌حل‌هایی که به آن وابسته هستند ممکن است در لحظه کاهش یابد.</li>
+<li><strong>عدالت:</strong> سیستم تضادها را جریمه می‌کند و استفاده کارآمد از منابع را به صورت متناسب پاداش می‌دهد.</li>
+</ul>
+<h3 id="۳-قابلیت-توسعه"><a class="header" href="#۳-قابلیت-توسعه">۳. قابلیت توسعه</a></h3>
+<p>پلتفرم به گونه‌ای طراحی شده است که بدون شکستن قراردادهای موجود تکامل یابد:</p>
+<ul>
+<li><strong>مدل‌های پاداش:</strong> روش‌های جدید برای تشویق حل‌کنندگان (مانند توکن‌ها، شهرت) قابل اتصال هستند.</li>
+<li><strong>گیمیفیکیشن:</strong> لیدربردها و چالش‌ها می‌توانند به لایه حل‌کننده اضافه شوند.</li>
+<li><strong>اعتبارسنج‌های قابل اتصال:</strong> موسسات می‌توانند منطق اعتبارسنجی سفارشی را برای محدودیت‌های خاص خود اضافه کنند.</li>
+</ul>
+<h3 id="۴-پردازش-منعطف-و-حریم-خصوصی"><a class="header" href="#۴-پردازش-منعطف-و-حریم-خصوصی">۴. پردازش منعطف و حریم خصوصی</a></h3>
+<p>سیستم از مدل‌های پردازش مختلف برای برآوردن نیازهای متفاوت حریم خصوصی و امنیتی پشتیبانی می‌کند:</p>
+<ul>
+<li><strong>پردازش میزبانی‌شده توسط خود (Self-Hosted):</strong> موسسات می‌توانند سرویس‌های حل‌کننده خود را اجرا کنند تا داده‌ها کاملاً در زیرساخت خودشان باقی بماند.</li>
+<li><strong>پردازش شرطی:</strong> درخواست‌ها می‌توانند به حل‌کنندگان خاصی که معیارهای خاصی را برآورده می‌کنند (مثلاً "فقط شرکای مورد اعتماد") هدایت شوند.</li>
+<li><strong>پردازش ناشناس:</strong> داده‌ها می‌توانند قبل از رسیدن به حل‌کنندگان عمومی از یک لایه ناشناس‌سازی عبور کنند. نتایج پس از بازگشت به صورت شفاف از حالت ناشناس خارج می‌شوند و به جامعه اجازه می‌دهند بدون دیدن داده‌های هویتی حساس، مسئله را حل کنند.</li>
+</ul>
+<hr />
+<h2 id="اصول-طراحی"><a class="header" href="#اصول-طراحی">اصول طراحی</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>اصل</th><th>توضیحات</th></tr></thead><tbody>
+<tr><td><strong>عدم تمرکز</strong></td><td>منطق توزیع شده است؛ هیچ زمان‌بند مرکزی واحدی بر نتیجه کنترل ندارد.</td></tr>
+<tr><td><strong>شفافیت</strong></td><td>قوانین ارزیابی و پاداش‌ها برای همه شرکت‌کنندگان روشن است.</td></tr>
+<tr><td><strong>واکنش‌گرا (Reactivity)</strong></td><td>سیستم با تغییرات وضعیت در لحظه سازگار می‌شود.</td></tr>
+<tr><td><strong>مقیاس‌پذیری</strong></td><td>افزودن حل‌کنندگان بیشتر، ظرفیت حل مسئله سیستم را به صورت خطی افزایش می‌دهد.</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="بسته-موسسه-institution-packet"><a class="header" href="#بسته-موسسه-institution-packet">بسته موسسه (Institution Packet)</a></h1>
+<p>بسته موسسه ساختار کامل و داده‌ها را برای یک موسسه در سیستم DiTA تعریف می‌کند. این بسته به عنوان پیکربندی ریشه‌ای عمل می‌کند که تمام جنبه‌های زمان‌بندی و مدیریت منابع موسسه، از جمله در دسترس بودن‌ها، امکانات، یادگیرندگان، مدرسان و موارد دیگر را در بر می‌گیرد.</p>
+<h2 id="اجزا"><a class="header" href="#اجزا">اجزا</a></h2>
+<p>بسته موسسه از چندین بخش تشکیل شده است که هر کدام مسئول یک دامنه خاص از داده‌های موسسه هستند:</p>
+<ul>
+<li><strong><a href="design/institution-packet/availabilities.html">دسترسی‌ها</a></strong>: بازه‌های زمانی و وضعیت در دسترس بودن برای زمان‌بندی را تعریف می‌کند (مانند تاریخ‌های ترم، برنامه‌های روزانه، تعطیلات).</li>
+<li><strong><a href="design/institution-packet/facilities.html">امکانات</a></strong>: فضاهای فیزیکی مانند کلاس‌های درس، آزمایشگاه‌ها و سالن‌های کنفرانس.</li>
+<li><strong><a href="design/institution-packet/learners.html">یادگیرندگان</a></strong>: افرادی که در دوره‌ها ثبت نام کرده‌اند.</li>
+<li><strong><a href="design/institution-packet/instructors.html">مدرسان</a></strong>: افرادی که مسئول تدریس دوره‌ها هستند.</li>
+<li><strong><a href="design/institution-packet/supervisors.html">ناظران</a></strong>: افرادی که امکانات یا منابع دیگر را مدیریت می‌کنند.</li>
+<li><strong><a href="design/institution-packet/resources.html">منابع</a></strong>: مواد آموزشی مانند کتاب‌ها و تجهیزات.</li>
+<li><strong><a href="design/institution-packet/subjects.html">موضوعات</a></strong>: عناوین آموزشی استاندارد (مانند "فیزیک ۱").</li>
+<li><strong><a href="design/institution-packet/courses.html">دوره‌ها</a></strong>: ارائه‌های زمان‌بندی شده موضوعات.</li>
+<li><strong><a href="design/institution-packet/units.html">واحدها</a></strong>: واحدهای سازمانی مانند دپارتمان‌ها یا دانشکده‌ها.</li>
+</ul>
+<h2 id="مثال"><a class="header" href="#مثال">مثال</a></h2>
+<p>در زیر یک مثال از پیکربندی کامل بسته موسسه با فرمت YAML آورده شده است.</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: InstitutionPacket
+name: Brisbane Central Primary School
+address:
+availabilities: # دسترسی‌ها بازه‌های زمانی خاص را همراه با وضعیت برای اهداف زمان‌بندی تعریف می‌کنند.
+  - action: Add # افزودن (Add)، حذف (Remove)
+    add-type: WeeklyPeriod # دوره روزانه، هفتگی، ماهانه، سالانه، بلوک‌ها، بلوک
+    first-day-of-week: Monday # یک‌شنبه تا شنبه (نام‌های انگلیسی)
+    time-cells:
+      - action: Add # افزودن، حذف
+        add-type: DailyPeriod
+        rules: []
+        time-cells:
+          # جلسه ۱: ۰۹:۰۰ - ۱۰:۴۰
+          - action: Add # افزودن، حذف
+            add-type: Block
+            start: 09:00
+            end: 10:40
+            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
+            rules: []
+          
+          # استراحت ۱: ۱۰:۴۰ - ۱۱:۲۵ (مستثنی شده)
+
+          # جلسه ۲: ۱۱:۳۰ - ۱۳:۰۰
+          - action: Add # افزودن، حذف
+            add-type: Block
+            start: 11:30
+            end: 13:00
+            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
+            rules: []
+
+          # استراحت ۲: ۱۳:۰۰ - ۱۳:۳۰ (مستثنی شده)
+
+          # جلسه ۳: ۱۳:۳۰ - ۱۵:۰۰
+          - action: Add # افزودن، حذف
+            add-type: Block
+            start: 13:30
+            end: 15:00
+            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
+            rules: []
+        start: Monday
+        end: Friday
+    start: 2025-01-28T00:00:00+10:00
+    end: 2025-12-12T23:59:59+10:00
+  - action: Remove # افزودن، حذف
+    remove-type: Holidays
+    country: "au-qld"
+    start: 2025-01-28T00:00:00+10:00
+    end: 2025-12-12T23:59:59+10:00
+facilities: # امکانات نشان‌دهنده فضاهای فیزیکی مانند کلاس‌ها، آزمایشگاه‌ها، سالن‌های ورزشی یا کنفرانس هستند که قابل زمان‌بندی می‌باشند.
+learners: # یادگیرندگان افرادی هستند که برای دریافت آموزش در دوره‌ها ثبت‌نام می‌کنند.
+instructors: # مدرسان افرادی هستند که مسئول آموزش و راهنمایی یادگیرندگان در یک یا چند دوره هستند.
+supervisors: # افرادی که برای نظارت یا مدیریت امکانات تعیین شده‌اند.
+resources: # منابع مواد آموزشی مانند کتاب‌ها، ویدئوها یا اسنادی هستند که به موضوعات مرتبط هستند.
+subjects: # موضوعات عناوین آموزشی استاندارد مانند "فیزیک ۲" را تعریف می‌کنند که می‌توانند در چندین دوره تدریس شوند.
+courses: # دوره‌ها ارائه‌های زمان‌بندی شده یک موضوع هستند که معمولاً به یک مدرس و آکادمی خاص مرتبط می‌باشند.
+units: # واحدهای سازمانی مانند مدارس، دپارتمان‌ها یا مراکز آموزشی که هر کدام زمان‌بندی و منابع خاص خود را دارند.
+  - name: Primary Years
+    address:
+    availabilities:
+    facilities:
+    learners:
+    instructors:
+    supervisors:
+    resources:
+    subjects:
+    courses:
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="دسترسیها-availabilities"><a class="header" href="#دسترسیها-availabilities">دسترسی‌ها (Availabilities)</a></h1>
+<p>دسترسی‌ها بازه‌های زمانی خاص را همراه با وضعیت برای اهداف زمان‌بندی تعریف می‌کنند. این سیستم امکان ایجاد قوانین زمان‌بندی پیچیده شامل الگوهای تکرارشونده، محدوده‌های زمانی خاص و مدیریت استثناها (مانند تعطیلات) را فراهم می‌کند.</p>
+<h2 id="ساختار"><a class="header" href="#ساختار">ساختار</a></h2>
+<p>یک ورودی دسترسی شامل ساختاری سلسله‌مراتبی از تعاریف زمانی است.</p>
+<h3 id="فیلدهای-سطح-بالا"><a class="header" href="#فیلدهای-سطح-بالا">فیلدهای سطح بالا</a></h3>
+<ul>
+<li><strong>action</strong>: عملیاتی که باید انجام شود.
+<ul>
+<li><code>Add</code>: افزودن دسترسی برای دوره مشخص شده.</li>
+<li><code>Remove</code>: حذف دسترسی (مثلاً برای تعطیلات یا استثناها).</li>
+</ul>
+</li>
+<li><strong>add-type</strong> (برای عمل <code>Add</code>): دامنه افزودن را تعریف می‌کند.
+<ul>
+<li><code>WeeklyPeriod</code>: الگوی تکرارشونده هفتگی.</li>
+<li><code>DailyPeriod</code>: الگوی تکرارشونده روزانه.</li>
+<li><code>MonthlyPeriod</code>: الگوی تکرارشونده ماهانه.</li>
+<li><code>YearlyPeriod</code>: الگوی تکرارشونده سالانه.</li>
+<li><code>Blocks</code>: مجموعه‌ای از بلوک‌های زمانی خاص.</li>
+<li><code>Block</code>: یک بلوک زمانی خاص تکی.</li>
+</ul>
+</li>
+<li><strong>remove-type</strong> (برای عمل <code>Remove</code>): دامنه حذف را تعریف می‌کند.
+<ul>
+<li><code>Holidays</code>: حذف زمان بر اساس تعطیلات رسمی برای یک منطقه خاص.</li>
+</ul>
+</li>
+<li><strong>start</strong>: تاریخ/زمان شروع دوره دسترسی (فرمت ISO 8601).</li>
+<li><strong>end</strong>: تاریخ/زمان پایان دوره دسترسی (فرمت ISO 8601).</li>
+<li><strong>country</strong> (برای <code>Holidays</code>): کد کشور (مثلاً "ir", "au-qld") برای دریافت تعطیلات رسمی.</li>
+</ul>
+<h3 id="سلولهای-زمانی-time-cells"><a class="header" href="#سلولهای-زمانی-time-cells">سلول‌های زمانی (Time Cells)</a></h3>
+<p>سلول‌های زمانی واحدهای تودرتویی هستند که دقت زمان‌بندی را تعریف می‌کنند.</p>
+<ul>
+<li><strong>action</strong>: <code>Add</code> یا <code>Remove</code>.</li>
+<li><strong>add-type</strong>: نوع سلول زمانی (مثلاً <code>DailyPeriod</code>, <code>Block</code>).</li>
+<li><strong>start</strong>: محدودیت شروع برای سلول (مثلاً <code>08:00</code>, <code>Monday</code>).</li>
+<li><strong>end</strong>: محدودیت پایان برای سلول.</li>
+<li><strong>status</strong>: وضعیت در دسترس بودن برای این جایگاه.
+<ul>
+<li><code>Available</code>: زمان آزاد است و می‌تواند رزرو شود.</li>
+<li><code>Unavailable</code>: زمان قابل رزرو نیست.</li>
+<li><code>Preferred</code>: زمان برای رزرو ترجیح داده می‌شود.</li>
+<li><code>Undesired</code>: زمان ترجیح داده نمی‌شود اما در صورت لزوم قابل استفاده است.</li>
+</ul>
+</li>
+<li><strong>rules</strong>: لیستی از محدودیت‌ها یا رفتارهای خاص (اختیاری).</li>
+</ul>
+<h2 id="مثالها"><a class="header" href="#مثالها">مثال‌ها</a></h2>
+<h3 id="برنامه-مدرسه-راهنمایی-بریزبن"><a class="header" href="#برنامه-مدرسه-راهنمایی-بریزبن">برنامه مدرسه راهنمایی بریزبن</a></h3>
+<p>این مثال یک برنامه مدرسه برای مدرسه راهنمایی در بریزبن، استرالیا را نشان می‌دهد.</p>
+<ul>
+<li><strong>روزها</strong>: دوشنبه تا جمعه.</li>
+<li><strong>ساعات</strong>: ۰۸:۳۰ تا ۱۵:۱۰.</li>
+<li><strong>ساختار</strong>: ۶ زنگ با ۲ وقت استراحت (چای صبحگاهی و ناهار).</li>
+<li><strong>ترم</strong>: ترم ۱ (۲۸ ژانویه) تا ترم ۴ (۱۲ دسامبر) برای سال ۲۰۲۵.</li>
+<li><strong>تعطیلات</strong>: تعطیلات رسمی کوئینزلند مستثنی شده‌اند.</li>
+</ul>
+<pre><code class="language-yaml">availabilities:
+  # تعریف برنامه اصلی مدرسه برای سال ۲۰۲۵
+  - action: Add
+    add-type: WeeklyPeriod
+    first-day-of-week: Monday
+    start: 2025-01-28T00:00:00+10:00 # شروع ترم ۱
+    end: 2025-12-12T23:59:59+10:00   # پایان ترم ۴
+    time-cells:
+      - action: Add
+        add-type: DailyPeriod
+        start: Monday
+        end: Friday
+        time-cells:
+          # زنگ ۱: ۰۸:۳۰ - ۰۹:۲۰
+          - action: Add
+            add-type: Block
+            start: 08:30
+            end: 09:20
+            status: Available
+            rules: []
+
+          # زنگ ۲: ۰۹:۲۰ - ۱۰:۱۰
+          - action: Add
+            add-type: Block
+            start: 09:20
+            end: 10:10
+            status: Available
+            rules: []
+
+          # استراحت ۱ (چای صبحگاهی): ۱۰:۱۰ - ۱۰:۴۰ (مستثنی شده)
+
+          # زنگ ۳: ۱۰:۴۰ - ۱۱:۳۰
+          - action: Add
+            add-type: Block
+            start: 10:40
+            end: 11:30
+            status: Available
+            rules: []
+
+          # زنگ ۴: ۱۱:۳۰ - ۱۲:۲۰
+          - action: Add
+            add-type: Block
+            start: 11:30
+            end: 12:20
+            status: Available
+            rules: []
+
+          # جمع‌بندی: ۱۲:۲۰ - ۱۳:۰۰
+          - action: Add
+            add-type: Block
+            start: 12:20
+            end: 13:00
+            status: Available
+            rules: []
+
+          # استراحت ۲ (ناهار): ۱۳:۰۰ - ۱۳:۳۰ (مستثنی شده)
+
+          # زنگ ۵: ۱۳:۳۰ - ۱۴:۲۰
+          - action: Add
+            add-type: Block
+            start: 13:30
+            end: 14:20
+            status: Available
+            rules: []
+
+          # زنگ ۶: ۱۴:۲۰ - ۱۵:۱۰
+          - action: Add
+            add-type: Block
+            start: 14:20
+            end: 15:10
+            status: Available
+            rules: []
+
+  # حذف تعطیلات رسمی کوئینزلند
+  - action: Remove
+    remove-type: Holidays
+    country: "au-qld"
+    start: 2025-01-28T00:00:00+10:00
+    end: 2025-12-12T23:59:59+10:00
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="امکانات"><a class="header" href="#امکانات">امکانات</a></h1>
+<p>امکانات به فضاهای فیزیکی مانند کلاس‌ها، آزمایشگاه‌ها، سالن‌های ورزشی یا سالن‌های همایش اشاره دارند که می‌توان آن‌ها را برای استفاده زمان‌بندی کرد.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="فراگیران"><a class="header" href="#فراگیران">فراگیران</a></h1>
+<p>یادگیرندگان افرادی هستند که برای دریافت آموزش یا مهارت‌آموزی در دوره‌ها ثبت‌نام می‌کنند.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="مدرسان"><a class="header" href="#مدرسان">مدرسان</a></h1>
+<p>مدرسان افرادی هستند که مسئولیت آموزش و هدایت فراگیران را در یک یا چند دوره بر عهده دارند.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ناظران"><a class="header" href="#ناظران">ناظران</a></h1>
+<p>افرادی که برای نظارت یا مدیریت امکانات تعیین شده‌اند.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="منابع"><a class="header" href="#منابع">منابع</a></h1>
+<p>منابع مواد آموزشی مانند کتاب‌ها، ویدئوها یا اسنادی هستند که به موضوعات مرتبط هستند.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="موضوعات"><a class="header" href="#موضوعات">موضوعات</a></h1>
+<p>موضوعات، سرفصل‌های استاندارد آموزشی مانند «فیزیک ۲» هستند که می‌توان آن‌ها را در چندین دوره تدریس کرد.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="دورهها"><a class="header" href="#دورهها">دوره‌ها</a></h1>
+<p>دوره‌ها ارائه‌های زمان‌بندی‌شده‌ی یک موضوع آموزشی هستند که معمولاً به یک مدرس و یک مؤسسه‌ی آموزشی مشخص متصل می‌شوند.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="واحدها"><a class="header" href="#واحدها">واحدها</a></h1>
+<p>واحدها ساختارهای سازمانی مانند مدارس، دپارتمان‌ها یا مراکز آموزشی هستند که هرکدام برنامه‌ریزی و منابع مخصوص به خود را دارند.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="معماری"><a class="header" href="#معماری"><strong>معماری</strong></a></h1>
+<p>پلتفرم DiTA به عنوان مجموعه‌ای از <strong>میکروسرویس‌های بومی کوبرنتیز (Kubernetes-native)</strong> ساخته شده است. این پلتفرم جداسازی واضحی بین مدیریت داده (منابع)، منطق (پردازشگرها) و ابزارهای پلتفرم اعمال می‌کند.</p>
+<p><strong>انعطاف‌پذیری در استقرار:</strong></p>
+<ul>
+<li><strong>میزبانی کامل شخصی (Self-Hosting):</strong> کل پلتفرم می‌تواند برای کنترل کامل به صورت محلی (On-Premise) مستقر شود.</li>
+<li><strong>ترکیبی (Hybrid):</strong> استفاده از ابر عمومی برای برخی سرویس‌ها (مانند بازار) در حالی که سرویس‌های منابع حساس به صورت شخصی میزبانی می‌شوند.</li>
+<li><strong>سطح سرویس:</strong> سرویس‌های فردی می‌توانند به طور مستقل جایگزین یا میزبانی شوند.</li>
+</ul>
+<p><strong>تکنولوژی‌های کلیدی:</strong></p>
+<ul>
+<li><strong>ارتباطات:</strong> Kafka (گذرگاه رویداد)، gRPC/REST.</li>
+<li><strong>وضعیت (State):</strong> PostgreSQL (رابطه‌ای)، Elasticsearch (جستجو/اینکس)، Redis (کش/موقتی).</li>
+<li><strong>هویت:</strong> Keycloak.</li>
+</ul>
+<p><img src="architecture/../images/architecture.png" alt="نمودار معماری DiTA" /></p>
+<hr />
+<h2 id="گروههای-سرویس"><a class="header" href="#گروههای-سرویس">گروه‌های سرویس</a></h2>
+<h3 id="۱-سرویسهای-منابع-حقیقت"><a class="header" href="#۱-سرویسهای-منابع-حقیقت">۱. سرویس‌های منابع (حقیقت)</a></h3>
+<p>این سرویس‌ها داده‌های دامنه اصلی را مدیریت می‌کنند. آنها منبع حقیقت سیستم هستند.</p>
+<ul>
+<li><strong><code>packet-manager</code></strong>: بسته‌های ارسالی و چرخه عمر آنها را مدیریت می‌کند. برای جستجوی با کارایی بالا از <strong>Elasticsearch</strong> استفاده می‌کند.</li>
+<li><strong><code>people</code></strong>: پروفایل‌ها (مدرسان، دانشجویان) و در دسترس بودن را مدیریت می‌کند.</li>
+<li><strong><code>organization</code></strong>: ابرداده‌های مدرسه/دانشگاه را مدیریت می‌کند.</li>
+<li><strong><code>resources</code></strong>: دارایی‌های فیزیکی (اتاق‌ها، تجهیزات) را مدیریت می‌کند.</li>
+<li><strong><code>subjects</code></strong>: برنامه درسی و تعاریف موضوعات را مدیریت می‌کند.</li>
+</ul>
+<h3 id="۲-سرویسهای-پردازشگر-کارگران"><a class="header" href="#۲-سرویسهای-پردازشگر-کارگران">۲. سرویس‌های پردازشگر (کارگران)</a></h3>
+<p>این سرویس‌ها رویدادها را مصرف کرده و کارهای سنگین را انجام می‌دهند.</p>
+<ul>
+<li><strong><code>basic-scheduler</code></strong>: یک حل‌کننده خودکار که جداول زمانی را تولید می‌کند. برای صف‌های کار از <strong>Redis</strong> استفاده می‌کند.</li>
+<li><strong><code>manual-scheduler</code></strong>: از ویرایش توسط انسان (Human-in-the-loop) پشتیبانی می‌کند.</li>
+<li><strong><code>packet-analyzer</code></strong>: ویژگی‌ها (پیچیدگی، محدودیت‌ها) را از بسته‌ها استخراج می‌کند تا حل‌کنندگان را راهنمایی کند.</li>
+<li><strong><code>timetable-ranker</code></strong>: پردازشگر جریانی که راه‌حل‌های ورودی را امتیازدهی می‌کند.</li>
+</ul>
+<h3 id="۳-پلتفرم-و-زیرساخت"><a class="header" href="#۳-پلتفرم-و-زیرساخت">۳. پلتفرم و زیرساخت</a></h3>
+<ul>
+<li><strong><code>wallet</code></strong>: اعتبارات و تراکنش‌ها را مدیریت می‌کند (انحصاری ابر).</li>
+<li><strong><code>notification</code></strong>: هشدارها و پیام‌ها را مدیریت می‌کند.</li>
+<li><strong><code>kafka</code></strong>: سیستم عصبی مرکزی. همه سرویس‌ها رویدادهای دامنه را در اینجا منتشر/مشترک می‌شوند.</li>
+<li><strong><code>ingress</code></strong>: مسیریابی و متعادل‌سازی بار را مدیریت می‌کند.</li>
+</ul>
+<hr />
+<h2 id="جریان-تعامل-فنی"><a class="header" href="#جریان-تعامل-فنی">جریان تعامل فنی</a></h2>
+<p>سیستم بر یک <strong>معماری رویداد-محور (Event-Driven)</strong> متکی است:</p>
+<p>۱.  <strong>ورود داده (Ingestion):</strong> فراخوانی‌های API به سرویس‌های منابع، رویدادهایی (مانند <code>packet.created</code>) را به Kafka ارسال می‌کنند.
+۲.  <strong>پردازش:</strong> سرویس‌های پردازشگر (مانند <code>basic-scheduler</code>) در این تاپیک‌ها مشترک می‌شوند.
+۳.  <strong>انتشار نتایج:</strong> پردازشگرها نتایج (مانند <code>candidate.created</code>) را دوباره به Kafka منتشر می‌کنند.
+۴.  <strong>تجمع (Aggregation):</strong> سرویس‌های تحلیلی (<code>timetable-ranker</code>) جریان‌های نتایج را مصرف می‌کنند تا امتیازات را به صورت بلادرنگ به‌روزرسانی کنند.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="توسعه"><a class="header" href="#توسعه">توسعه</a></h1>
+<p>این بخش شامل تصمیمات فنی و پیاده‌سازی سرویس‌ها است.</p>
+<p>راهنمای فنی توسعه در آدرس زیر در دسترس است: <a href="http://eg.dita.hasankarimi.ir">eg.dita.hasankarimi.ir</a></p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h2 id="مجوز"><a class="header" href="#مجوز"><strong>مجوز</strong></a></h2>
+<p>پروژه دستیار جدول زمانی توزیع‌شده (DiTA)، شامل کد منبع، طراحی، مستندات و چارچوب مفهومی آن، دارایی معنوی انحصاری مالک آن است.</p>
+<p>هیچ بخشی از این پروژه - شامل اما نه محدود به ایده‌ها، الگوریتم‌ها، طراحی معماری یا جزئیات پیاده‌سازی - نباید بدون اجازه کتبی قبلی از مالک، کپی، بازتولید، اصلاح، توزیع یا به هر شکلی، اعم از تجاری یا غیرتجاری، استفاده شود.</p>
+<p>استفاده غیرمجاز، تکثیر یا توزیع هر یک از اجزای این پروژه نقض حقوق مالکیت معنوی تلقی شده و ممکن است منجر به اقدام قانونی شود.</p>
+<p>© 2025 پروژه DiTA. تمامی حقوق محفوظ است.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
