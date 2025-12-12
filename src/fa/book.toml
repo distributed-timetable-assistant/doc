@@ -3,3 +3,6 @@ authors = ["Hasan Karimi"]
 language = "fa"
 src = "."
 title = "DiTA — دستیار جدول زمانی توزیع‌شده"
+
+[output.html]
+additional-js = ["lang-switch.js"]

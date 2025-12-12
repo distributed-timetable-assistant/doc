@@ -1,0 +1,1 @@
+../static/lang-switch.js

@@ -3,3 +3,6 @@ authors = ["Hasan Karimi"]
 language = "en"
 src = "."
 title = "DiTA — Distributed Timetable Assistant"
+
+[output.html]
+additional-js = ["lang-switch.js"]
