@@ -14,6 +14,8 @@
     - [درووس](design/institution-packet/courses.md)
     - [واحدها](design/institution-packet/units.md)
 - [معماری](architecture/README.md)
+  - [سوابق تصمیم‌گیری معماری](architecture/adr/README.md)
+    - [انتخاب راست (Rust) به عنوان زبان اصلی](architecture/adr/000001-rust-as-primary-microservices-language.md)
 - [توسعه](development/README.md)
   - [بکند](development/backend/README.md)
     - [سرویس احراز هویت](development/backend/auth-service/README.md)

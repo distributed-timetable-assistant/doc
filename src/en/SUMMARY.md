@@ -14,6 +14,8 @@
     - [Courses](design/institution-packet/courses.md)
     - [Units](design/institution-packet/units.md)
 - [Architecture](architecture/README.md)
+  - [Architecture Decision Records](architecture/adr/README.md)
+    - [Rust as Primary Language](architecture/adr/000001-rust-as-primary-microservices-language.md)
 - [Development](development/README.md)
   - [Backend](development/backend/README.md)
     - [Auth Service](development/backend/auth-service/README.md)
