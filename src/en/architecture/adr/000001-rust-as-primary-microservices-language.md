@@ -1,4 +1,4 @@
-# 003. Select Rust as the Primary Language for Microservices
+# 000001. Select Rust as the Primary Language for Microservices
 
 Date: 2025-12-19
 
