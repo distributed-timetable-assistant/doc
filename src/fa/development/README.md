@@ -2,4 +2,4 @@
 
 این بخش شامل تصمیمات فنی و پیاده‌سازی سرویس‌ها است.
 
-راهنمای فنی توسعه در آدرس زیر در دسترس است: [eg.dita.hasankarimi.ir](http://eg.dita.hasankarimi.ir)
+راهنمای فنی توسعه در آدرس زیر در دسترس است: [eg.dita.hasankarimi.ir](http://eg.dita.hasankarimi.ir/fa)
