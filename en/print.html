@@ -555,8 +555,47 @@ units: # Organizational units such as schools, departments, or training centers,
 <li><strong>Result Publication:</strong> Processors publish results (e.g., <code>candidate.created</code>) back to Kafka.</li>
 <li><strong>Aggregation:</strong> Analytics services (<code>timetable-ranker</code>) consume result streams to update scores in real-time.</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="architecture-decision-records"><a class="header" href="#architecture-decision-records">Architecture Decision Records</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-as-primary-language"><a class="header" href="#rust-as-primary-language">Rust as Primary Language</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="architecture-decision-records-adr"><a class="header" href="#architecture-decision-records-adr">Architecture Decision Records (ADR)</a></h1>
+<p>This section contains documentation regarding significant architectural decisions for the project.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="003-select-rust-as-the-primary-language-for-microservices"><a class="header" href="#003-select-rust-as-the-primary-language-for-microservices">003. Select Rust as the Primary Language for Microservices</a></h1>
+<p>Date: 2025-12-19</p>
+<h2 id="status"><a class="header" href="#status">Status</a></h2>
+<p>Accepted</p>
+<h2 id="context"><a class="header" href="#context">Context</a></h2>
+<p>DiTA is a distributed, solver-centric platform that executes computationally intensive scheduling and optimization workloads.<br />
+The system is composed of multiple independent microservices operating under high concurrency, strict latency constraints, and cost-sensitive infrastructure environments (Kubernetes-based deployments).</p>
+<p>The platform’s domain logic is inherently complex, stateful, and highly sensitive to correctness issues such as race conditions, memory corruption, and non-deterministic runtime behavior.<br />
+As the platform is expected to scale horizontally and operate continuously in production, the choice of implementation language has a direct impact on system reliability, operational cost, and long-term maintainability.</p>
+<h2 id="decision"><a class="header" href="#decision">Decision</a></h2>
+<p>Rust is selected as the primary implementation language for all core microservices in the DiTA platform.</p>
+<p>This decision applies to:</p>
+<ul>
+<li>Solver services</li>
+<li>Scheduling and orchestration services</li>
+<li>Core domain and infrastructure-facing microservices</li>
+</ul>
+<p>Rust will be treated as the default and preferred language unless a clear, documented exception is approved via a separate ADR.</p>
+<h2 id="consequences"><a class="header" href="#consequences">Consequences</a></h2>
+<h3 id="positive"><a class="header" href="#positive">Positive</a></h3>
+<ul>
+<li>Near C/C++ performance with predictable execution characteristics, suitable for solver-heavy workloads.</li>
+<li>Efficient CPU and memory usage, enabling higher service density and lower infrastructure costs.</li>
+<li>Strong compile-time guarantees for memory safety and concurrency, significantly reducing production risk.</li>
+<li>Improved correctness and clarity in modeling complex domain logic.</li>
+<li>Higher overall engineering discipline and long-term codebase quality.</li>
+</ul>
+<h3 id="negative--risks"><a class="header" href="#negative--risks">Negative / Risks</a></h3>
+<ul>
+<li>Steeper learning curve for new contributors.</li>
+<li>Slower initial prototyping compared to higher-level or managed languages.</li>
+<li>Smaller hiring pool compared to more mainstream ecosystems.</li>
+</ul>
+<h3 id="mitigations"><a class="header" href="#mitigations">Mitigations</a></h3>
+<ul>
+<li>Clear engineering guidelines and internal documentation.</li>
+<li>Shared libraries, templates, and reference implementations for common service patterns.</li>
+<li>Onboarding materials focused on Rust patterns relevant to DiTA’s architecture.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="development"><a class="header" href="#development">Development</a></h1>
 <p>This section contains technical decisions and service implementations.</p>
 <p>The technical development guide is available at: <a href="http://eg.dita.hasankarimi.ir">eg.dita.hasankarimi.ir</a></p>
