@@ -178,42 +178,109 @@
                         <h1 id="000001-select-rust-as-the-primary-language-for-microservices"><a class="header" href="#000001-select-rust-as-the-primary-language-for-microservices">000001. Select Rust as the Primary Language for Microservices</a></h1>
 <p>Date: 2025-12-19</p>
 <h2 id="status"><a class="header" href="#status">Status</a></h2>
-<p>Accepted</p>
+<p>Accepted (with explicit constraints and exit criteria)</p>
 <h2 id="context"><a class="header" href="#context">Context</a></h2>
-<p>DiTA is a distributed, solver-centric platform that executes computationally intensive scheduling and optimization workloads.<br />
-The system is composed of multiple independent microservices operating under high concurrency, strict latency constraints, and cost-sensitive infrastructure environments (Kubernetes-based deployments).</p>
-<p>The platform’s domain logic is inherently complex, stateful, and highly sensitive to correctness issues such as race conditions, memory corruption, and non-deterministic runtime behavior.<br />
-As the platform is expected to scale horizontally and operate continuously in production, the choice of implementation language has a direct impact on system reliability, operational cost, and long-term maintainability.</p>
-<h2 id="decision"><a class="header" href="#decision">Decision</a></h2>
-<p>Rust is selected as the primary implementation language for all core microservices in the DiTA platform.</p>
-<p>This decision applies to:</p>
+<p>DiTA is a distributed, computation-heavy platform whose core value is derived from solver quality, scalability, and cost-efficient execution of scheduling workloads. The system consists of multiple microservices with different characteristics, including:</p>
 <ul>
-<li>Solver services</li>
-<li>Scheduling and orchestration services</li>
-<li>Core domain and infrastructure-facing microservices</li>
+<li>CPU-bound solver services with high parallelism</li>
+<li>Coordination- and orchestration-heavy services</li>
+<li>I/O-bound control-plane services</li>
 </ul>
-<p>Rust will be treated as the default and preferred language unless a clear, documented exception is approved via a separate ADR.</p>
+<p>Choosing a primary implementation language is a <strong>long-term architectural commitment</strong> that directly impacts:</p>
+<ul>
+<li>Infrastructure cost</li>
+<li>Development velocity</li>
+<li>System reliability</li>
+<li>Hiring and onboarding</li>
+<li>Ability to revise architectural decisions over time</li>
+</ul>
+<p>This decision must therefore be justified as a <strong>cost–benefit trade-off</strong>, not as a purely technical or ideological preference.</p>
+<h2 id="decision"><a class="header" href="#decision">Decision</a></h2>
+<p>Rust is selected as the <strong>primary (default) language</strong> for DiTA microservices <strong>under clearly defined constraints</strong>, with explicit recognition of its costs, risks, and limits.</p>
+<p>Rust is mandatory for:</p>
+<ul>
+<li>Compute-bound services (e.g. solvers, evaluators, optimizers)</li>
+<li>Latency-sensitive or high-throughput services</li>
+<li>Services where memory safety, determinism, and predictable performance materially affect infrastructure cost or correctness</li>
+</ul>
+<p>Rust is <strong>not mandatory</strong> for:</p>
+<ul>
+<li>Research, experimentation, or rapid prototyping services</li>
+<li>ML-heavy or numerics-heavy components where ecosystem maturity is critical</li>
+<li>Glue or orchestration services where development speed outweighs runtime efficiency</li>
+</ul>
+<p>Non-Rust services must be isolated behind well-defined network boundaries (HTTP/gRPC) and treated as replaceable components.</p>
+<h2 id="rationale"><a class="header" href="#rationale">Rationale</a></h2>
+<h3 id="why-rust"><a class="header" href="#why-rust">Why Rust</a></h3>
+<p>Rust provides the following <strong>economic and architectural advantages</strong> for DiTA’s core workloads:</p>
+<ul>
+<li>Strong memory safety guarantees without garbage collection, reducing production risk in long-running services</li>
+<li>Predictable performance characteristics suitable for CPU-intensive solvers</li>
+<li>Low runtime overhead, enabling higher density per node and lower infrastructure cost</li>
+<li>Explicit ownership and concurrency models that align well with distributed, parallel computation</li>
+</ul>
+<p>These benefits directly support DiTA’s long-term goals of scalability, cost efficiency, and correctness in solver execution.</p>
+<h3 id="recognized-costs-and-risks"><a class="header" href="#recognized-costs-and-risks">Recognized Costs and Risks</a></h3>
+<p>This decision explicitly acknowledges the <strong>non-trivial costs</strong> of adopting Rust:</p>
+<ul>
+<li>Higher onboarding and learning curve compared to mainstream backend languages</li>
+<li>Slower iteration speed for early-stage product exploration</li>
+<li>Increased risk of early abstraction lock-in due to strong type constraints</li>
+<li>Smaller ecosystem for advanced numerical computing and ML compared to Python/C++</li>
+</ul>
+<p>Rust can <strong>amplify good design but also harden bad design early</strong>. This risk is accepted and mitigated through scope control and architectural discipline rather than ignored.</p>
+<h2 id="alternatives-considered"><a class="header" href="#alternatives-considered">Alternatives Considered</a></h2>
+<h3 id="go"><a class="header" href="#go">Go</a></h3>
+<ul>
+<li>Pros: Fast onboarding, strong ecosystem for distributed systems, low operational friction</li>
+<li>Cons: Garbage collection overhead, weaker guarantees for memory and concurrency safety</li>
+<li>Rejected as default due to poorer suitability for compute-heavy solver workloads</li>
+</ul>
+<h3 id="python"><a class="header" href="#python">Python</a></h3>
+<ul>
+<li>Pros: Excellent ecosystem for ML and optimization, very fast prototyping</li>
+<li>Cons: Poor runtime performance, higher operational cost at scale</li>
+<li>Accepted as a <strong>secondary language</strong> for research and experimentation only</li>
+</ul>
+<h3 id="c"><a class="header" href="#c">C++</a></h3>
+<ul>
+<li>Pros: Maximum performance and mature numerical libraries</li>
+<li>Cons: High maintenance cost, memory safety risks, slower team scalability</li>
+<li>Rejected due to long-term reliability and operational risk</li>
+</ul>
+<h2 id="scope-control-and-boundaries"><a class="header" href="#scope-control-and-boundaries">Scope Control and Boundaries</a></h2>
+<p>To prevent overreach, the following constraints apply:</p>
+<ul>
+<li>Rust adoption starts with solver and performance-critical services only</li>
+<li>Control-plane and orchestration services may use alternative languages if justified</li>
+<li>All inter-service communication must occur via explicit network protocols</li>
+<li>No cross-language in-process coupling is allowed</li>
+</ul>
+<h2 id="exit-criteria-and-re-evaluation"><a class="header" href="#exit-criteria-and-re-evaluation">Exit Criteria and Re-evaluation</a></h2>
+<p>This decision is <strong>not irreversible</strong>.</p>
+<p>The choice of Rust will be re-evaluated if one or more of the following occur:</p>
+<ul>
+<li>Development velocity becomes a bottleneck to product–market fit</li>
+<li>Hiring or onboarding costs exceed acceptable thresholds</li>
+<li>A significant portion of services are I/O-bound with no measurable performance benefit from Rust</li>
+<li>Operational complexity outweighs infrastructure savings</li>
+</ul>
+<p>A formal review must be conducted before expanding Rust to additional service categories.</p>
 <h2 id="consequences"><a class="header" href="#consequences">Consequences</a></h2>
 <h3 id="positive"><a class="header" href="#positive">Positive</a></h3>
 <ul>
-<li>Near C/C++ performance with predictable execution characteristics, suitable for solver-heavy workloads.</li>
-<li>Efficient CPU and memory usage, enabling higher service density and lower infrastructure costs.</li>
-<li>Strong compile-time guarantees for memory safety and concurrency, significantly reducing production risk.</li>
-<li>Improved correctness and clarity in modeling complex domain logic.</li>
-<li>Higher overall engineering discipline and long-term codebase quality.</li>
+<li>Lower runtime risk and improved reliability for core solver services</li>
+<li>Reduced infrastructure cost for CPU-bound workloads</li>
+<li>Strong alignment between language semantics and parallel computation needs</li>
 </ul>
-<h3 id="negative--risks"><a class="header" href="#negative--risks">Negative / Risks</a></h3>
+<h3 id="negative"><a class="header" href="#negative">Negative</a></h3>
 <ul>
-<li>Steeper learning curve for new contributors.</li>
-<li>Slower initial prototyping compared to higher-level or managed languages.</li>
-<li>Smaller hiring pool compared to more mainstream ecosystems.</li>
+<li>Higher upfront development and onboarding cost</li>
+<li>Increased architectural rigidity if boundaries are poorly designed</li>
+<li>Need for disciplined scope control to avoid premature over-engineering</li>
 </ul>
-<h3 id="mitigations"><a class="header" href="#mitigations">Mitigations</a></h3>
-<ul>
-<li>Clear engineering guidelines and internal documentation.</li>
-<li>Shared libraries, templates, and reference implementations for common service patterns.</li>
-<li>Onboarding materials focused on Rust patterns relevant to DiTA’s architecture.</li>
-</ul>
+<hr />
+<p>This ADR represents a <strong>constrained, economically motivated decision</strong>, not a universal endorsement of Rust.</p>
 
                     </main>
 
