@@ -204,7 +204,7 @@
 <h3 id="2-processor-services-the-workers"><a class="header" href="#2-processor-services-the-workers">2. Processor Services (The "Workers")</a></h3>
 <p>These services consume events and perform heavy lifting.</p>
 <ul>
-<li><strong><code>basic-scheduler</code></strong>: An automated solver that generates timetables. Uses <strong>Redis</strong> for job queues.</li>
+<li><strong><code>basic-scheduler</code></strong>: The default internal automated solver that generates timetables. Uses <strong>Redis</strong> for job queues.</li>
 <li><strong><code>manual-scheduler</code></strong>: Supports human-in-the-loop editing.</li>
 <li><strong><code>packet-analyzer</code></strong>: Extracts features (complexity, constraints) from packets to guide solvers.</li>
 <li><strong><code>timetable-ranker</code></strong>: Stream processor that scores incoming solutions.</li>
