@@ -714,11 +714,114 @@ not the platform.</p>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="architecture-decision-records-adr"><a class="header" href="#architecture-decision-records-adr">Architecture Decision Records (ADR)</a></h1>
 <p>This section contains documentation regarding significant architectural decisions for the project.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="000001-select-rust-as-the-primary-language-for-microservices"><a class="header" href="#000001-select-rust-as-the-primary-language-for-microservices">000001. Select Rust as the Primary Language for Microservices</a></h1>
-<p>Date: 2025-12-19</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="000002-dita-as-a-public-platform"><a class="header" href="#000002-dita-as-a-public-platform">000002. DiTA as a Public Platform</a></h1>
+<p>Date: 2025-12-25</p>
 <h2 id="status-1"><a class="header" href="#status-1">Status</a></h2>
-<p>Accepted (with explicit constraints and exit criteria)</p>
+<p>Proposed</p>
 <h2 id="context"><a class="header" href="#context">Context</a></h2>
+<p>DiTA addresses complex educational and institutional scheduling problems that cannot be efficiently
+solved by a single centralized service. The problem space inherently involves:</p>
+<ul>
+<li>heterogeneous institutions with distinct constraints,</li>
+<li>multiple categories of users (institutions, instructors, learners, supervisors),</li>
+<li>third-party computational solvers with diverse optimization strategies,</li>
+<li>optional auxiliary services such as data anonymization, validation, and enrichment.</li>
+</ul>
+<p>A product-oriented or monolithic service model would:</p>
+<ul>
+<li>limit extensibility,</li>
+<li>constrain innovation to the core team,</li>
+<li>centralize trust and computational responsibility,</li>
+<li>and reduce scalability across domains and geographies.</li>
+</ul>
+<p>To support an open ecosystem of participants, solvers, and services, DiTA must decide whether it
+operates as:</p>
+<ul>
+<li>a closed scheduling product,</li>
+<li>a managed scheduling service,</li>
+<li>or a public platform with an extensible service and solver ecosystem.</li>
+</ul>
+<p>This ADR captures the decision to position DiTA explicitly as a <strong>public platform</strong>.</p>
+<h2 id="decision"><a class="header" href="#decision">Decision</a></h2>
+<p>DiTA SHALL be designed, developed, and operated as a <strong>public platform</strong>, not merely as a scheduling service or product.</p>
+<p>The platform characteristics are defined as follows:</p>
+<ul>
+<li>DiTA is a <strong>public platform</strong> accessible to all users.</li>
+<li>Membership and basic usage of the platform are <strong>free of charge</strong>.</li>
+<li>Advanced capabilities are provided via <strong>paid plans and services</strong>.</li>
+<li>Institutions and individuals interact with DiTA as platform participants, not passive consumers.</li>
+<li>Solvers and anonymization systems are <strong>first-class platform participants</strong>, not internal-only components.</li>
+</ul>
+<h3 id="platform-participants"><a class="header" href="#platform-participants">Platform Participants</a></h3>
+<p>The platform serves the following participant categories:</p>
+<ul>
+<li>Institutions: schools, universities, academies, laboratories, sports facilities.</li>
+<li>Individuals: students, learners, instructors, teachers, supervisors.</li>
+<li>Service Providers:
+<ul>
+<li>Solver services (internal and external).</li>
+<li>Data anonymization services (internal and external).</li>
+<li>Other future auxiliary services compliant with platform standards.</li>
+</ul>
+</li>
+</ul>
+<h3 id="revenue-model-platform-level"><a class="header" href="#revenue-model-platform-level">Revenue Model (Platform-Level)</a></h3>
+<p>DiTA revenue is derived from platform participation and service facilitation, including:</p>
+<ul>
+<li>Subscription-based plans for advanced features.</li>
+<li>Dedicated (private) deployments of the full DiTA platform for a single organization.</li>
+<li>Commissions on:
+<ul>
+<li>rewards paid to solvers for packet resolution,</li>
+<li>anonymization services applied to packets,</li>
+<li>any external service executed through the platform.</li>
+</ul>
+</li>
+<li>Direct revenue from:
+<ul>
+<li>packet resolution performed by DiTA-operated solvers,</li>
+<li>packet anonymization performed by DiTA-operated anonymization services.</li>
+</ul>
+</li>
+<li>Verification and trust services, including:
+<ul>
+<li>identity verification,</li>
+<li>reputation and tiering systems,</li>
+<li>“verified” (blue-check) status for institutions, individuals, solvers, and external services.</li>
+</ul>
+</li>
+</ul>
+<p>At early stages of the platform lifecycle, DiTA SHALL prioritize adoption and ecosystem growth,
+and may operate largely free of charge until a sustainable service threshold is reached.</p>
+<h2 id="consequences"><a class="header" href="#consequences">Consequences</a></h2>
+<h3 id="positive-consequences"><a class="header" href="#positive-consequences">Positive Consequences</a></h3>
+<ul>
+<li>Enables a scalable ecosystem of independent solvers and services.</li>
+<li>Decouples core platform evolution from optimization and anonymization innovation.</li>
+<li>Supports diverse institutional privacy, trust, and deployment requirements.</li>
+<li>Creates multiple sustainable revenue streams without locking users into a single service model.</li>
+<li>Positions DiTA as infrastructure rather than a single-purpose application.</li>
+</ul>
+<h3 id="negative-consequences-and-risks"><a class="header" href="#negative-consequences-and-risks">Negative Consequences and Risks</a></h3>
+<ul>
+<li>Increased architectural and operational complexity.</li>
+<li>Larger attack surface and stricter security requirements.</li>
+<li>Governance challenges around third-party services and trust boundaries.</li>
+<li>Necessitates formal contracts, APIs, standards, and compliance mechanisms.</li>
+<li>Requires careful balance between openness and platform abuse prevention.</li>
+</ul>
+<p>These risks must be mitigated through:</p>
+<ul>
+<li>strong architectural boundaries,</li>
+<li>explicit service contracts,</li>
+<li>clear governance and verification mechanisms,</li>
+<li>and future ADRs defining trust, security, and platform policies.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="000002-select-rust-as-the-primary-language-for-microservices"><a class="header" href="#000002-select-rust-as-the-primary-language-for-microservices">000002. Select Rust as the Primary Language for Microservices</a></h1>
+<p>Date: 2025-12-19</p>
+<h2 id="status-2"><a class="header" href="#status-2">Status</a></h2>
+<p>Accepted (with explicit constraints and exit criteria)</p>
+<h2 id="context-1"><a class="header" href="#context-1">Context</a></h2>
 <p>DiTA is a distributed, computation-heavy platform whose core value is derived from solver quality, scalability, and cost-efficient execution of scheduling workloads. The system consists of multiple microservices with different characteristics, including:</p>
 <ul>
 <li>CPU-bound solver services with high parallelism</li>
@@ -734,7 +837,7 @@ not the platform.</p>
 <li>Ability to revise architectural decisions over time</li>
 </ul>
 <p>This decision must therefore be justified as a <strong>cost–benefit trade-off</strong>, not as a purely technical or ideological preference.</p>
-<h2 id="decision"><a class="header" href="#decision">Decision</a></h2>
+<h2 id="decision-1"><a class="header" href="#decision-1">Decision</a></h2>
 <p>Rust is selected as the <strong>primary (default) language</strong> for DiTA microservices <strong>under clearly defined constraints</strong>, with explicit recognition of its costs, risks, and limits.</p>
 <p>Rust is mandatory for:</p>
 <ul>
@@ -805,7 +908,7 @@ not the platform.</p>
 <li>Operational complexity outweighs infrastructure savings</li>
 </ul>
 <p>A formal review must be conducted before expanding Rust to additional service categories.</p>
-<h2 id="consequences"><a class="header" href="#consequences">Consequences</a></h2>
+<h2 id="consequences-1"><a class="header" href="#consequences-1">Consequences</a></h2>
 <h3 id="positive"><a class="header" href="#positive">Positive</a></h3>
 <ul>
 <li>Lower runtime risk and improved reliability for core solver services</li>

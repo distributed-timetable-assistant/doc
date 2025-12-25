@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>سوابق تصمیم‌گیری معماری - DiTA — دستیار جدول زمانی توزیع‌شده</title>
+        <title>DiTA به‌عنوان یک پلتفرم عمومی - DiTA — دستیار جدول زمانی توزیع‌شده</title>
 
 
         <!-- Custom HTML head -->
@@ -175,18 +175,117 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="سوابق-تصمیمگیری-معماری-adr"><a class="header" href="#سوابق-تصمیمگیری-معماری-adr">سوابق تصمیم‌گیری معماری (ADR)</a></h1>
-<p>این بخش مستندات مربوط به تصمیمات مهم معماری پروژه را شامل می‌شود.</p>
+                        <h1 id="000002-dita-بهعنوان-یک-پلتفرم-عمومی"><a class="header" href="#000002-dita-بهعنوان-یک-پلتفرم-عمومی">000002. DiTA به‌عنوان یک پلتفرم عمومی</a></h1>
+<p>تاریخ: 2025-12-25</p>
+<h2 id="وضعیت"><a class="header" href="#وضعیت">وضعیت</a></h2>
+<p>پیشنهادی</p>
+<h2 id="زمینه-context"><a class="header" href="#زمینه-context">زمینه (Context)</a></h2>
+<p>DiTA به مسائل پیچیده‌ی زمان‌بندی آموزشی و سازمانی می‌پردازد که حل مؤثر آن‌ها با یک سرویس متمرکز واحد امکان‌پذیر نیست. ذات این مسئله شامل موارد زیر است:</p>
+<ul>
+<li>نهادهای ناهمگون با محدودیت‌ها و قواعد متفاوت،</li>
+<li>چندین دسته‌ی کاربری (مؤسسات، مدرسین، فراگیران، ناظران)،</li>
+<li>Solverهای محاسباتی شخص ثالث با راهبردهای بهینه‌سازی متنوع،</li>
+<li>سرویس‌های جانبی اختیاری مانند ناشناس‌سازی داده، اعتبارسنجی و غنی‌سازی داده.</li>
+</ul>
+<p>یک مدل محصول‌محور یا سرویس یکپارچه (Monolithic):</p>
+<ul>
+<li>قابلیت توسعه‌پذیری را محدود می‌کند،</li>
+<li>نوآوری را به تیم مرکزی مقید می‌سازد،</li>
+<li>اعتماد و مسئولیت محاسباتی را متمرکز می‌کند،</li>
+<li>و مقیاس‌پذیری در دامنه‌ها و جغرافیاهای مختلف را کاهش می‌دهد.</li>
+</ul>
+<p>برای پشتیبانی از یک اکوسیستم باز از مشارکت‌کنندگان، Solverها و سرویس‌ها، DiTA باید مشخص کند که به‌صورت زیر عمل می‌کند:</p>
+<ul>
+<li>یک محصول زمان‌بندی بسته،</li>
+<li>یک سرویس زمان‌بندی مدیریت‌شده،</li>
+<li>یا یک پلتفرم عمومی با اکوسیستم قابل‌گسترش از سرویس‌ها و Solverها.</li>
+</ul>
+<p>این ADR تصمیم برای جای‌دهی صریح DiTA به‌عنوان یک <strong>پلتفرم عمومی</strong> را ثبت می‌کند.</p>
+<h2 id="تصمیم-decision"><a class="header" href="#تصمیم-decision">تصمیم (Decision)</a></h2>
+<p>DiTA <strong>باید</strong> به‌عنوان یک <strong>پلتفرم عمومی</strong> طراحی، توسعه و بهره‌برداری شود؛ نه صرفاً به‌عنوان یک سرویس یا محصول زمان‌بندی.</p>
+<p>ویژگی‌های پلتفرم به‌صورت زیر تعریف می‌شوند:</p>
+<ul>
+<li>DiTA یک <strong>پلتفرم عمومی</strong> و در دسترس همه‌ی کاربران است.</li>
+<li>عضویت و استفاده‌ی پایه از پلتفرم <strong>رایگان</strong> است.</li>
+<li>قابلیت‌های پیشرفته از طریق <strong>پلن‌ها و سرویس‌های پولی</strong> ارائه می‌شوند.</li>
+<li>مؤسسات و افراد به‌عنوان مشارکت‌کنندگان پلتفرم با DiTA تعامل دارند، نه مصرف‌کنندگان منفعل.</li>
+<li>Solverها و سیستم‌های ناشناس‌سازی داده، <strong>شهروندان درجه‌یک پلتفرم</strong> محسوب می‌شوند، نه اجزای صرفاً داخلی.</li>
+</ul>
+<h3 id="مشارکتکنندگان-پلتفرم"><a class="header" href="#مشارکتکنندگان-پلتفرم">مشارکت‌کنندگان پلتفرم</a></h3>
+<p>پلتفرم به دسته‌های زیر خدمت می‌دهد:</p>
+<ul>
+<li>مؤسسات: مدارس، دانشگاه‌ها، آکادمی‌ها، آزمایشگاه‌ها، مجموعه‌های ورزشی.</li>
+<li>افراد: دانشجویان، فراگیران، مدرسین، معلمان، ناظران.</li>
+<li>ارائه‌دهندگان سرویس:
+<ul>
+<li>سرویس‌های Solver (داخلی و خارجی).</li>
+<li>سرویس‌های ناشناس‌سازی داده (داخلی و خارجی).</li>
+<li>سایر سرویس‌های جانبی آینده که با استانداردهای پلتفرم سازگار باشند.</li>
+</ul>
+</li>
+</ul>
+<h3 id="مدل-درآمدی-در-سطح-پلتفرم"><a class="header" href="#مدل-درآمدی-در-سطح-پلتفرم">مدل درآمدی (در سطح پلتفرم)</a></h3>
+<p>درآمد DiTA از مشارکت در پلتفرم و تسهیل سرویس‌ها تأمین می‌شود، از جمله:</p>
+<ul>
+<li>پلن‌های اشتراکی برای قابلیت‌های پیشرفته.</li>
+<li>استقرارهای اختصاصی (خصوصی) از کل پلتفرم DiTA برای یک سازمان واحد.</li>
+<li>کمیسیون از:
+<ul>
+<li>پاداش‌های پرداخت‌شده به Solverها برای حل Packetها،</li>
+<li>سرویس‌های ناشناس‌سازی اعمال‌شده روی Packetها،</li>
+<li>هر سرویس خارجی که از طریق پلتفرم اجرا شود.</li>
+</ul>
+</li>
+<li>درآمد مستقیم از:
+<ul>
+<li>حل Packetها توسط Solverهای تحت مدیریت DiTA،</li>
+<li>ناشناس‌سازی Packetها توسط سرویس‌های ناشناس‌سازی تحت مدیریت DiTA.</li>
+</ul>
+</li>
+<li>سرویس‌های اعتبار و اعتماد، شامل:
+<ul>
+<li>احراز هویت،</li>
+<li>سیستم‌های اعتبارسنجی، رتبه‌بندی و لایه‌بندی،</li>
+<li>وضعیت «تأییدشده» (تیک آبی) برای مؤسسات، افراد، Solverها و سرویس‌های خارجی.</li>
+</ul>
+</li>
+</ul>
+<p>در مراحل اولیه‌ی چرخه‌ی عمر پلتفرم، DiTA <strong>باید</strong> اولویت را به پذیرش بازار و رشد اکوسیستم بدهد
+و ممکن است تا رسیدن به آستانه‌ی پایداری سرویس، عمدتاً به‌صورت رایگان فعالیت کند.</p>
+<h2 id="پیامدها-consequences"><a class="header" href="#پیامدها-consequences">پیامدها (Consequences)</a></h2>
+<h3 id="پیامدهای-مثبت"><a class="header" href="#پیامدهای-مثبت">پیامدهای مثبت</a></h3>
+<ul>
+<li>امکان ایجاد یک اکوسیستم مقیاس‌پذیر از Solverها و سرویس‌های مستقل.</li>
+<li>جداسازی تکامل هسته‌ی پلتفرم از نوآوری در بهینه‌سازی و ناشناس‌سازی.</li>
+<li>پشتیبانی از نیازهای متنوع مؤسسات در حوزه‌ی حریم خصوصی، اعتماد و شیوه‌ی استقرار.</li>
+<li>ایجاد چندین جریان درآمدی پایدار بدون قفل‌کردن کاربران در یک مدل سرویس واحد.</li>
+<li>جای‌دهی DiTA به‌عنوان زیرساخت، نه یک اپلیکیشن تک‌منظوره.</li>
+</ul>
+<h3 id="پیامدهای-منفی-و-ریسکها"><a class="header" href="#پیامدهای-منفی-و-ریسکها">پیامدهای منفی و ریسک‌ها</a></h3>
+<ul>
+<li>افزایش پیچیدگی معماری و عملیاتی.</li>
+<li>افزایش سطح حمله و نیاز به الزامات امنیتی سخت‌گیرانه‌تر.</li>
+<li>چالش‌های حاکمیتی در مدیریت سرویس‌های شخص ثالث و مرزهای اعتماد.</li>
+<li>نیاز به قراردادهای رسمی، APIها، استانداردها و سازوکارهای انطباق.</li>
+<li>لزوم ایجاد توازن دقیق میان بازبودن پلتفرم و جلوگیری از سوءاستفاده.</li>
+</ul>
+<p>این ریسک‌ها باید از طریق موارد زیر کاهش یابند:</p>
+<ul>
+<li>مرزبندی‌های معماری قوی،</li>
+<li>قراردادهای سرویس شفاف و صریح،</li>
+<li>سازوکارهای روشن حاکمیتی و اعتبارسنجی،</li>
+<li>و ADRهای آتی که سیاست‌های اعتماد، امنیت و پلتفرم را تعریف می‌کنند.</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../architecture/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../architecture/adr/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../architecture/adr/000001-dita-as-a-public-platform.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../architecture/adr/000002-rust-as-primary-microservices-language.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -196,11 +295,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../architecture/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../architecture/adr/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../architecture/adr/000001-dita-as-a-public-platform.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../architecture/adr/000002-rust-as-primary-microservices-language.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
