@@ -13,6 +13,8 @@
     - [موضوعات](design/institution-packet/subjects.md)
     - [درووس](design/institution-packet/courses.md)
     - [واحدها](design/institution-packet/units.md)
+  - [ویژگی‌ها]()
+    - [ناشناس‌سازی داده برای Solverها](design/features/data-anonymization-for-solvers.md)
 - [معماری](architecture/README.md)
   - [سوابق تصمیم‌گیری معماری](architecture/adr/README.md)
     - [انتخاب راست (Rust) به عنوان زبان اصلی](architecture/adr/000001-rust-as-primary-microservices-language.md)

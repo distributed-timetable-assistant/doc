@@ -13,6 +13,8 @@
     - [Subjects](design/institution-packet/subjects.md)
     - [Courses](design/institution-packet/courses.md)
     - [Units](design/institution-packet/units.md)
+  - [Features]()
+    - [Data Anonymization for Solvers](design/features/data-anonymization-for-solvers.md)
 - [Architecture](architecture/README.md)
   - [Architecture Decision Records](architecture/adr/README.md)
     - [Rust as Primary Language](architecture/adr/000001-rust-as-primary-microservices-language.md)
