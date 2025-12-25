@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html lang="fa" class="light sidebar-visible" dir="rtl">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ناشناس‌سازی داده برای Solverها - DiTA — دستیار جدول زمانی توزیع‌شده</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../../searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">DiTA — دستیار جدول زمانی توزیع‌شده</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ناشناسسازی-داده-برای-solverها"><a class="header" href="#ناشناسسازی-داده-برای-solverها">ناشناس‌سازی داده برای Solverها</a></h1>
+<h2 id="وضعیت"><a class="header" href="#وضعیت">وضعیت</a></h2>
+<p>پیشنهادی</p>
+<h2 id="انگیزه"><a class="header" href="#انگیزه">انگیزه</a></h2>
+<p>برخی مؤسسات (مانند دانشگاه‌ها و آکادمی‌ها) تمایلی ندارند یا امکان آن را ندارند که داده‌های عملیاتی واقعی خود
+(مدرسان، فراگیران، امکانات، موقعیت‌ها، محدودیت‌های داخلی) را در اختیار سرویس‌های Solver خارجی قرار دهند.</p>
+<p>در عین حال، DiTA به‌طور بنیادین متکی بر Solverهای شخص ثالث یا توزیع‌شده برای پردازش مسائل زمان‌بندی است.
+این موضوع یک تنش مستقیم میان موارد زیر ایجاد می‌کند:</p>
+<ul>
+<li>حریم خصوصی و محرمانگی داده‌ها،</li>
+<li>اثربخشی و صحت عملکرد Solverها.</li>
+</ul>
+<p>این فیچر یک <strong>سیستم ناشناس‌سازی داده</strong> معرفی می‌کند که امکان مشارکت Solverها را
+بدون افشای داده‌های واقعی یا حساس مؤسسات فراهم می‌سازد،
+در حالی که تضمین‌های مربوط به صحت نتایج حفظ می‌شود
+یا در صورت لزوم، انحراف‌ها به‌صورت شفاف اعلام می‌گردند.</p>
+<hr />
+<h2 id="بیان-مسئله"><a class="header" href="#بیان-مسئله">بیان مسئله</a></h2>
+<p>ما به مکانیزمی نیاز داریم که:</p>
+<ul>
+<li>از دسترسی Solverها به داده‌های واقعی مؤسسات جلوگیری کند،</li>
+<li>به Solverها اجازه دهد روی پکت‌های ناشناس‌سازی‌شده یا تبدیل‌شده کار کنند،</li>
+<li>تضمین کند که راه‌حل تولیدشده یا:
+<ul>
+<li>معادل راه‌حلی است که با داده‌های واقعی به‌دست می‌آمده، یا</li>
+<li>به‌صورت صریح به‌عنوان راه‌حلی با امکان انحراف مشخص شده و دلایل آن اعلام گردد.</li>
+</ul>
+</li>
+</ul>
+<p>این مکانیزم باید انعطاف‌پذیر، قابل اتصال (pluggable) و تحت کنترل مؤسسه باشد.</p>
+<hr />
+<h2 id="الزامات-اصلی"><a class="header" href="#الزامات-اصلی">الزامات اصلی</a></h2>
+<h3 id="r1-تبدیل-پکت-packet-transformation"><a class="header" href="#r1-تبدیل-پکت-packet-transformation">R1. تبدیل پکت (Packet Transformation)</a></h3>
+<p>سیستم <strong>باید</strong> قادر باشد:</p>
+<ul>
+<li>داده‌های داخل پکت را تغییر دهد،</li>
+<li>و در صورت نیاز، <strong>ساختار خود پکت</strong> را نیز تغییر دهد،
+به‌گونه‌ای که امکان استنتاج یا بازسازی داده‌های واقعی وجود نداشته باشد.</li>
+</ul>
+<p>این موارد شامل (اما محدود به) موارد زیر است:</p>
+<ul>
+<li>جایگزینی شناسه‌ها،</li>
+<li>انتزاع موجودیت‌ها،</li>
+<li>حذف یا تعمیم ویژگی‌های حساس،</li>
+<li>بازساخت‌دهی ارجاعات به منابع خارجی.</li>
+</ul>
+<hr />
+<h3 id="r2-تضمین-همارزی-نتیجه"><a class="header" href="#r2-تضمین-همارزی-نتیجه">R2. تضمین هم‌ارزی نتیجه</a></h3>
+<p>برای هر پکت ناشناس‌سازی‌شده:</p>
+<ul>
+<li>راه‌حل حاصل از پردازش داده‌های ناشناس <strong>باید</strong>:
+<ul>
+<li>معادل راه‌حلی باشد که با داده‌های واقعی تولید می‌شد، <strong>یا</strong></li>
+<li>همراه با یک اعلان صریح از اختلافات و علل آن ارائه گردد.</li>
+</ul>
+</li>
+</ul>
+<p>بنابراین لایه ناشناس‌سازی <strong>باید</strong>:</p>
+<ul>
+<li>تأثیر معنایی تبدیل‌ها را درک کند، یا</li>
+<li>عدم قطعیت را به‌صورت شفاف و قابل فهم آشکار سازد.</li>
+</ul>
+<hr />
+<h3 id="r3-رهگیری-دسترسی-به-منابع"><a class="header" href="#r3-رهگیری-دسترسی-به-منابع">R3. رهگیری دسترسی به منابع</a></h3>
+<p>سیستم ناشناس‌سازی <strong>می‌تواند</strong> ارجاعات به منابع را در داخل پکت تغییر دهد.</p>
+<h4 id="مثال-مسئله"><a class="header" href="#مثال-مسئله">مثال مسئله</a></h4>
+<p>ممکن است پکت شامل عبارتی مانند زیر باشد:</p>
+<blockquote>
+<p>«از مدرسان دانشگاه من استفاده کن»</p>
+</blockquote>
+<p>در صورت ارسال مستقیم:</p>
+<ul>
+<li>Solver ممکن است به منبع واقعی دانشگاه درخواست ارسال کند،</li>
+<li>که منجر به نشت داده‌های حساس می‌شود.</li>
+</ul>
+<h4 id="رفتار-موردنیاز"><a class="header" href="#رفتار-موردنیاز">رفتار موردنیاز</a></h4>
+<p>سیستم ناشناس‌سازی <strong>باید</strong> این وضعیت را با یکی از راهبردهای زیر مدیریت کند:</p>
+<ol>
+<li>
+<p><strong>پیش‌دریافت و تعبیه (Pre-fetch and Embed)</strong></p>
+<ul>
+<li>داده‌های واقعی را از منبع مؤسسه دریافت کند،</li>
+<li>آن‌ها را ناشناس‌سازی کند،</li>
+<li>و مجموعه‌داده ناشناس را مستقیماً داخل پکت تعبیه نماید.</li>
+</ul>
+</li>
+<li>
+<p><strong>بازهدایت منبع از طریق پراکسی (Proxy Resource Redirection)</strong></p>
+<ul>
+<li>آدرس منبع اصلی را در پکت جایگزین کند،</li>
+<li>آن را به یک Worker یا پراکسی سازگار با ناشناس‌سازی هدایت کند.</li>
+<li>این Worker:
+<ul>
+<li>داده‌های واقعی را دریافت می‌کند،</li>
+<li>مطابق قوانین تعریف‌شده آن‌ها را ناشناس‌سازی می‌کند،</li>
+<li>و پاسخ‌های ناشناس را در اختیار Solver قرار می‌دهد.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>در هر دو حالت:</p>
+<ul>
+<li>Solver <strong>نباید</strong> هرگز به‌طور مستقیم به Endpointهای واقعی مؤسسه دسترسی داشته باشد.</li>
+</ul>
+<hr />
+<h3 id="r4-سیستمهای-ناشناسسازی-قابل-اتصال"><a class="header" href="#r4-سیستمهای-ناشناسسازی-قابل-اتصال">R4. سیستم‌های ناشناس‌سازی قابل اتصال</a></h3>
+<p>DiTA <strong>باید</strong> از چندین سیستم ناشناس‌سازی پشتیبانی کند.</p>
+<p>هر سیستم ناشناس‌سازی:</p>
+<ul>
+<li>می‌تواند قوانین خاص خود را تعریف کند،</li>
+<li>می‌تواند راهبردهای متفاوتی برای تبدیل داده‌ها پیاده‌سازی کند،</li>
+<li>می‌تواند توازن‌های متفاوتی میان حریم خصوصی و اثربخشی Solver ارائه دهد.</li>
+</ul>
+<p><strong>انتخاب سیستم ناشناس‌سازی</strong> بر عهده مؤسسه (مشتری) است،
+نه پلتفرم.</p>
+<hr />
+<h3 id="r5-مدیریت-دادههای-دشوار-برای-ناشناسسازی"><a class="header" href="#r5-مدیریت-دادههای-دشوار-برای-ناشناسسازی">R5. مدیریت داده‌های دشوار برای ناشناس‌سازی</a></h3>
+<p>برخی انواع داده:</p>
+<ul>
+<li>به‌شدت دشوار برای ناشناس‌سازی هستند،</li>
+<li>یا ذاتاً بدون از بین رفتن صحت، غیرقابل ناشناس‌سازی‌اند.</li>
+</ul>
+<p>نمونه اصلی آن <strong>داده‌های مکانی (Location Data)</strong> است.</p>
+<h4 id="قابلیت-موردنیاز"><a class="header" href="#قابلیت-موردنیاز">قابلیت موردنیاز</a></h4>
+<p>سیستم ناشناس‌سازی <strong>می‌تواند</strong> راهبردهای محاسباتی جایگزین ارائه دهد، از جمله:</p>
+<ul>
+<li>تعبیه یک Worker محاسبه فاصله در داخل پکت،</li>
+<li>ارائه معیارهای مشتق‌شده (مانند زمان سفر یا ماتریس فاصله) به‌جای مختصات خام،</li>
+<li>یا معرفی انتزاع‌های نوآورانه‌ای که کارایی Solver را حفظ می‌کنند.</li>
+</ul>
+<p>در صورتی که هیچ راهبرد امنی وجود نداشته باشد:</p>
+<ul>
+<li>سیستم ناشناس‌سازی <strong>باید</strong> محدودیت‌ها را به‌صورت صریح اعلام کند.</li>
+</ul>
+<hr />
+<h2 id="اهداف-خارج-از-دامنه-non-goals"><a class="header" href="#اهداف-خارج-از-دامنه-non-goals">اهداف خارج از دامنه (Non-Goals)</a></h2>
+<ul>
+<li>این سند یک الگوریتم مشخص برای ناشناس‌سازی تعریف نمی‌کند.</li>
+<li>این سند استفاده از تکنیک‌های رمزنگاری را الزام نمی‌کند.</li>
+<li>این سند جزئیات پیاده‌سازی یا توپولوژی استقرار را مشخص نمی‌کند.</li>
+</ul>
+<p>این موارد متعلق به تصمیمات سطح معماری (ADR) هستند.</p>
+<hr />
+<h2 id="پرسشهای-باز"><a class="header" href="#پرسشهای-باز">پرسش‌های باز</a></h2>
+<ul>
+<li>ناشناس‌سازی باید در کدام نقطه اعمال شود: پیش از ساخت پکت، در سطح Gateway، یا به‌ازای هر منبع؟</li>
+<li>هم‌ارزی یا انحراف چگونه باید به‌صورت رسمی تعریف و راستی‌آزمایی شود؟</li>
+<li>چه تضمین‌هایی را می‌توان واقع‌بینانه در میان Solverهای ناهمگون اعمال کرد؟</li>
+<li>متادیتای ناشناس‌سازی چگونه (و آیا اصلاً) باید در اختیار Solverها قرار گیرد؟</li>
+</ul>
+<hr />
+<h2 id="گامهای-بعدی"><a class="header" href="#گامهای-بعدی">گام‌های بعدی</a></h2>
+<ul>
+<li>ارزیابی رویکردهای معماری برای محل اعمال ناشناس‌سازی.</li>
+<li>تعریف مرزهای اعتماد میان پلتفرم، سیستم ناشناس‌سازی و Solver.</li>
+<li>ایجاد ADR برای رسمی‌سازی تصمیمات معماری استخراج‌شده از این طراحی.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../design/institution-packet/units.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../architecture/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../design/institution-packet/units.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../architecture/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../lang-switch.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

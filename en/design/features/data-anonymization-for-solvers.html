@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Units - DiTA — Distributed Timetable Assistant</title>
+        <title>Data Anonymization for Solvers - DiTA — Distributed Timetable Assistant</title>
 
 
         <!-- Custom HTML head -->
@@ -175,18 +175,173 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="units"><a class="header" href="#units">Units</a></h1>
-<p>Organizational units such as schools, departments, or training centers, each with their own scheduling and resources.</p>
+                        <h1 id="data-anonymization-for-solvers"><a class="header" href="#data-anonymization-for-solvers">Data Anonymization for Solvers</a></h1>
+<h2 id="status"><a class="header" href="#status">Status</a></h2>
+<p>Proposed</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>Some institutions (e.g. universities, academies) are unwilling or unable to expose real operational data
+(instructors, learners, facilities, locations, internal constraints) to external solver services.</p>
+<p>However, DiTA fundamentally relies on third-party or distributed solvers to process scheduling problems.
+This creates a direct tension between:</p>
+<ul>
+<li>data privacy and confidentiality, and</li>
+<li>solver effectiveness and correctness.</li>
+</ul>
+<p>This feature introduces a <strong>Data Anonymization System</strong> that enables solver participation
+without exposing real or sensitive institutional data, while preserving correctness guarantees
+or explicitly declaring deviations.</p>
+<hr />
+<h2 id="problem-statement"><a class="header" href="#problem-statement">Problem Statement</a></h2>
+<p>We need a mechanism that:</p>
+<ul>
+<li>prevents solvers from accessing real institutional data,</li>
+<li>allows solvers to operate on anonymized or transformed packets,</li>
+<li>guarantees that the produced solution is either:
+<ul>
+<li>equivalent to the solution generated on real data, or</li>
+<li>explicitly marked as potentially divergent with clear reasons.</li>
+</ul>
+</li>
+</ul>
+<p>This mechanism must be flexible, pluggable, and institution-controlled.</p>
+<hr />
+<h2 id="core-requirements"><a class="header" href="#core-requirements">Core Requirements</a></h2>
+<h3 id="r1-packet-transformation"><a class="header" href="#r1-packet-transformation">R1. Packet Transformation</a></h3>
+<p>The system MUST be able to:</p>
+<ul>
+<li>modify packet data,</li>
+<li>and, when required, modify the <strong>structure of the packet</strong> itself,
+to ensure that real data cannot be inferred or reconstructed.</li>
+</ul>
+<p>This includes:</p>
+<ul>
+<li>replacing identifiers,</li>
+<li>abstracting entities,</li>
+<li>removing or generalizing sensitive attributes,</li>
+<li>restructuring references to external resources.</li>
+</ul>
+<hr />
+<h3 id="r2-result-equivalence-guarantee"><a class="header" href="#r2-result-equivalence-guarantee">R2. Result Equivalence Guarantee</a></h3>
+<p>For any anonymized packet:</p>
+<ul>
+<li>The solution produced by processing anonymized data MUST be:
+<ul>
+<li>equivalent to the solution that would have been produced using real data, <strong>or</strong></li>
+<li>accompanied by an explicit declaration of discrepancies and their causes.</li>
+</ul>
+</li>
+</ul>
+<p>The anonymization layer MUST therefore:</p>
+<ul>
+<li>understand the semantic impact of transformations, or</li>
+<li>expose uncertainty clearly and transparently.</li>
+</ul>
+<hr />
+<h3 id="r3-resource-access-interception"><a class="header" href="#r3-resource-access-interception">R3. Resource Access Interception</a></h3>
+<p>The anonymization system MAY alter resource references inside the packet.</p>
+<h4 id="problem-example"><a class="header" href="#problem-example">Problem Example</a></h4>
+<p>A packet may contain a statement such as:</p>
+<blockquote>
+<p>“Use instructors of my university”</p>
+</blockquote>
+<p>If passed directly:</p>
+<ul>
+<li>the solver may request the real university resource,</li>
+<li>leading to leakage of sensitive data.</li>
+</ul>
+<h4 id="required-behavior"><a class="header" href="#required-behavior">Required Behavior</a></h4>
+<p>The anonymization system MUST handle this by one of the following strategies:</p>
+<ol>
+<li>
+<p><strong>Pre-fetch and Embed</strong></p>
+<ul>
+<li>Fetch real data from the institution resource.</li>
+<li>Anonymize it.</li>
+<li>Embed the anonymized dataset directly inside the packet.</li>
+</ul>
+</li>
+<li>
+<p><strong>Proxy Resource Redirection</strong></p>
+<ul>
+<li>Replace the original resource address in the packet.</li>
+<li>Redirect it to an anonymization-compliant worker or proxy.</li>
+<li>This worker:
+<ul>
+<li>fetches real data,</li>
+<li>anonymizes it according to defined rules,</li>
+<li>serves anonymized responses to the solver.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>In both cases:</p>
+<ul>
+<li>the solver MUST never access real institutional endpoints directly.</li>
+</ul>
+<hr />
+<h3 id="r4-pluggable-anonymization-systems"><a class="header" href="#r4-pluggable-anonymization-systems">R4. Pluggable Anonymization Systems</a></h3>
+<p>DiTA MUST support multiple anonymization systems.</p>
+<p>Each anonymization system:</p>
+<ul>
+<li>may define its own rules,</li>
+<li>may implement different transformation strategies,</li>
+<li>may offer different trade-offs between privacy and solver effectiveness.</li>
+</ul>
+<p>The <strong>choice of anonymization system</strong> is the responsibility of the institution (customer),
+not the platform.</p>
+<hr />
+<h3 id="r5-hard-to-anonymize-data-handling"><a class="header" href="#r5-hard-to-anonymize-data-handling">R5. Hard-to-Anonymize Data Handling</a></h3>
+<p>Some data types may be:</p>
+<ul>
+<li>extremely difficult to anonymize,</li>
+<li>or fundamentally non-anonymizable without breaking correctness.</li>
+</ul>
+<p>A primary example is <strong>location data</strong>.</p>
+<h4 id="required-capability"><a class="header" href="#required-capability">Required Capability</a></h4>
+<p>The anonymization system MAY provide alternative computational strategies, such as:</p>
+<ul>
+<li>embedding a distance-calculation worker inside the packet,</li>
+<li>exposing derived metrics (e.g. travel time, distance matrix) instead of raw coordinates,</li>
+<li>or introducing innovative abstractions that preserve solver utility.</li>
+</ul>
+<p>If no safe strategy exists:</p>
+<ul>
+<li>the anonymization system MUST declare limitations explicitly.</li>
+</ul>
+<hr />
+<h2 id="non-goals"><a class="header" href="#non-goals">Non-Goals</a></h2>
+<ul>
+<li>This document does NOT define a specific anonymization algorithm.</li>
+<li>This document does NOT mandate cryptographic techniques.</li>
+<li>This document does NOT define implementation details or deployment topology.</li>
+</ul>
+<p>These concerns belong to architecture-level decisions (ADR).</p>
+<hr />
+<h2 id="open-questions"><a class="header" href="#open-questions">Open Questions</a></h2>
+<ul>
+<li>Where should anonymization be applied: pre-packet, gateway-level, or per-resource?</li>
+<li>How should equivalence or divergence be formally defined and verified?</li>
+<li>What guarantees can realistically be enforced across heterogeneous solvers?</li>
+<li>How should anonymization metadata be exposed to solvers, if at all?</li>
+</ul>
+<hr />
+<h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
+<ul>
+<li>Evaluate architectural approaches for anonymization placement.</li>
+<li>Define trust boundaries between platform, anonymizer, and solver.</li>
+<li>Create ADR(s) to formalize architectural decisions derived from this design.</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../design/institution-packet/courses.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../design/institution-packet/units.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../design/features/data-anonymization-for-solvers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../architecture/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -196,11 +351,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../design/institution-packet/courses.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../design/institution-packet/units.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../design/features/data-anonymization-for-solvers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../architecture/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
