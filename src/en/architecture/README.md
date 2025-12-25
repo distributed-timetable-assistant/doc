@@ -28,7 +28,7 @@ These services manage the canonical domain data. They are the source of truth fo
 
 ### 2. Processor Services (The "Workers")
 These services consume events and perform heavy lifting.
-*   **`basic-scheduler`**: An automated solver that generates timetables. Uses **Redis** for job queues.
+*   **`basic-scheduler`**: The default internal automated solver that generates timetables. Uses **Redis** for job queues.
 *   **`manual-scheduler`**: Supports human-in-the-loop editing.
 *   **`packet-analyzer`**: Extracts features (complexity, constraints) from packets to guide solvers.
 *   **`timetable-ranker`**: Stream processor that scores incoming solutions.
