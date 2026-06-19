@@ -19,6 +19,7 @@
   - [Architecture Decision Records](architecture/adr/README.md)
     - [DiTA as a Public Platform](architecture/adr/0001-dita-as-a-public-platform.md)
     - [Rust as Primary Language](architecture/adr/0002-rust-as-primary-microservices-language.md)
+    - [Selecting Angular for the DiTA Frontend](architecture/adr/0003-angular-frontend-selection-dita.md)
 - [Development](development/README.md)
   - [Backend](development/backend/README.md)
     - [Auth Service](development/backend/auth-service/README.md)
