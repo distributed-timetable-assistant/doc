@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light sidebar-visible" dir="ltr">
+<html lang="fa" class="light sidebar-visible" dir="rtl">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Rust as Primary Language - DiTA — Distributed Timetable Assistant</title>
+        <title>DiTA به‌عنوان یک پلتفرم عمومی - DiTA — دستیار جدول زمانی توزیع‌شده</title>
 
 
         <!-- Custom HTML head -->
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">DiTA — Distributed Timetable Assistant</h1>
+                    <h1 class="menu-title">DiTA — دستیار جدول زمانی توزیع‌شده</h1>
 
                     <div class="right-buttons">
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -175,122 +175,117 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="000002-select-rust-as-the-primary-language-for-microservices"><a class="header" href="#000002-select-rust-as-the-primary-language-for-microservices">000002. Select Rust as the Primary Language for Microservices</a></h1>
-<p>Date: 2025-12-19</p>
-<h2 id="status"><a class="header" href="#status">Status</a></h2>
-<p>Accepted (with explicit constraints and exit criteria)</p>
-<h2 id="context"><a class="header" href="#context">Context</a></h2>
-<p>DiTA is a distributed, computation-heavy platform whose core value is derived from solver quality, scalability, and cost-efficient execution of scheduling workloads. The system consists of multiple microservices with different characteristics, including:</p>
+                        <h1 id="0001-dita-بهعنوان-یک-پلتفرم-عمومی"><a class="header" href="#0001-dita-بهعنوان-یک-پلتفرم-عمومی">0001. DiTA به‌عنوان یک پلتفرم عمومی</a></h1>
+<p>تاریخ: 2025-12-25</p>
+<h2 id="وضعیت"><a class="header" href="#وضعیت">وضعیت</a></h2>
+<p>پیشنهادی</p>
+<h2 id="زمینه-context"><a class="header" href="#زمینه-context">زمینه (Context)</a></h2>
+<p>DiTA به مسائل پیچیده‌ی زمان‌بندی آموزشی و سازمانی می‌پردازد که حل مؤثر آن‌ها با یک سرویس متمرکز واحد امکان‌پذیر نیست. ذات این مسئله شامل موارد زیر است:</p>
 <ul>
-<li>CPU-bound solver services with high parallelism</li>
-<li>Coordination- and orchestration-heavy services</li>
-<li>I/O-bound control-plane services</li>
+<li>نهادهای ناهمگون با محدودیت‌ها و قواعد متفاوت،</li>
+<li>چندین دسته‌ی کاربری (مؤسسات، مدرسین، فراگیران، ناظران)،</li>
+<li>Solverهای محاسباتی شخص ثالث با راهبردهای بهینه‌سازی متنوع،</li>
+<li>سرویس‌های جانبی اختیاری مانند ناشناس‌سازی داده، اعتبارسنجی و غنی‌سازی داده.</li>
 </ul>
-<p>Choosing a primary implementation language is a <strong>long-term architectural commitment</strong> that directly impacts:</p>
+<p>یک مدل محصول‌محور یا سرویس یکپارچه (Monolithic):</p>
 <ul>
-<li>Infrastructure cost</li>
-<li>Development velocity</li>
-<li>System reliability</li>
-<li>Hiring and onboarding</li>
-<li>Ability to revise architectural decisions over time</li>
+<li>قابلیت توسعه‌پذیری را محدود می‌کند،</li>
+<li>نوآوری را به تیم مرکزی مقید می‌سازد،</li>
+<li>اعتماد و مسئولیت محاسباتی را متمرکز می‌کند،</li>
+<li>و مقیاس‌پذیری در دامنه‌ها و جغرافیاهای مختلف را کاهش می‌دهد.</li>
 </ul>
-<p>This decision must therefore be justified as a <strong>cost–benefit trade-off</strong>, not as a purely technical or ideological preference.</p>
-<h2 id="decision"><a class="header" href="#decision">Decision</a></h2>
-<p>Rust is selected as the <strong>primary (default) language</strong> for DiTA microservices <strong>under clearly defined constraints</strong>, with explicit recognition of its costs, risks, and limits.</p>
-<p>Rust is mandatory for:</p>
+<p>برای پشتیبانی از یک اکوسیستم باز از مشارکت‌کنندگان، Solverها و سرویس‌ها، DiTA باید مشخص کند که به‌صورت زیر عمل می‌کند:</p>
 <ul>
-<li>Compute-bound services (e.g. solvers, evaluators, optimizers)</li>
-<li>Latency-sensitive or high-throughput services</li>
-<li>Services where memory safety, determinism, and predictable performance materially affect infrastructure cost or correctness</li>
+<li>یک محصول زمان‌بندی بسته،</li>
+<li>یک سرویس زمان‌بندی مدیریت‌شده،</li>
+<li>یا یک پلتفرم عمومی با اکوسیستم قابل‌گسترش از سرویس‌ها و Solverها.</li>
 </ul>
-<p>Rust is <strong>not mandatory</strong> for:</p>
+<p>این ADR تصمیم برای جای‌دهی صریح DiTA به‌عنوان یک <strong>پلتفرم عمومی</strong> را ثبت می‌کند.</p>
+<h2 id="تصمیم-decision"><a class="header" href="#تصمیم-decision">تصمیم (Decision)</a></h2>
+<p>DiTA <strong>باید</strong> به‌عنوان یک <strong>پلتفرم عمومی</strong> طراحی، توسعه و بهره‌برداری شود؛ نه صرفاً به‌عنوان یک سرویس یا محصول زمان‌بندی.</p>
+<p>ویژگی‌های پلتفرم به‌صورت زیر تعریف می‌شوند:</p>
 <ul>
-<li>Research, experimentation, or rapid prototyping services</li>
-<li>ML-heavy or numerics-heavy components where ecosystem maturity is critical</li>
-<li>Glue or orchestration services where development speed outweighs runtime efficiency</li>
+<li>DiTA یک <strong>پلتفرم عمومی</strong> و در دسترس همه‌ی کاربران است.</li>
+<li>عضویت و استفاده‌ی پایه از پلتفرم <strong>رایگان</strong> است.</li>
+<li>قابلیت‌های پیشرفته از طریق <strong>پلن‌ها و سرویس‌های پولی</strong> ارائه می‌شوند.</li>
+<li>مؤسسات و افراد به‌عنوان مشارکت‌کنندگان پلتفرم با DiTA تعامل دارند، نه مصرف‌کنندگان منفعل.</li>
+<li>Solverها و سیستم‌های ناشناس‌سازی داده، <strong>شهروندان درجه‌یک پلتفرم</strong> محسوب می‌شوند، نه اجزای صرفاً داخلی.</li>
 </ul>
-<p>Non-Rust services must be isolated behind well-defined network boundaries (HTTP/gRPC) and treated as replaceable components.</p>
-<h2 id="rationale"><a class="header" href="#rationale">Rationale</a></h2>
-<h3 id="why-rust"><a class="header" href="#why-rust">Why Rust</a></h3>
-<p>Rust provides the following <strong>economic and architectural advantages</strong> for DiTA’s core workloads:</p>
+<h3 id="مشارکتکنندگان-پلتفرم"><a class="header" href="#مشارکتکنندگان-پلتفرم">مشارکت‌کنندگان پلتفرم</a></h3>
+<p>پلتفرم به دسته‌های زیر خدمت می‌دهد:</p>
 <ul>
-<li>Strong memory safety guarantees without garbage collection, reducing production risk in long-running services</li>
-<li>Predictable performance characteristics suitable for CPU-intensive solvers</li>
-<li>Low runtime overhead, enabling higher density per node and lower infrastructure cost</li>
-<li>Explicit ownership and concurrency models that align well with distributed, parallel computation</li>
-</ul>
-<p>These benefits directly support DiTA’s long-term goals of scalability, cost efficiency, and correctness in solver execution.</p>
-<h3 id="recognized-costs-and-risks"><a class="header" href="#recognized-costs-and-risks">Recognized Costs and Risks</a></h3>
-<p>This decision explicitly acknowledges the <strong>non-trivial costs</strong> of adopting Rust:</p>
+<li>مؤسسات: مدارس، دانشگاه‌ها، آکادمی‌ها، آزمایشگاه‌ها، مجموعه‌های ورزشی.</li>
+<li>افراد: دانشجویان، فراگیران، مدرسین، معلمان، ناظران.</li>
+<li>ارائه‌دهندگان سرویس:
 <ul>
-<li>Higher onboarding and learning curve compared to mainstream backend languages</li>
-<li>Slower iteration speed for early-stage product exploration</li>
-<li>Increased risk of early abstraction lock-in due to strong type constraints</li>
-<li>Smaller ecosystem for advanced numerical computing and ML compared to Python/C++</li>
+<li>سرویس‌های Solver (داخلی و خارجی).</li>
+<li>سرویس‌های ناشناس‌سازی داده (داخلی و خارجی).</li>
+<li>سایر سرویس‌های جانبی آینده که با استانداردهای پلتفرم سازگار باشند.</li>
 </ul>
-<p>Rust can <strong>amplify good design but also harden bad design early</strong>. This risk is accepted and mitigated through scope control and architectural discipline rather than ignored.</p>
-<h2 id="alternatives-considered"><a class="header" href="#alternatives-considered">Alternatives Considered</a></h2>
-<h3 id="go"><a class="header" href="#go">Go</a></h3>
+</li>
+</ul>
+<h3 id="مدل-درآمدی-در-سطح-پلتفرم"><a class="header" href="#مدل-درآمدی-در-سطح-پلتفرم">مدل درآمدی (در سطح پلتفرم)</a></h3>
+<p>درآمد DiTA از مشارکت در پلتفرم و تسهیل سرویس‌ها تأمین می‌شود، از جمله:</p>
 <ul>
-<li>Pros: Fast onboarding, strong ecosystem for distributed systems, low operational friction</li>
-<li>Cons: Garbage collection overhead, weaker guarantees for memory and concurrency safety</li>
-<li>Rejected as default due to poorer suitability for compute-heavy solver workloads</li>
-</ul>
-<h3 id="python"><a class="header" href="#python">Python</a></h3>
+<li>پلن‌های اشتراکی برای قابلیت‌های پیشرفته.</li>
+<li>استقرارهای اختصاصی (خصوصی) از کل پلتفرم DiTA برای یک سازمان واحد.</li>
+<li>کمیسیون از:
 <ul>
-<li>Pros: Excellent ecosystem for ML and optimization, very fast prototyping</li>
-<li>Cons: Poor runtime performance, higher operational cost at scale</li>
-<li>Accepted as a <strong>secondary language</strong> for research and experimentation only</li>
+<li>پاداش‌های پرداخت‌شده به Solverها برای حل Packetها،</li>
+<li>سرویس‌های ناشناس‌سازی اعمال‌شده روی Packetها،</li>
+<li>هر سرویس خارجی که از طریق پلتفرم اجرا شود.</li>
 </ul>
-<h3 id="c"><a class="header" href="#c">C++</a></h3>
+</li>
+<li>درآمد مستقیم از:
 <ul>
-<li>Pros: Maximum performance and mature numerical libraries</li>
-<li>Cons: High maintenance cost, memory safety risks, slower team scalability</li>
-<li>Rejected due to long-term reliability and operational risk</li>
+<li>حل Packetها توسط Solverهای تحت مدیریت DiTA،</li>
+<li>ناشناس‌سازی Packetها توسط سرویس‌های ناشناس‌سازی تحت مدیریت DiTA.</li>
 </ul>
-<h2 id="scope-control-and-boundaries"><a class="header" href="#scope-control-and-boundaries">Scope Control and Boundaries</a></h2>
-<p>To prevent overreach, the following constraints apply:</p>
+</li>
+<li>سرویس‌های اعتبار و اعتماد، شامل:
 <ul>
-<li>Rust adoption starts with solver and performance-critical services only</li>
-<li>Control-plane and orchestration services may use alternative languages if justified</li>
-<li>All inter-service communication must occur via explicit network protocols</li>
-<li>No cross-language in-process coupling is allowed</li>
+<li>احراز هویت،</li>
+<li>سیستم‌های اعتبارسنجی، رتبه‌بندی و لایه‌بندی،</li>
+<li>وضعیت «تأییدشده» (تیک آبی) برای مؤسسات، افراد، Solverها و سرویس‌های خارجی.</li>
 </ul>
-<h2 id="exit-criteria-and-re-evaluation"><a class="header" href="#exit-criteria-and-re-evaluation">Exit Criteria and Re-evaluation</a></h2>
-<p>This decision is <strong>not irreversible</strong>.</p>
-<p>The choice of Rust will be re-evaluated if one or more of the following occur:</p>
+</li>
+</ul>
+<p>در مراحل اولیه‌ی چرخه‌ی عمر پلتفرم، DiTA <strong>باید</strong> اولویت را به پذیرش بازار و رشد اکوسیستم بدهد
+و ممکن است تا رسیدن به آستانه‌ی پایداری سرویس، عمدتاً به‌صورت رایگان فعالیت کند.</p>
+<h2 id="پیامدها-consequences"><a class="header" href="#پیامدها-consequences">پیامدها (Consequences)</a></h2>
+<h3 id="پیامدهای-مثبت"><a class="header" href="#پیامدهای-مثبت">پیامدهای مثبت</a></h3>
 <ul>
-<li>Development velocity becomes a bottleneck to product–market fit</li>
-<li>Hiring or onboarding costs exceed acceptable thresholds</li>
-<li>A significant portion of services are I/O-bound with no measurable performance benefit from Rust</li>
-<li>Operational complexity outweighs infrastructure savings</li>
+<li>امکان ایجاد یک اکوسیستم مقیاس‌پذیر از Solverها و سرویس‌های مستقل.</li>
+<li>جداسازی تکامل هسته‌ی پلتفرم از نوآوری در بهینه‌سازی و ناشناس‌سازی.</li>
+<li>پشتیبانی از نیازهای متنوع مؤسسات در حوزه‌ی حریم خصوصی، اعتماد و شیوه‌ی استقرار.</li>
+<li>ایجاد چندین جریان درآمدی پایدار بدون قفل‌کردن کاربران در یک مدل سرویس واحد.</li>
+<li>جای‌دهی DiTA به‌عنوان زیرساخت، نه یک اپلیکیشن تک‌منظوره.</li>
 </ul>
-<p>A formal review must be conducted before expanding Rust to additional service categories.</p>
-<h2 id="consequences"><a class="header" href="#consequences">Consequences</a></h2>
-<h3 id="positive"><a class="header" href="#positive">Positive</a></h3>
+<h3 id="پیامدهای-منفی-و-ریسکها"><a class="header" href="#پیامدهای-منفی-و-ریسکها">پیامدهای منفی و ریسک‌ها</a></h3>
 <ul>
-<li>Lower runtime risk and improved reliability for core solver services</li>
-<li>Reduced infrastructure cost for CPU-bound workloads</li>
-<li>Strong alignment between language semantics and parallel computation needs</li>
+<li>افزایش پیچیدگی معماری و عملیاتی.</li>
+<li>افزایش سطح حمله و نیاز به الزامات امنیتی سخت‌گیرانه‌تر.</li>
+<li>چالش‌های حاکمیتی در مدیریت سرویس‌های شخص ثالث و مرزهای اعتماد.</li>
+<li>نیاز به قراردادهای رسمی، APIها، استانداردها و سازوکارهای انطباق.</li>
+<li>لزوم ایجاد توازن دقیق میان بازبودن پلتفرم و جلوگیری از سوءاستفاده.</li>
 </ul>
-<h3 id="negative"><a class="header" href="#negative">Negative</a></h3>
+<p>این ریسک‌ها باید از طریق موارد زیر کاهش یابند:</p>
 <ul>
-<li>Higher upfront development and onboarding cost</li>
-<li>Increased architectural rigidity if boundaries are poorly designed</li>
-<li>Need for disciplined scope control to avoid premature over-engineering</li>
+<li>مرزبندی‌های معماری قوی،</li>
+<li>قراردادهای سرویس شفاف و صریح،</li>
+<li>سازوکارهای روشن حاکمیتی و اعتبارسنجی،</li>
+<li>و ADRهای آتی که سیاست‌های اعتماد، امنیت و پلتفرم را تعریف می‌کنند.</li>
 </ul>
-<hr />
-<p>This ADR represents a <strong>constrained, economically motivated decision</strong>, not a universal endorsement of Rust.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../architecture/adr/000001-dita-as-a-public-platform.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../architecture/adr/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../development/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../architecture/adr/0002-rust-as-primary-microservices-language.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -300,11 +295,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../architecture/adr/000001-dita-as-a-public-platform.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../architecture/adr/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../development/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../architecture/adr/0002-rust-as-primary-microservices-language.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
