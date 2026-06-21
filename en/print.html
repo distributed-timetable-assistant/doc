@@ -923,6 +923,116 @@ and may operate largely free of charge until a sustainable service threshold is 
 </ul>
 <hr />
 <p>This ADR represents a <strong>constrained, economically motivated decision</strong>, not a universal endorsement of Rust.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="0003-selecting-angular-for-the-dita-frontend"><a class="header" href="#0003-selecting-angular-for-the-dita-frontend">0003. Selecting Angular for the DiTA Frontend</a></h1>
+<p>Date: 2026-06-19</p>
+<h2 id="status-3"><a class="header" href="#status-3">Status</a></h2>
+<p>Accepted</p>
+<h2 id="context-2"><a class="header" href="#context-2">Context</a></h2>
+<p>DiTA is a web-based, multi-role, enterprise-grade platform consisting of multiple portals and concurrent workflows, including users, institutions, services, administrative dashboards, complex forms, data tables, reports, and visualizations.</p>
+<p>In such a product, the challenge is not merely rendering a user interface. The platform must ensure that:</p>
+<ul>
+<li>The project structure remains predictable over time.</li>
+<li>Separation of concerns is enforced at the file and module levels.</li>
+<li>Onboarding new team members does not introduce significant overhead.</li>
+<li>Large-scale UI development does not lead to architectural degradation.</li>
+<li>A mature ecosystem of enterprise-grade libraries is available for tables, forms, charts, validation, and layout management.</li>
+<li>The system maintains acceptable performance across a wide range of hardware, including older laptops and resource-constrained educational environments.</li>
+</ul>
+<p>Therefore, the frontend framework must be selected based on long-term maintainability, structural consistency, ecosystem maturity, and predictable performance rather than solely on initial development speed.</p>
+<h2 id="decision-2"><a class="header" href="#decision-2">Decision</a></h2>
+<p>Angular is selected as the primary frontend framework for DiTA.</p>
+<p>React, Yew, and Flutter are not selected for the primary frontend implementation of the platform.</p>
+<h3 id="why-react-is-not-selected"><a class="header" href="#why-react-is-not-selected">Why React Is Not Selected</a></h3>
+<p>React follows a less opinionated approach than Angular and delegates many architectural decisions to the development team. While this flexibility can be advantageous in some projects, DiTA benefits from a framework that provides stronger structural conventions and more explicit guidance for long-term development.</p>
+<p>For DiTA, we require a framework that:</p>
+<ul>
+<li>Clearly defines modular boundaries.</li>
+<li>Enforces conventions from the beginning.</li>
+<li>Prevents the gradual evolution of the UI into a collection of inconsistent and loosely structured components.</li>
+</ul>
+<p>React does not provide this level of opinionation by default. For this project, the risk of architectural drift outweighs the benefits of additional flexibility.</p>
+<h3 id="why-yew-is-not-selected"><a class="header" href="#why-yew-is-not-selected">Why Yew Is Not Selected</a></h3>
+<p>Yew uses Rust and the <code>html!</code> macro to define views, resulting in a JSX-like development model. While technically interesting, it does not provide the primary advantage sought for DiTA: a mature enterprise-grade UI ecosystem.</p>
+<p>DiTA requires mature solutions for:</p>
+<ul>
+<li>Large-scale data grids.</li>
+<li>Charts and dashboards.</li>
+<li>Complex forms.</li>
+<li>Enterprise UI components.</li>
+<li>Calendars and scheduling interfaces.</li>
+<li>Advanced layout and design tooling.</li>
+</ul>
+<p>Although Yew offers compelling technical characteristics, it has not yet reached Angular's level of maturity in terms of UI libraries, development experience, talent availability, and enterprise-oriented tooling. As a result, selecting Yew would increase both implementation and maintenance risks.</p>
+<p>Additionally, Yew's UI definition model is based on the <code>html!</code> macro and does not provide the traditional separation of templates, styles, and logic available in Angular. This does not align with DiTA's architectural goals for frontend code organization and maintainability.</p>
+<h3 id="why-flutter-is-not-selected"><a class="header" href="#why-flutter-is-not-selected">Why Flutter Is Not Selected</a></h3>
+<p>Flutter follows a widget-centric architecture in which the UI is defined as a tree of widgets. This approach is highly effective for cross-platform applications. However, DiTA is fundamentally a web-first product whose requirements revolve around browser-native behavior, DOM integration, web ecosystem compatibility, forms, accessibility, and established enterprise web patterns.</p>
+<p>For DiTA, Flutter introduces several trade-offs:</p>
+<ol>
+<li>Reduced alignment with the broader web ecosystem and its mature libraries.</li>
+<li>Additional abstraction layers where precise control over structure, semantics, and integration is required.</li>
+<li>Dependence on the Flutter rendering engine rather than direct interaction with the browser DOM.</li>
+<li>Increased risk of performance issues in chart-heavy, dashboard-oriented, and highly interactive data-driven scenarios.</li>
+</ol>
+<p>In Flutter Web, the rendering path typically follows:</p>
+<pre><code class="language-text">Dart
+ ↓
+Flutter Engine
+ ↓
+CanvasKit / HTML Renderer
+ ↓
+Browser
+</code></pre>
+<p>In Angular, rendering is much closer to the browser's native rendering model:</p>
+<pre><code class="language-text">Angular
+ ↓
+DOM
+ ↓
+Browser
+</code></pre>
+<p>This architectural difference does not imply that Flutter Web is inherently slow. However, it introduces an additional rendering layer between the application and the browser, which can incur performance overhead in certain scenarios.</p>
+<p>During an initial evaluation of a Flutter Web prototype, noticeable UI stalls were observed while interacting with charts and hover-driven visualizations on mid-range and older hardware. Although this observation alone is insufficient for a definitive judgment of Flutter, it indicates a higher performance risk for a platform such as DiTA, which relies heavily on dashboards, charts, and data-intensive interactions.</p>
+<p>Furthermore, Flutter's primary advantage lies in unified Mobile, Desktop, and Web development. DiTA is currently a web-first platform whose core requirements are better served by technologies that are deeply integrated with the web ecosystem.</p>
+<p>For these reasons, Flutter is not considered the most appropriate primary frontend technology for this project.</p>
+<h3 id="why-angular-is-selected"><a class="header" href="#why-angular-is-selected">Why Angular Is Selected</a></h3>
+<p>Angular is a better fit for DiTA because it:</p>
+<ul>
+<li>Is template-first and opinionated, enforcing structure from the outset.</li>
+<li>Provides clearer conventions for long-lived enterprise applications.</li>
+<li>Offers natural separation between templates, styles, and business logic.</li>
+<li>Simplifies code reviews and long-term maintenance in multi-developer teams.</li>
+<li>Has a mature enterprise ecosystem for tables, forms, layouts, charts, and data visualization.</li>
+<li>Works directly with the DOM and standard browser capabilities.</li>
+<li>Delivers more predictable behavior across a wider range of hardware configurations.</li>
+<li>Aligns well with DiTA's requirements for multiple portals, dashboards, and data-driven interfaces.</li>
+</ul>
+<p>In summary, Angular reduces architectural disorder, lowers performance risk, and improves the platform's ability to scale and evolve over time.</p>
+<h2 id="consequences-2"><a class="header" href="#consequences-2">Consequences</a></h2>
+<h3 id="positive-consequences-1"><a class="header" href="#positive-consequences-1">Positive Consequences</a></h3>
+<ul>
+<li>Frontend architecture becomes predictable and enforceable.</li>
+<li>Large-scale UI code remains easier to maintain.</li>
+<li>Onboarding new developers becomes simpler.</li>
+<li>Integration of mature web libraries for charts, tables, and dashboards becomes easier.</li>
+</ul>
+<h3 id="costs-and-risks"><a class="header" href="#costs-and-risks">Costs and Risks</a></h3>
+<ul>
+<li>Initial boilerplate is greater than in React.</li>
+<li>Angular has a steeper learning curve for developers unfamiliar with the framework.</li>
+<li>Poor team discipline can still lead to complexity and code quality issues.</li>
+<li>Achieving a high-quality architecture requires clear conventions and code review policies.</li>
+</ul>
+<h3 id="risk-mitigation"><a class="header" href="#risk-mitigation">Risk Mitigation</a></h3>
+<ul>
+<li>Define a clear modular architecture from the beginning.</li>
+<li>Adopt consistent conventions for feature modules, components, services, and models.</li>
+<li>Limit component size and decompose complex UIs into smaller units.</li>
+<li>Establish an internal design system and shared UI layer.</li>
+<li>Enforce code reviews to prevent architectural drift.</li>
+<li>Define performance budgets and continuously monitor them throughout development.</li>
+</ul>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>Angular is the preferred frontend framework for DiTA because it simultaneously addresses four critical requirements: <strong>structure, maintainability, web ecosystem maturity, and predictable performance</strong>.</p>
+<p>While React, Yew, and Flutter each offer advantages in specific contexts, their benefits do not outweigh their associated costs and risks for DiTA's current requirements and long-term growth strategy.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="development"><a class="header" href="#development">Development</a></h1>
 <p>This section contains technical decisions and service implementations.</p>
 <p>The technical development guide is available at: <a href="http://eg.dita.hasankarimi.ir">eg.dita.hasankarimi.ir</a></p>

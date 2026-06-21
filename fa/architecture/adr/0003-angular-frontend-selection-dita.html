@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<html lang="fa" class="light sidebar-visible" dir="rtl">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>انتخاب Angular برای فرانت‌اند DiTA - DiTA — دستیار جدول زمانی توزیع‌شده</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../../searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">DiTA — دستیار جدول زمانی توزیع‌شده</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="0002-انتخاب-angular-برای-فرانتاند-dita"><a class="header" href="#0002-انتخاب-angular-برای-فرانتاند-dita">0002. انتخاب Angular برای فرانت‌اند DiTA</a></h1>
+<p>تاریخ: 2026-06-19</p>
+<h2 id="وضعیت"><a class="header" href="#وضعیت">وضعیت</a></h2>
+<p>پذیرفته‌شده</p>
+<h2 id="زمینه-context"><a class="header" href="#زمینه-context">زمینه (Context)</a></h2>
+<p>DiTA یک محصول وب‌محور، چندنقشی و enterprise-grade است که در آن چند پورتال و چند نوع جریان کار هم‌زمان وجود دارد: کاربر، مؤسسه، سرویس‌ها، داشبوردهای مدیریتی، فرم‌های پیچیده، جدول‌های داده، گزارش‌ها و نمودارها.</p>
+<p>در چنین محصولی، مسئله فقط «رندر کردن UI» نیست؛ مسئله این است که:</p>
+<ul>
+<li>ساختار پروژه در طول زمان قابل پیش‌بینی بماند.</li>
+<li>جداسازی مسئولیت‌ها در سطح فایل و ماژول enforce شود.</li>
+<li>اضافه شدن اعضای جدید تیم هزینه‌ی زیادی ایجاد نکند.</li>
+<li>توسعه‌ی ویژگی‌های UI در مقیاس بزرگ به شلختگی معماری منجر نشود.</li>
+<li>اکوسیستم کتابخانه‌های enterprise برای جدول، فرم، نمودار، اعتبارسنجی و layout در دسترس و بالغ باشد.</li>
+<li>عملکرد سامانه روی طیف گسترده‌ای از سخت‌افزارها، از جمله لپ‌تاپ‌های قدیمی و سیستم‌های آموزشی با منابع محدود، قابل قبول باقی بماند.</li>
+</ul>
+<p>بر این اساس، انتخاب فریم‌ورک فرانت‌اند باید بر پایه‌ی نگهداشت‌پذیری بلندمدت، استانداردسازی ساختار، بلوغ اکوسیستم و عملکرد قابل پیش‌بینی انجام شود؛ نه صرفاً سرعت اولیه‌ی نمونه‌سازی.</p>
+<h2 id="تصمیم"><a class="header" href="#تصمیم">تصمیم</a></h2>
+<p>Angular به‌عنوان فریم‌ورک اصلی فرانت‌اند DiTA انتخاب می‌شود.</p>
+<p>React، Yew و Flutter برای مسیر اصلی فرانت‌اند این محصول انتخاب نمی‌شوند.</p>
+<h3 id="چرا-react-انتخاب-نمیشود"><a class="header" href="#چرا-react-انتخاب-نمیشود">چرا React انتخاب نمی‌شود</a></h3>
+<p>React رویکردی کم‌نظرتر (less opinionated) نسبت به Angular دارد و بسیاری از تصمیمات معماری را به تیم توسعه واگذار می‌کند. این انعطاف‌پذیری در برخی پروژه‌ها مزیت محسوب می‌شود، اما در DiTA ترجیح داده شده است از فریم‌ورکی استفاده شود که الگوهای ساختاری مشخص‌تر و conventionهای رسمی‌تری را برای توسعه‌ی بلندمدت پروژه فراهم می‌کند.</p>
+<p>در DiTA، ما به یک چارچوب opinionated نیاز داریم که:</p>
+<ul>
+<li>مرزهای ماژولی را شفاف کند،</li>
+<li>convention را از ابتدا تحمیل کند،</li>
+<li>و اجازه ندهد UI به‌مرور به مجموعه‌ای از componentهای ناهمگن و کم‌قاعده تبدیل شود.</li>
+</ul>
+<p>React این سطح از opinionation را به‌صورت پیش‌فرض فراهم نمی‌کند و برای این پروژه، ریسک drift معماری بالاتر از مزیت flexibility آن است.</p>
+<h3 id="چرا-yew-انتخاب-نمیشود"><a class="header" href="#چرا-yew-انتخاب-نمیشود">چرا Yew انتخاب نمی‌شود</a></h3>
+<p>Yew از Rust و ماکروی <code>html!</code> برای تعریف view استفاده می‌کند و سینتکس آن عملاً JSX-like است. این مدل برای تیمی که به‌دنبال یک فرانت‌اند وب کاملاً enterprise و مبتنی بر اکوسیستم جاافتاده است، مزیت اصلی Angular را ندارد: بلوغ اکوسیستم UI.</p>
+<p>در DiTA، ما به کتابخانه‌های بالغ برای این موارد نیاز داریم:</p>
+<ul>
+<li>جدول‌های داده‌ی سنگین،</li>
+<li>نمودارها و داشبوردها،</li>
+<li>فرم‌های پیچیده،</li>
+<li>کامپوننت‌های تعاملی سازمانی،</li>
+<li>تقویم‌ها و زمان‌بندها،</li>
+<li>و ابزارهای آماده‌ی طراحی و layout.</li>
+</ul>
+<p>Yew از نظر فلسفه‌ی فنی جذاب است، اما برای مسیر اصلی محصول هنوز از نظر تعداد و بلوغ کتابخانه‌های UI، تجربه‌ی عملی توسعه، بازار نیروی انسانی و تنوع راهکارهای enterprise به سطح Angular نرسیده است. در نتیجه، انتخاب Yew برای DiTA ریسک پیاده‌سازی و نگهداشت را بالا می‌برد.</p>
+<p>علاوه بر این، مدل تعریف UI در Yew مبتنی بر ماکروی <code>html!</code> است و جداسازی کلاسیک template، style و logic که در Angular وجود دارد را فراهم نمی‌کند. این موضوع با اهداف معماری DiTA در زمینه‌ی ساختارمند بودن کد فرانت‌اند هم‌راستا نیست.</p>
+<h3 id="چرا-flutter-انتخاب-نمیشود"><a class="header" href="#چرا-flutter-انتخاب-نمیشود">چرا Flutter انتخاب نمی‌شود</a></h3>
+<p>Flutter مدل widget-centric دارد و UI را به‌صورت یک tree از widgetها تعریف می‌کند. این مدل برای اپلیکیشن‌های cross-platform بسیار خوب است، اما DiTA یک محصول وب‌محور است و نیازهای آن حول browser-native بودن، یکپارچگی با DOM، اکوسیستم وب، فرم‌ها، دسترسی‌پذیری، و الگوهای جاافتاده‌ی enterprise web می‌چرخد.</p>
+<p>برای DiTA، Flutter چند هزینه ایجاد می‌کند:</p>
+<ol>
+<li>فاصله گرفتن از ecosystem اصلی وب و کتابخانه‌های بالغ آن.</li>
+<li>افزایش لایه‌ی انتزاعی در جایی که ما به کنترل دقیق بر ساختار، semantics و integration نیاز داریم.</li>
+<li>وابستگی به موتور رندر Flutter به‌جای استفاده‌ی مستقیم از DOM مرورگر.</li>
+<li>افزایش ریسک بروز مشکلات عملکردی در سناریوهای شامل نمودارها، داشبوردها، تعاملات سنگین و داده‌های حجیم.</li>
+</ol>
+<p>در Flutter Web، مسیر رندر معمولاً به‌صورت زیر است:</p>
+<pre><code class="language-text">Dart
+ ↓
+Flutter Engine
+ ↓
+CanvasKit / HTML Renderer
+ ↓
+Browser
+</code></pre>
+<p>در حالی که در Angular مسیر رندر به DOM مرورگر نزدیک‌تر است:</p>
+<pre><code class="language-text">Angular
+ ↓
+DOM
+ ↓
+Browser
+</code></pre>
+<p>این تفاوت معماری به این معنا نیست که Flutter Web الزاماً کند است، اما یک لایه‌ی اضافی بین برنامه و مرورگر ایجاد می‌کند که می‌تواند در برخی سناریوها هزینه‌ی عملکردی داشته باشد.</p>
+<p>در ارزیابی اولیه‌ی انجام‌شده روی نمونه‌ی Flutter Web، هنگام تعامل با نمودارها و عملیات hover روی سخت‌افزار میان‌رده و قدیمی، توقف‌های محسوس رابط کاربری مشاهده شد. اگرچه این نتیجه به‌تنهایی برای قضاوت قطعی درباره Flutter کافی نیست، اما نشان می‌دهد که برای محصولی مانند DiTA که متکی بر داشبوردها، نمودارها و تعاملات داده‌محور است، ریسک عملکردی بیشتری نسبت به Angular وجود دارد.</p>
+<p>همچنین مزیت اصلی Flutter در توسعه‌ی هم‌زمان Mobile، Desktop و Web است؛ در حالی که DiTA در حال حاضر یک محصول web-first محسوب می‌شود و نیازمندی‌های اصلی آن در اکوسیستم وب بهتر پوشش داده می‌شوند.</p>
+<p>به همین دلیل Flutter برای این محصول مناسب‌ترین گزینه‌ی اصلی نیست.</p>
+<h3 id="چرا-angular-انتخاب-میشود"><a class="header" href="#چرا-angular-انتخاب-میشود">چرا Angular انتخاب می‌شود</a></h3>
+<p>Angular برای DiTA مناسب‌تر است چون:</p>
+<ul>
+<li>template-first و opinionated است و ساختار را از ابتدا enforce می‌کند.</li>
+<li>برای پروژه‌های سازمانی با lifecycle طولانی، convention روشن‌تری دارد.</li>
+<li>جداسازی template، style و logic را به شکل طبیعی‌تری فراهم می‌کند.</li>
+<li>برای تیم‌های چندنفره، code review و نگهداشت را ساده‌تر می‌کند.</li>
+<li>در اکوسیستم وبِ enterprise، برای جدول، فرم، layout، نمودار و visualization مسیرهای جاافتاده‌تری دارد.</li>
+<li>به‌صورت مستقیم با DOM و قابلیت‌های استاندارد مرورگر کار می‌کند.</li>
+<li>برای طیف گسترده‌تری از دستگاه‌ها و سخت‌افزارها رفتار قابل پیش‌بینی‌تری دارد.</li>
+<li>با نیازهای DiTA در پورتال‌های متعدد، داشبوردها، و نمودارهای داده‌محور سازگارتر است.</li>
+</ul>
+<p>در یک کلام، Angular برای DiTA انتخابی است که <strong>هزینه‌ی شلختگی معماری را پایین می‌آورد</strong>، <strong>ریسک عملکردی را کاهش می‌دهد</strong> و <strong>قابلیت رشد محصول را در بلندمدت افزایش می‌دهد</strong>.</p>
+<h2 id="پیامدها-consequences"><a class="header" href="#پیامدها-consequences">پیامدها (Consequences)</a></h2>
+<h3 id="پیامدهای-مثبت"><a class="header" href="#پیامدهای-مثبت">پیامدهای مثبت</a></h3>
+<ul>
+<li>ساختار فرانت‌اند قابل پیش‌بینی و قابل enforce شدن می‌شود.</li>
+<li>کد UI در مقیاس بزرگ کمتر به هم می‌ریزد.</li>
+<li>onboarding توسعه‌دهنده‌ی جدید ساده‌تر می‌شود.</li>
+<li>استفاده از کتابخانه‌های بالغ وب برای نمودارها، جداول و داشبوردها ساده‌تر خواهد بود.</li>
+</ul>
+<h3 id="هزینهها-و-ریسکها"><a class="header" href="#هزینهها-و-ریسکها">هزینه‌ها و ریسک‌ها</a></h3>
+<ul>
+<li>boilerplate اولیه از React بیشتر است.</li>
+<li>یادگیری Angular برای اعضای ناآشنا زمان‌برتر است.</li>
+<li>اگر discipline تیمی ضعیف باشد، حتی Angular هم می‌تواند شلوغ شود.</li>
+<li>برای رسیدن به معماری خوب، نیاز به convention و review policy مشخص وجود دارد.</li>
+</ul>
+<h3 id="راهکار-کاهش-ریسک"><a class="header" href="#راهکار-کاهش-ریسک">راهکار کاهش ریسک</a></h3>
+<ul>
+<li>تعریف معماری ماژولار روشن از ابتدا.</li>
+<li>استفاده از convention ثابت برای feature module، component، service و model.</li>
+<li>محدود کردن componentهای بزرگ و شکستن UI به واحدهای کوچک.</li>
+<li>استفاده از یک design system داخلی و یک لایه‌ی UI مشترک.</li>
+<li>الزام به code review برای جلوگیری از drift معماری.</li>
+<li>تعریف معیارهای عملکردی (Performance Budget) و پایش مستمر آن‌ها در فرایند توسعه.</li>
+</ul>
+<h2 id="نتیجه"><a class="header" href="#نتیجه">نتیجه</a></h2>
+<p>برای DiTA، Angular بهترین انتخاب اصلی برای فرانت‌اند است؛ چون هم‌زمان چهار نیاز کلیدی را پوشش می‌دهد: <strong>ساختار، نگهداشت‌پذیری، بلوغ اکوسیستم وب و عملکرد قابل پیش‌بینی</strong>.</p>
+<p>React، Yew و Flutter هر کدام در زمینه‌هایی قابل دفاع‌اند، اما برای نیازهای فعلی و مسیر رشد DiTA، مزیت آن‌ها بر هزینه و ریسکشان غلبه نمی‌کند.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../architecture/adr/0002-rust-as-primary-microservices-language.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../development/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../architecture/adr/0002-rust-as-primary-microservices-language.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../development/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../lang-switch.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
