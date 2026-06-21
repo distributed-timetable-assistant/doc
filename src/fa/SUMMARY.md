@@ -19,6 +19,7 @@
   - [سوابق تصمیم‌گیری معماری](architecture/adr/README.md)
     - [DiTA به‌عنوان یک پلتفرم عمومی](architecture/adr/0001-dita-as-a-public-platform.md)
     - [انتخاب راست (Rust) به عنوان زبان اصلی](architecture/adr/0002-rust-as-primary-microservices-language.md)
+    - [انتخاب Angular برای فرانت‌اند DiTA](architecture/adr/0003-angular-frontend-selection-dita.md)
 - [توسعه](development/README.md)
   - [بکند](development/backend/README.md)
     - [سرویس احراز هویت](development/backend/auth-service/README.md)
