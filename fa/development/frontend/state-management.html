@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>فرانت‌اند - DiTA — دستیار جدول زمانی توزیع‌شده</title>
+        <title>مدیریت State - DiTA — دستیار جدول زمانی توزیع‌شده</title>
 
 
         <!-- Custom HTML head -->
@@ -175,16 +175,120 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="مدیریت-state"><a class="header" href="#مدیریت-state">مدیریت State</a></h1>
+<p>این سند اصول پیاده‌سازی <strong>Stateهای Global</strong> در ماژول‌های Front-end مبتنی بر <strong>Leptos</strong> را تعریف می‌کند. هدف، ایجاد یک الگوی یکپارچه، قابل‌نگهداری و قابل‌گسترش برای نگهداری و اشتراک‌گذاری State در سطح اپلیکیشن است.</p>
+<hr />
+<h2 id="۱-ساختار-فایل-hook-برای-هر-ماژول"><a class="header" href="#۱-ساختار-فایل-hook-برای-هر-ماژول">۱. ساختار فایل Hook برای هر ماژول</a></h2>
+<p>هر ماژولی که تصمیم دارد State در سطح Global داشته باشد، باید یک فایل در دایرکتوری <code>hooks</code> با نام همان ماژول ایجاد کند. محتوای این فایل باید مطابق الگوی زیر باشد.</p>
+<h3 id="۱۱-struct-خصوصی-context"><a class="header" href="#۱۱-struct-خصوصی-context">۱.۱. Struct خصوصی Context</a></h3>
+<ul>
+<li>یک <code>struct</code> <strong>خصوصی</strong> با پسوند <code>Context</code> (مثال: <code>SidenavContext</code>) تعریف شود.</li>
+<li>این struct فیلدهای State مورد نیاز را نگه می‌دارد.</li>
+<li>باید <code>Store</code> (با استفاده از <code>reactive_stores::Store</code>) را derive / پیاده‌سازی کند تا بتوان آن را به‌عنوان Context در Leptos معرفی کرد.</li>
+<li>باید <code>Serialize</code> و <code>Deserialize</code> را پیاده‌سازی کند تا امکان ذخیره‌سازی در LocalStorage فراهم شود.</li>
+</ul>
+<h3 id="۱۲-کلید-ذخیرهسازی"><a class="header" href="#۱۲-کلید-ذخیرهسازی">۱.۲. کلید ذخیره‌سازی</a></h3>
+<p>یک ثابت برای کلید ذخیره‌سازی State تعریف شود:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const LOCALSTORAGE_KEY: &amp;str = "sidenav";
+<span class="boring">}</span></code></pre></pre>
+<h3 id="۱۳-struct-عمومی-mode"><a class="header" href="#۱۳-struct-عمومی-mode">۱.۳. Struct عمومی Mode</a></h3>
+<p>یک <code>struct</code> <strong>عمومی</strong> با پسوند <code>Mode</code> تعریف شود. این struct رابطی است که در اختیار خود ماژول و سایر ماژول‌هایی که قصد کار با این State را دارند قرار می‌گیرد.</p>
+<p>ماژول‌ها و مصرف‌کنندگان باید با فراخوانی <code>SidenavMode::new()</code> با آن کار کنند:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let sidenav_ctx = SidenavMode::new();
+<span class="boring">}</span></code></pre></pre>
+<p>این struct باید تریت <code>StateProvider</code> را نیز پیاده‌سازی کند.</p>
+<h3 id="۱۴-نمونه-کامل"><a class="header" href="#۱۴-نمونه-کامل">۱.۴. نمونه کامل</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dita_state::app_state::StateProvider;
+use dita_state::persist_state::{init_ctx, use_ctx, provide};
+
+const LOCALSTORAGE_KEY: &amp;str = "sidenav";
+
+#[derive(Debug, Clone, Copy, Default, Store, Serialize, Deserialize, PartialEq)]
+struct SidenavContext {
+    pub open: bool,
+}
+
+#[derive(Clone, Copy)]
+pub struct SidenavMode {
+    ctx: Store&lt;SidenavContext&gt;,
+}
+
+impl SidenavMode {
+    pub fn new() -&gt; Self {
+        Self {
+            ctx: use_ctx()
+                .unwrap_or_else(|| {
+                    logging::warn!(
+                        "Use Context: FAILED. SidenavContext not initialized at root component, build app state with sidenav state"
+                    );
+                    init_ctx(LOCALSTORAGE_KEY)
+                }),
+        }
+    }
+
+    pub fn toggle(self) {
+        self.ctx.open().update(|v| *v = !*v);
+    }
+
+    pub fn is_open(&amp;self) -&gt; Signal&lt;bool&gt; {
+        self.ctx.open().into()
+    }
+}
+
+impl StateProvider for SidenavMode {
+    fn provide() {
+        provide::&lt;SidenavContext&gt;(LOCALSTORAGE_KEY);
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="۲-ثبت-در-اپلیکیشن-مصرفکننده"><a class="header" href="#۲-ثبت-در-اپلیکیشن-مصرفکننده">۲. ثبت در اپلیکیشن مصرف‌کننده</a></h2>
+<p>هر اپلیکیشنی که از ماژول استفاده می‌کند، باید struct مدیریت State ماژول را با فراخوانی متد جنریک <code>with</code> به state builder بدهد تا هنگام ساخت State کلی، provider مربوطه برای مقداردهی فراخوانی شود.</p>
+<p>مسیر پیشنهادی: <code>apps/&lt;app-name&gt;/src/state.rs</code></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dita_design_system::hooks::sidenav::SidenavMode;
+use dita_state::app_state::AppState;
+
+pub fn init() {
+    AppState::builder()
+        .with::&lt;SidenavMode&gt;()
+        .build();
+}
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="۳-فراخوانی-init-در-کامپوننت-root"><a class="header" href="#۳-فراخوانی-init-در-کامپوننت-root">۳. فراخوانی Init در کامپوننت Root</a></h2>
+<p>متد <code>state::init()</code> <strong>باید</strong> در کامپوننت Root اپلیکیشن فراخوانی شود تا همه Stateهای Global فراهم شده و در کل درخت کامپوننت‌ها در دسترس قرار گیرند:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// در کامپوننت Root
+state::init();
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="خلاصه-جریان-کار"><a class="header" href="#خلاصه-جریان-کار">خلاصه جریان کار</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>مرحله</th><th>مکان</th><th>اقدام</th></tr></thead><tbody>
+<tr><td>۱</td><td><code>hooks/{module}.rs</code></td><td>تعریف <code>*Context</code> خصوصی، <code>*Mode</code> عمومی، کلید ذخیره‌سازی و پیاده‌سازی <code>StateProvider</code></td></tr>
+<tr><td>۲</td><td><code>apps/{app}/src/state.rs</code></td><td>ثبت Mode از طریق <code>AppState::builder().with::&lt;ModuleMode&gt;()</code></td></tr>
+<tr><td>۳</td><td>کامپوننت Root</td><td>فراخوانی <code>state::init()</code></td></tr>
+</tbody></table>
+</div>
+<p>با رعایت این الگو، Stateهای Global به‌صورت یکپارچه و قابل‌گسترش و هم‌راستا با معماری Leptos و لایه persistence کتابخانه <code>dita_state</code> مدیریت می‌شوند.</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../development/backend/scheduler-service/manual-scheduler/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../development/frontend/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../development/frontend/state-management.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../development/frontend/admin/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -194,11 +298,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../development/backend/scheduler-service/manual-scheduler/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../development/frontend/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../development/frontend/state-management.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../development/frontend/admin/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

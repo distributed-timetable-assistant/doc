@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="fa" class="light sidebar-visible" dir="rtl">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>فرانت‌اند - DiTA — دستیار جدول زمانی توزیع‌شده</title>
+        <title>State Management - DiTA — Distributed Timetable Assistant</title>
 
 
         <!-- Custom HTML head -->
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">DiTA — دستیار جدول زمانی توزیع‌شده</h1>
+                    <h1 class="menu-title">DiTA — Distributed Timetable Assistant</h1>
 
                     <div class="right-buttons">
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -175,16 +175,120 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="state-management"><a class="header" href="#state-management">State Management</a></h1>
+<p>This document defines the principles for implementing <strong>Global State</strong> in Front-end modules based on <strong>Leptos</strong>. The goal is to establish a consistent, maintainable, and extensible pattern for storing and sharing state at the application level.</p>
+<hr />
+<h2 id="1-hook-file-structure-for-each-module"><a class="header" href="#1-hook-file-structure-for-each-module">1. Hook File Structure for Each Module</a></h2>
+<p>Any module that needs to maintain Global State must create a file in the <code>hooks</code> directory named after the module. The content of this file must follow the pattern below exactly.</p>
+<h3 id="11-private-context-struct"><a class="header" href="#11-private-context-struct">1.1. Private Context Struct</a></h3>
+<ul>
+<li>Define a private <code>struct</code> with the <code>Context</code> suffix (e.g., <code>SidenavContext</code>).</li>
+<li>This struct holds the required state fields.</li>
+<li>It must derive/implement <code>Store</code> (using <code>reactive_stores::Store</code>) so it can be provided as a context in Leptos.</li>
+<li>It must implement <code>Serialize</code> and <code>Deserialize</code> to enable storage in LocalStorage.</li>
+</ul>
+<h3 id="12-storage-key"><a class="header" href="#12-storage-key">1.2. Storage Key</a></h3>
+<p>Define a constant for the storage key:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const LOCALSTORAGE_KEY: &amp;str = "sidenav";
+<span class="boring">}</span></code></pre></pre>
+<h3 id="13-public-mode-struct"><a class="header" href="#13-public-mode-struct">1.3. Public Mode Struct</a></h3>
+<p>Define a public <code>struct</code> with the <code>Mode</code> suffix that provides the interface for working with the Context to other modules.</p>
+<p>Modules and consumers must interact with this state by calling <code>SidenavMode::new()</code>:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let sidenav_ctx = SidenavMode::new();
+<span class="boring">}</span></code></pre></pre>
+<p>This struct must also implement the <code>StateProvider</code> trait.</p>
+<h3 id="14-full-example"><a class="header" href="#14-full-example">1.4. Full Example</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dita_state::app_state::StateProvider;
+use dita_state::persist_state::{init_ctx, use_ctx, provide};
+
+const LOCALSTORAGE_KEY: &amp;str = "sidenav";
+
+#[derive(Debug, Clone, Copy, Default, Store, Serialize, Deserialize, PartialEq)]
+struct SidenavContext {
+    pub open: bool,
+}
+
+#[derive(Clone, Copy)]
+pub struct SidenavMode {
+    ctx: Store&lt;SidenavContext&gt;,
+}
+
+impl SidenavMode {
+    pub fn new() -&gt; Self {
+        Self {
+            ctx: use_ctx()
+                .unwrap_or_else(|| {
+                    logging::warn!(
+                        "Use Context: FAILED. SidenavContext not initialized at root component, build app state with sidenav state"
+                    );
+                    init_ctx(LOCALSTORAGE_KEY)
+                }),
+        }
+    }
+
+    pub fn toggle(self) {
+        self.ctx.open().update(|v| *v = !*v);
+    }
+
+    pub fn is_open(&amp;self) -&gt; Signal&lt;bool&gt; {
+        self.ctx.open().into()
+    }
+}
+
+impl StateProvider for SidenavMode {
+    fn provide() {
+        provide::&lt;SidenavContext&gt;(LOCALSTORAGE_KEY);
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="2-integration-with-dita-state-and-appstatebuilder"><a class="header" href="#2-integration-with-dita-state-and-appstatebuilder">2. Integration with <code>dita-state</code> and <code>AppStateBuilder</code></a></h2>
+<p>Every application that uses the module must register the module's state management struct by passing it to the generic <code>with</code> method of the state builder. This ensures that the corresponding provider is executed when the global state is constructed.</p>
+<p>Recommended path: <code>apps/&lt;app-name&gt;/src/state.rs</code></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dita_design_system::hooks::sidenav::SidenavMode;
+use dita_state::app_state::AppState;
+
+pub fn init() {
+    AppState::builder()
+        .with::&lt;SidenavMode&gt;()
+        .build();
+}
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="3-calling-init-in-the-root-component"><a class="header" href="#3-calling-init-in-the-root-component">3. Calling Init in the Root Component</a></h2>
+<p>The <code>state::init()</code> method <strong>must</strong> be called in the application's Root component so that all Global States are provided and become available throughout the component tree:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// In the Root component
+state::init();
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="workflow-summary"><a class="header" href="#workflow-summary">Workflow Summary</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Step</th><th>Location</th><th>Action</th></tr></thead><tbody>
+<tr><td>1</td><td><code>hooks/{module}.rs</code></td><td>Define private <code>*Context</code>, public <code>*Mode</code>, storage key, and implement <code>StateProvider</code></td></tr>
+<tr><td>2</td><td><code>apps/{app}/src/state.rs</code></td><td>Register the Mode struct using <code>AppState::builder().with::&lt;ModuleMode&gt;()</code></td></tr>
+<tr><td>3</td><td>Root component</td><td>Call <code>state::init()</code></td></tr>
+</tbody></table>
+</div>
+<p>By following this pattern, Global States are managed in a consistent, extensible way that aligns with the Leptos architecture and the persistence layer of the <code>dita_state</code> library.</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../development/backend/scheduler-service/manual-scheduler/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../development/frontend/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../development/frontend/state-management.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../development/frontend/admin/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -194,11 +298,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../development/backend/scheduler-service/manual-scheduler/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../development/frontend/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../development/frontend/state-management.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../development/frontend/admin/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
