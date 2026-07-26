@@ -27,6 +27,7 @@
       - [Basic Scheduler](development/backend/scheduler-service/basiic-scheduler/README.md)
       - [Manual Scheduler](development/backend/scheduler-service/manual-scheduler/README.md)
   - [Frontend](development/frontend/README.md)
+    - [State Management](development/frontend/state-management.md)
     - [Admin](development/frontend/admin/README.md)
       - [Admin Panel](development/frontend/admin/admin%20panel.md)
     - [User](development/frontend/user/README.md)

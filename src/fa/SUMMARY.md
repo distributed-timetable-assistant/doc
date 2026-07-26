@@ -27,6 +27,7 @@
       - [زمان‌بند پایه](development/backend/scheduler-service/basiic-scheduler/README.md)
       - [زمان‌بند دستی](development/backend/scheduler-service/manual-scheduler/README.md)
   - [فرانت‌اند](development/frontend/README.md)
+    - [مدیریت State](development/frontend/state-management.md)
     - [ادمین](development/frontend/admin/README.md)
       - [پنل ادمین](development/frontend/admin/admin%20panel.md)
     - [کاربر](development/frontend/user/README.md)
