@@ -4,7 +4,7 @@
 - [Overview](overview.md)
 - [Design](design/README.md)
   - [Institution Packet](design/institution-packet/README.md)
-    - [Calendar](design/institution-packet/calendar.md)
+    - [Calendar](design/institution-packet/cal.md)
     - [Facilities](design/institution-packet/facilities.md)
     - [Learners](design/institution-packet/learners.md)
     - [Instructors](design/institution-packet/instructors.md)

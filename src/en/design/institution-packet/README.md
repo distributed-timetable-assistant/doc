@@ -6,7 +6,7 @@ The Institution Packet defines the complete structure and data for an institutio
 
 The Institution Packet is composed of several aggregates, each responsible for a specific domain of the institution's data:
 
-* **[Calendar](calendar.md)**: Defines the institution's scheduling calendar, including recurring time periods, availability statuses, and holidays.
+* **[Calendar](cal.md)**: Defines the institution's scheduling calendar, including recurring time periods, availability statuses, holidays, and scheduling capacity divisions.
 * **[Facilities](facilities.md)**: Physical spaces such as classrooms, labs, and conference halls.
 * **[Learners](learners.md)**: Individuals enrolled in courses.
 * **[Instructors](instructors.md)**: Individuals responsible for teaching courses.
@@ -28,8 +28,8 @@ name: Brisbane Central Primary School
 
 address:
 
-calendar:
-  availabilities:
+cal:
+  avails:
     - type: Weekly
       start: 2026-01-28T00:00:00+10:00
       end: 2026-12-12T23:59:59+10:00
@@ -48,6 +48,7 @@ calendar:
               end: 09:20:00
               rules: []
               status: Available
+              div_cap: 1
 
             # Period 2: 09:20 - 10:10
             - type: Basic
@@ -55,6 +56,7 @@ calendar:
               end: 10:10:00
               rules: []
               status: Available
+              div_cap: 1
 
             # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
 
@@ -64,6 +66,7 @@ calendar:
               end: 11:30:00
               rules: []
               status: Available
+              div_cap: 1
 
             # Consolidation: 12:20 - 13:00
             - type: Basic
@@ -71,6 +74,7 @@ calendar:
               end: 13:00:00
               rules: []
               status: Available
+              div_cap: 1
 
             # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
 
@@ -80,6 +84,7 @@ calendar:
               end: 14:20:00
               rules: []
               status: Available
+              div_cap: 1
 
             # Period 6: 14:20 - 15:10
             - type: Basic
@@ -87,6 +92,7 @@ calendar:
               end: 15:10:00
               rules: []
               status: Available
+              div_cap: 1
 
         - type: Basic
           start:
@@ -97,6 +103,7 @@ calendar:
             time: 10:10:00
           rules: []
           status: Undesired
+          div_cap: 1
 
     - type: Holiday
       start: 2026-01-28T00:00:00+10:00
@@ -115,8 +122,8 @@ courses:
 units:
   - name: Primary Years
     address:
-    calendar:
-      availabilities:
+    cal:
+      avails:
     facilities:
     learners:
     instructors:
@@ -126,6 +133,8 @@ units:
     courses:
 ```
 
-The `calendar` field contains the institution's calendar. The structure and semantics of its `availabilities` are defined separately in the [Calendar](./availabilities.md) documentation.
+The `calendar` field contains the institution's calendar. The calendar contains an `avails` collection whose entries define the institution's available and unavailable periods, scheduling preferences, holidays, and capacity divisions. The structure and semantics of the calendar are defined separately in the [Calendar](./availabilities.md) documentation.
+
+A `Basic` time cell can use `div_cap` to define how its time range can be allocated for scheduling. A value of `1` represents a single scheduling capacity for the entire interval, while values greater than `1` allow the interval to provide multiple capacity divisions. A value of `0` makes the interval flexible, allowing a scheduled activity to use any portion of the defined time range.
 
 Units can also define their own calendar when scheduling information needs to be specified at the unit level.

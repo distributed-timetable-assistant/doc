@@ -4,7 +4,7 @@
 - [نمای کلی](overview.md)
 - [طراحی](design/README.md)
   - [بسته موسسه](design/institution-packet/README.md)
-    - [تقویم](design/institution-packet/calendar.md)
+    - [تقویم](design/institution-packet/cal.md)
     - [امکانات](design/institution-packet/facilities.md)
     - [فراگیران](design/institution-packet/learners.md)
     - [مدرسان](design/institution-packet/instructors.md)

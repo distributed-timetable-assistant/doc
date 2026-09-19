@@ -4,18 +4,18 @@ A calendar defines the time availability of an institution or other scheduling e
 
 ## Structure
 
-A calendar contains an `availabilities` collection.
+A calendar contains an `avails` collection.
 
 ### Calendar
 
-| Field            | Description                                                                                    |
-| ---------------- | ---------------------------------------------------------------------------------------------- |
-| `availabilities` | A list of availability entries. Each entry describes a time range and its scheduling behavior. |
+| Field    | Description                                                                                    |
+| -------- | ---------------------------------------------------------------------------------------------- |
+| `avails` | A list of availability entries. Each entry describes a time range and its scheduling behavior. |
 
 Example:
 
 ```yaml
-availabilities:
+avails:
   - type: Weekly
     start: 2026-01-28T00:00:00+10:00
     end: 2026-12-12T23:59:59+10:00
@@ -132,14 +132,30 @@ A `Basic` time cell represents a concrete time interval.
 
 It contains:
 
-| Field    | Description                                        |
-| -------- | -------------------------------------------------- |
-| `start`  | Start of the time interval.                        |
-| `end`    | End of the time interval.                          |
-| `rules`  | A list of rules associated with the time interval. |
-| `status` | The availability status of the time interval.      |
+| Field     | Description                                                                                                                                                                                                                                                                                                                     |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `start`   | Start of the time interval.                                                                                                                                                                                                                                                                                                     |
+| `end`     | End of the time interval.                                                                                                                                                                                                                                                                                                       |
+| `rules`   | A list of rules associated with the time interval.                                                                                                                                                                                                                                                                              |
+| `status`  | The availability status of the time interval.                                                                                                                                                                                                                                                                                   |
+| `div_cap` | Defines how the time interval can be divided for scheduling. `0` means the interval is flexible and a scheduled activity may occupy any portion of the interval. `1` means the entire interval can accommodate only one activity. Values greater than `1` allow the interval to be divided for multiple scheduling allocations. |
 
-Example:
+The `div_cap` field controls the capacity division of the time interval. It does not determine the duration of the individual scheduled activities.
+
+For example, a flexible interval can be defined as:
+
+```yaml
+- type: Basic
+  start: 07:30:00
+  end: 13:00:00
+  rules: []
+  status: Available
+  div_cap: 0
+```
+
+With `div_cap: 0`, an activity can be scheduled at any time within the `07:30`–`13:00` interval, subject to the other scheduling constraints. The interval is not required to be treated as a single fixed scheduling slot.
+
+A fixed single-capacity interval can be defined as:
 
 ```yaml
 - type: Basic
@@ -147,7 +163,23 @@ Example:
   end: 09:20:00
   rules: []
   status: Available
+  div_cap: 1
 ```
+
+With `div_cap: 1`, the entire interval represents one scheduling capacity and cannot be used for multiple simultaneous activities.
+
+A divisible interval can be defined with a value greater than `1`:
+
+```yaml
+- type: Basic
+  start: 08:30:00
+  end: 10:10:00
+  rules: []
+  status: Available
+  div_cap: 2
+```
+
+With `div_cap: 2`, the interval provides two units of scheduling capacity. Depending on the scheduling requirements, these capacities can be used to accommodate multiple activities within the interval, such as dividing the interval into separate portions or using it for activities that occur on alternating weeks.
 
 A `Basic` time cell does not contain further nested time cells.
 
@@ -170,6 +202,7 @@ For example:
   end: 10:10:00
   rules: []
   status: Available
+  div_cap: 1
 ```
 
 A different status can be used to express a preference or restriction without removing the time range from the calendar:
@@ -184,6 +217,7 @@ A different status can be used to express a preference or restriction without re
     time: 10:10:00
   rules: []
   status: Undesired
+  div_cap: 1
 ```
 
 ## Holidays
@@ -248,6 +282,7 @@ For example, the following structure:
           end: 09:20:00
           rules: []
           status: Available
+          div_cap: 1
 ```
 
 can be understood as:
@@ -255,6 +290,7 @@ can be understood as:
 1. The availability applies during the specified date-time range.
 2. Within that range, it applies from Monday through Friday.
 3. Within those days, the specific time interval from `08:30` to `09:20` is available.
+4. The interval provides one scheduling capacity because `div_cap` is `1`.
 
 This hierarchical structure allows calendars to represent both broad recurring periods and specific scheduling intervals.
 
@@ -263,7 +299,7 @@ This hierarchical structure allows calendars to represent both broad recurring p
 The following example defines a school calendar for 2026. It contains a weekly schedule for Monday through Friday, individual class periods, excluded breaks, a separate undesired period, and a holiday period for Queensland.
 
 ```yaml
-availabilities:
+avails:
   - type: Weekly
     start: 2026-01-28T00:00:00+10:00
     end: 2026-12-12T23:59:59+10:00
@@ -282,6 +318,7 @@ availabilities:
             end: 09:20:00
             rules: []
             status: Available
+            div_cap: 1
 
           # Period 2: 09:20 - 10:10
           - type: Basic
@@ -289,6 +326,7 @@ availabilities:
             end: 10:10:00
             rules: []
             status: Available
+            div_cap: 1
 
           # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
 
@@ -298,6 +336,7 @@ availabilities:
             end: 11:30:00
             rules: []
             status: Available
+            div_cap: 1
 
           # Consolidation: 12:20 - 13:00
           - type: Basic
@@ -305,6 +344,7 @@ availabilities:
             end: 13:00:00
             rules: []
             status: Available
+            div_cap: 1
 
           # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
 
@@ -314,6 +354,7 @@ availabilities:
             end: 14:20:00
             rules: []
             status: Available
+            div_cap: 1
 
           # Period 6: 14:20 - 15:10
           - type: Basic
@@ -321,6 +362,7 @@ availabilities:
             end: 15:10:00
             rules: []
             status: Available
+            div_cap: 1
 
       - type: Basic
         start:
@@ -331,6 +373,7 @@ availabilities:
           time: 10:10:00
         rules: []
         status: Undesired
+        div_cap: 1
 
   - type: Holiday
     start: 2026-01-28T00:00:00+10:00
