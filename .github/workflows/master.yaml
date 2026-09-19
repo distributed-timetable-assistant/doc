@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - docs/issue-4/improve-calendar
 
 jobs:
   build:
