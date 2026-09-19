@@ -176,82 +176,125 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="institution-packet"><a class="header" href="#institution-packet">Institution Packet</a></h1>
-<p>The Institution Packet defines the complete structure and data for an institution within the DITA system. It serves as the root configuration that encompasses all aspects of an institution's scheduling and resource management, including availabilities, facilities, learners, instructors, and more.</p>
+<p>The Institution Packet defines the complete structure and data for an institution within the DITA system. It serves as the root configuration for an institution's scheduling and resource management, including its calendar, facilities, learners, instructors, supervisors, resources, subjects, courses, and organizational units.</p>
 <h2 id="components"><a class="header" href="#components">Components</a></h2>
 <p>The Institution Packet is composed of several aggregates, each responsible for a specific domain of the institution's data:</p>
 <ul>
-<li><strong><a href="availabilities.html">Availabilities</a></strong>: Defines time ranges and availability status for scheduling (e.g., term dates, daily schedules, holidays).</li>
+<li><strong><a href="cal.html">Calendar</a></strong>: Defines the institution's scheduling calendar, including recurring time periods, availability statuses, holidays, and scheduling capacity divisions.</li>
 <li><strong><a href="facilities.html">Facilities</a></strong>: Physical spaces such as classrooms, labs, and conference halls.</li>
 <li><strong><a href="learners.html">Learners</a></strong>: Individuals enrolled in courses.</li>
 <li><strong><a href="instructors.html">Instructors</a></strong>: Individuals responsible for teaching courses.</li>
 <li><strong><a href="supervisors.html">Supervisors</a></strong>: Individuals who manage facilities or other resources.</li>
-<li><strong><a href="resources.html">Resources</a></strong>: Educational materials like books and equipment.</li>
-<li><strong><a href="subjects.html">Subjects</a></strong>: Standard educational topics (e.g., "Physics 101").</li>
+<li><strong><a href="resources.html">Resources</a></strong>: Educational materials such as books and equipment.</li>
+<li><strong><a href="subjects.html">Subjects</a></strong>: Standard educational topics such as "Physics 101".</li>
 <li><strong><a href="courses.html">Courses</a></strong>: Scheduled offerings of subjects.</li>
-<li><strong><a href="units.html">Units</a></strong>: Organizational units like departments or schools.</li>
+<li><strong><a href="units.html">Units</a></strong>: Organizational units such as departments or schools.</li>
 </ul>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
-<p>Below is an example of a complete Institution Packet configuration in YAML format.</p>
+<p>Below is an example of an Institution Packet configuration in YAML format.</p>
 <pre><code class="language-yaml">apiVersion: apps/v1
 kind: InstitutionPacket
+
 name: Brisbane Central Primary School
+
 address:
-availabilities: # Availability define specific time ranges along with availability status for scheduling purposes.
-  - action: Add # Add, Remove
-    add-type: WeeklyPeriod # DailyPeriod, WeeklyPeriod, MonthlyPeriod, YearlyPeriod, Blocks, Block
-    first-day-of-week: Monday # Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
-    time-cells:
-      - action: Add # Add, Remove
-        add-type: DailyPeriod
-        rules: []
-        time-cells:
-          # Session 1: 09:00 - 10:40
-          - action: Add # Add, Remove
-            add-type: Block
-            start: 09:00
-            end: 10:40
-            status: Available # Available, Unavailable, Preferred, Undesired
-            rules: []
-          
-          # Break 1: 10:40 - 11:25 (Excluded)
 
-          # Session 2: 11:30 - 13:00
-          - action: Add # Add, Remove
-            add-type: Block
-            start: 11:30
-            end: 13:00
-            status: Available # Available, Unavailable, Preferred, Undesired
-            rules: []
+cal:
+  avails:
+    - type: Weekly
+      start: 2026-01-28T00:00:00+10:00
+      end: 2026-12-12T23:59:59+10:00
+      time_cells:
+        - type: Daily
+          start:
+            day: Mon
+            time: 00:00:00
+          end:
+            day: Fri
+            time: 23:59:59
+          time_cells:
+            # Period 1: 08:30 - 09:20
+            - type: Basic
+              start: 08:30:00
+              end: 09:20:00
+              rules: []
+              status: Available
+              div_cap: 1
 
-          # Break 2: 13:00 - 13:30 (Excluded)
+            # Period 2: 09:20 - 10:10
+            - type: Basic
+              start: 09:20:00
+              end: 10:10:00
+              rules: []
+              status: Available
+              div_cap: 1
 
-          # Session 3: 13:30 - 15:00
-          - action: Add # Add, Remove
-            add-type: Block
-            start: 13:30
-            end: 15:00
-            status: Available # Available, Unavailable, Preferred, Undesired
-            rules: []
-        start: Monday
-        end: Friday
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
-  - action: Remove # Add, Remove
-    remove-type: Holidays
-    country: "au-qld"
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
-facilities: # Facilities represent physical spaces such as classrooms, labs, gyms, or conference halls that can be scheduled for use.
-learners: # Learners are individuals who enroll in courses to receive training or education.
-instructors: # Instructors are individuals responsible for teaching and guiding learners in one or more courses.
-supervisors: # Individuals assigned to supervise or manage the facility.
-resources: # Resources are educational materials such as books, videos, or documents linked to subjects.
-subjects: # Subjects define standard educational topics such as “Physics 2” that can be taught across multiple courses.
-courses: # Courses are scheduled offerings of a subject, typically linked to a specific instructor and academy.
-units: # Organizational units such as schools, departments, or training centers, each with their own scheduling and resources.
+            # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
+
+            # Period 3: 10:40 - 11:30
+            - type: Basic
+              start: 10:40:00
+              end: 11:30:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Consolidation: 12:20 - 13:00
+            - type: Basic
+              start: 12:20:00
+              end: 13:00:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
+
+            # Period 5: 13:30 - 14:20
+            - type: Basic
+              start: 13:30:00
+              end: 14:20:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Period 6: 14:20 - 15:10
+            - type: Basic
+              start: 14:20:00
+              end: 15:10:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+        - type: Basic
+          start:
+            day: Fri
+            time: 09:20:00
+          end:
+            day: Fri
+            time: 10:10:00
+          rules: []
+          status: Undesired
+          div_cap: 1
+
+    - type: Holiday
+      start: 2026-01-28T00:00:00+10:00
+      end: 2026-12-12T23:59:59+10:00
+      country: "au-qld"
+      status: Unavailable
+
+facilities:
+learners:
+instructors:
+supervisors:
+resources:
+subjects:
+courses:
+
+units:
   - name: Primary Years
     address:
-    availabilities:
+    cal:
+      avails:
     facilities:
     learners:
     instructors:
@@ -260,6 +303,9 @@ units: # Organizational units such as schools, departments, or training centers,
     subjects:
     courses:
 </code></pre>
+<p>The <code>calendar</code> field contains the institution's calendar. The calendar contains an <code>avails</code> collection whose entries define the institution's available and unavailable periods, scheduling preferences, holidays, and capacity divisions. The structure and semantics of the calendar are defined separately in the <a href="./availabilities.html">Calendar</a> documentation.</p>
+<p>A <code>Basic</code> time cell can use <code>div_cap</code> to define how its time range can be allocated for scheduling. A value of <code>1</code> represents a single scheduling capacity for the entire interval, while values greater than <code>1</code> allow the interval to provide multiple capacity divisions. A value of <code>0</code> makes the interval flexible, allowing a scheduled activity to use any portion of the defined time range.</p>
+<p>Units can also define their own calendar when scheduling information needs to be specified at the unit level.</p>
 
                     </main>
 
@@ -269,7 +315,7 @@ units: # Organizational units such as schools, departments, or training centers,
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../design/institution-packet/availabilities.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../design/institution-packet/cal.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -283,7 +329,7 @@ units: # Organizational units such as schools, departments, or training centers,
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../design/institution-packet/availabilities.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../design/institution-packet/cal.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

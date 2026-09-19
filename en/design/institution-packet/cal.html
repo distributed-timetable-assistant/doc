@@ -1,0 +1,535 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Calendar - DiTA — Distributed Timetable Assistant</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../../searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">DiTA — Distributed Timetable Assistant</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="calendar"><a class="header" href="#calendar">Calendar</a></h1>
+<p>A calendar defines the time availability of an institution or other scheduling entity. It contains a collection of availability entries that describe when a period is active, unavailable, preferred, or undesired.</p>
+<h2 id="structure"><a class="header" href="#structure">Structure</a></h2>
+<p>A calendar contains an <code>avails</code> collection.</p>
+<h3 id="calendar-1"><a class="header" href="#calendar-1">Calendar</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>avails</code></td><td>A list of availability entries. Each entry describes a time range and its scheduling behavior.</td></tr>
+</tbody></table>
+</div>
+<p>Example:</p>
+<pre><code class="language-yaml">avails:
+  - type: Weekly
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
+    ...
+</code></pre>
+<h2 id="availability-types"><a class="header" href="#availability-types">Availability Types</a></h2>
+<p>Each availability entry has a <code>type</code> that determines how its time definition is interpreted.</p>
+<p>The following types are supported:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>Yearly</code></td><td>Defines a recurring time pattern based on a month and day of the year.</td></tr>
+<tr><td><code>Monthly</code></td><td>Defines a recurring time pattern based on a day of the month.</td></tr>
+<tr><td><code>Weekly</code></td><td>Defines a recurring time pattern based on days of the week.</td></tr>
+<tr><td><code>Daily</code></td><td>Defines a recurring time pattern based on a time of day.</td></tr>
+<tr><td><code>Basic</code></td><td>Defines a direct time range without a recurring calendar pattern.</td></tr>
+<tr><td><code>Holiday</code></td><td>Defines a period associated with public holidays for a specific country or region.</td></tr>
+</tbody></table>
+</div>
+<p>The <code>Yearly</code>, <code>Monthly</code>, <code>Weekly</code>, and <code>Daily</code> types can contain nested time cells, allowing a calendar definition to progressively narrow a time range.</p>
+<h2 id="common-time-range"><a class="header" href="#common-time-range">Common Time Range</a></h2>
+<p>Recurring availability types contain a <code>start</code> and <code>end</code> that define the overall period during which the availability applies.</p>
+<p>For example:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+</code></pre>
+<p>The <code>start</code> and <code>end</code> values use ISO 8601 date-time notation.</p>
+<p>Within this range, nested time cells define the recurring portions of the schedule.</p>
+<h2 id="time-cells"><a class="header" href="#time-cells">Time Cells</a></h2>
+<p>Time cells are nested elements used to progressively describe a recurring schedule.</p>
+<p>A time cell has a <code>type</code> and may contain:</p>
+<ul>
+<li><code>start</code></li>
+<li><code>end</code></li>
+<li><code>time_cells</code></li>
+</ul>
+<p>The available nested types depend on the parent time scope.</p>
+<h3 id="weekly"><a class="header" href="#weekly">Weekly</a></h3>
+<p>A <code>Weekly</code> availability describes a recurring schedule within a date-time range.</p>
+<p>Its nested time cells can be:</p>
+<ul>
+<li><code>Daily</code></li>
+<li><code>Basic</code></li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  time_cells:
+    - type: Daily
+      ...
+    - type: Basic
+      ...
+</code></pre>
+<h3 id="daily"><a class="header" href="#daily">Daily</a></h3>
+<p>A <code>Daily</code> time cell describes a range of days and contains time-based entries.</p>
+<p>Its <code>start</code> and <code>end</code> identify the boundaries of the day range. Each boundary contains:</p>
+<ul>
+<li><code>day</code>: The day of the week.</li>
+<li><code>time</code>: The time within that day.</li>
+</ul>
+<p>For example:</p>
+<pre><code class="language-yaml">- type: Daily
+  start:
+    day: Mon
+    time: 00:00:00
+  end:
+    day: Fri
+    time: 23:59:59
+  time_cells:
+    ...
+</code></pre>
+<p>The supported day values are:</p>
+<div class="table-wrapper"><table><thead><tr><th>Value</th><th>Day</th></tr></thead><tbody>
+<tr><td><code>Mon</code></td><td>Monday</td></tr>
+<tr><td><code>Tue</code></td><td>Tuesday</td></tr>
+<tr><td><code>Wed</code></td><td>Wednesday</td></tr>
+<tr><td><code>Thu</code></td><td>Thursday</td></tr>
+<tr><td><code>Fri</code></td><td>Friday</td></tr>
+<tr><td><code>Sat</code></td><td>Saturday</td></tr>
+<tr><td><code>Sun</code></td><td>Sunday</td></tr>
+</tbody></table>
+</div>
+<p>A <code>Daily</code> time cell can contain <code>Basic</code> time cells.</p>
+<h3 id="basic"><a class="header" href="#basic">Basic</a></h3>
+<p>A <code>Basic</code> time cell represents a concrete time interval.</p>
+<p>It contains:</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>start</code></td><td>Start of the time interval.</td></tr>
+<tr><td><code>end</code></td><td>End of the time interval.</td></tr>
+<tr><td><code>rules</code></td><td>A list of rules associated with the time interval.</td></tr>
+<tr><td><code>status</code></td><td>The availability status of the time interval.</td></tr>
+<tr><td><code>div_cap</code></td><td>Defines how the time interval can be divided for scheduling. <code>0</code> means the interval is flexible and a scheduled activity may occupy any portion of the interval. <code>1</code> means the entire interval can accommodate only one activity. Values greater than <code>1</code> allow the interval to be divided for multiple scheduling allocations.</td></tr>
+</tbody></table>
+</div>
+<p>The <code>div_cap</code> field controls the capacity division of the time interval. It does not determine the duration of the individual scheduled activities.</p>
+<p>For example, a flexible interval can be defined as:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 07:30:00
+  end: 13:00:00
+  rules: []
+  status: Available
+  div_cap: 0
+</code></pre>
+<p>With <code>div_cap: 0</code>, an activity can be scheduled at any time within the <code>07:30</code>–<code>13:00</code> interval, subject to the other scheduling constraints. The interval is not required to be treated as a single fixed scheduling slot.</p>
+<p>A fixed single-capacity interval can be defined as:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 08:30:00
+  end: 09:20:00
+  rules: []
+  status: Available
+  div_cap: 1
+</code></pre>
+<p>With <code>div_cap: 1</code>, the entire interval represents one scheduling capacity and cannot be used for multiple simultaneous activities.</p>
+<p>A divisible interval can be defined with a value greater than <code>1</code>:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 08:30:00
+  end: 10:10:00
+  rules: []
+  status: Available
+  div_cap: 2
+</code></pre>
+<p>With <code>div_cap: 2</code>, the interval provides two units of scheduling capacity. Depending on the scheduling requirements, these capacities can be used to accommodate multiple activities within the interval, such as dividing the interval into separate portions or using it for activities that occur on alternating weeks.</p>
+<p>A <code>Basic</code> time cell does not contain further nested time cells.</p>
+<h2 id="availability-status"><a class="header" href="#availability-status">Availability Status</a></h2>
+<p>A basic time cell has a <code>status</code> describing how the time should be treated by the scheduler.</p>
+<div class="table-wrapper"><table><thead><tr><th>Status</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>Available</code></td><td>The time can be used for scheduling.</td></tr>
+<tr><td><code>Unavailable</code></td><td>The time cannot be used for scheduling.</td></tr>
+<tr><td><code>Preferred</code></td><td>The time is preferred for scheduling.</td></tr>
+<tr><td><code>Undesired</code></td><td>The time should generally be avoided but may be used when necessary.</td></tr>
+</tbody></table>
+</div>
+<p>For example:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 09:20:00
+  end: 10:10:00
+  rules: []
+  status: Available
+  div_cap: 1
+</code></pre>
+<p>A different status can be used to express a preference or restriction without removing the time range from the calendar:</p>
+<pre><code class="language-yaml">- type: Basic
+  start:
+    day: Fri
+    time: 09:20:00
+  end:
+    day: Fri
+    time: 10:10:00
+  rules: []
+  status: Undesired
+  div_cap: 1
+</code></pre>
+<h2 id="holidays"><a class="header" href="#holidays">Holidays</a></h2>
+<p>A <code>Holiday</code> availability represents a holiday-related period.</p>
+<p>Unlike the recurring time-cell types, a holiday entry directly defines a date-time range and identifies the country or region whose holiday calendar it represents.</p>
+<p>It contains:</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>start</code></td><td>Start of the holiday-related period.</td></tr>
+<tr><td><code>end</code></td><td>End of the holiday-related period.</td></tr>
+<tr><td><code>country</code></td><td>Country or regional identifier used for the holiday definition.</td></tr>
+<tr><td><code>status</code></td><td>Availability status applied to the holiday period.</td></tr>
+</tbody></table>
+</div>
+<p>Example:</p>
+<pre><code class="language-yaml">- type: Holiday
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  country: "au-qld"
+  status: Unavailable
+</code></pre>
+<p>For example, setting the status to <code>Unavailable</code> can prevent scheduling during the public holidays represented by the specified region.</p>
+<h2 id="nesting-rules"><a class="header" href="#nesting-rules">Nesting Rules</a></h2>
+<p>The hierarchy of time definitions allows a broad period to be progressively refined.</p>
+<p>A typical structure is:</p>
+<pre><code class="language-text">Calendar
+└── Availability
+    └── Weekly
+        ├── Daily
+        │   └── Basic
+        └── Basic
+</code></pre>
+<p>For example, the following structure:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  time_cells:
+    - type: Daily
+      start:
+        day: Mon
+        time: 00:00:00
+      end:
+        day: Fri
+        time: 23:59:59
+      time_cells:
+        - type: Basic
+          start: 08:30:00
+          end: 09:20:00
+          rules: []
+          status: Available
+          div_cap: 1
+</code></pre>
+<p>can be understood as:</p>
+<ol>
+<li>The availability applies during the specified date-time range.</li>
+<li>Within that range, it applies from Monday through Friday.</li>
+<li>Within those days, the specific time interval from <code>08:30</code> to <code>09:20</code> is available.</li>
+<li>The interval provides one scheduling capacity because <code>div_cap</code> is <code>1</code>.</li>
+</ol>
+<p>This hierarchical structure allows calendars to represent both broad recurring periods and specific scheduling intervals.</p>
+<h2 id="complete-example"><a class="header" href="#complete-example">Complete Example</a></h2>
+<p>The following example defines a school calendar for 2026. It contains a weekly schedule for Monday through Friday, individual class periods, excluded breaks, a separate undesired period, and a holiday period for Queensland.</p>
+<pre><code class="language-yaml">avails:
+  - type: Weekly
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
+    time_cells:
+      - type: Daily
+        start:
+          day: Mon
+          time: 00:00:00
+        end:
+          day: Fri
+          time: 23:59:59
+        time_cells:
+          # Period 1: 08:30 - 09:20
+          - type: Basic
+            start: 08:30:00
+            end: 09:20:00
+            rules: []
+            status: Available
+            div_cap: 1
+
+          # Period 2: 09:20 - 10:10
+          - type: Basic
+            start: 09:20:00
+            end: 10:10:00
+            rules: []
+            status: Available
+            div_cap: 1
+
+          # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
+
+          # Period 3: 10:40 - 11:30
+          - type: Basic
+            start: 10:40:00
+            end: 11:30:00
+            rules: []
+            status: Available
+            div_cap: 1
+
+          # Consolidation: 12:20 - 13:00
+          - type: Basic
+            start: 12:20:00
+            end: 13:00:00
+            rules: []
+            status: Available
+            div_cap: 1
+
+          # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
+
+          # Period 5: 13:30 - 14:20
+          - type: Basic
+            start: 13:30:00
+            end: 14:20:00
+            rules: []
+            status: Available
+            div_cap: 1
+
+          # Period 6: 14:20 - 15:10
+          - type: Basic
+            start: 14:20:00
+            end: 15:10:00
+            rules: []
+            status: Available
+            div_cap: 1
+
+      - type: Basic
+        start:
+          day: Fri
+          time: 09:20:00
+        end:
+          day: Fri
+          time: 10:10:00
+        rules: []
+        status: Undesired
+        div_cap: 1
+
+  - type: Holiday
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
+    country: "au-qld"
+    status: Unavailable
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../design/institution-packet/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../design/institution-packet/facilities.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../design/institution-packet/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../design/institution-packet/facilities.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../lang-switch.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -267,82 +267,125 @@ DiTA provides a perfect real-world testbed for researchers:</p>
 <tr><td><strong>Scalability</strong></td><td>Adding more solvers linearly increases the system's problem-solving capacity.</td></tr>
 </tbody></table>
 </div><div style="break-before: page; page-break-before: always;"></div><h1 id="institution-packet"><a class="header" href="#institution-packet">Institution Packet</a></h1>
-<p>The Institution Packet defines the complete structure and data for an institution within the DITA system. It serves as the root configuration that encompasses all aspects of an institution's scheduling and resource management, including availabilities, facilities, learners, instructors, and more.</p>
+<p>The Institution Packet defines the complete structure and data for an institution within the DITA system. It serves as the root configuration for an institution's scheduling and resource management, including its calendar, facilities, learners, instructors, supervisors, resources, subjects, courses, and organizational units.</p>
 <h2 id="components"><a class="header" href="#components">Components</a></h2>
 <p>The Institution Packet is composed of several aggregates, each responsible for a specific domain of the institution's data:</p>
 <ul>
-<li><strong><a href="design/institution-packet/availabilities.html">Availabilities</a></strong>: Defines time ranges and availability status for scheduling (e.g., term dates, daily schedules, holidays).</li>
+<li><strong><a href="design/institution-packet/cal.html">Calendar</a></strong>: Defines the institution's scheduling calendar, including recurring time periods, availability statuses, holidays, and scheduling capacity divisions.</li>
 <li><strong><a href="design/institution-packet/facilities.html">Facilities</a></strong>: Physical spaces such as classrooms, labs, and conference halls.</li>
 <li><strong><a href="design/institution-packet/learners.html">Learners</a></strong>: Individuals enrolled in courses.</li>
 <li><strong><a href="design/institution-packet/instructors.html">Instructors</a></strong>: Individuals responsible for teaching courses.</li>
 <li><strong><a href="design/institution-packet/supervisors.html">Supervisors</a></strong>: Individuals who manage facilities or other resources.</li>
-<li><strong><a href="design/institution-packet/resources.html">Resources</a></strong>: Educational materials like books and equipment.</li>
-<li><strong><a href="design/institution-packet/subjects.html">Subjects</a></strong>: Standard educational topics (e.g., "Physics 101").</li>
+<li><strong><a href="design/institution-packet/resources.html">Resources</a></strong>: Educational materials such as books and equipment.</li>
+<li><strong><a href="design/institution-packet/subjects.html">Subjects</a></strong>: Standard educational topics such as "Physics 101".</li>
 <li><strong><a href="design/institution-packet/courses.html">Courses</a></strong>: Scheduled offerings of subjects.</li>
-<li><strong><a href="design/institution-packet/units.html">Units</a></strong>: Organizational units like departments or schools.</li>
+<li><strong><a href="design/institution-packet/units.html">Units</a></strong>: Organizational units such as departments or schools.</li>
 </ul>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
-<p>Below is an example of a complete Institution Packet configuration in YAML format.</p>
+<p>Below is an example of an Institution Packet configuration in YAML format.</p>
 <pre><code class="language-yaml">apiVersion: apps/v1
 kind: InstitutionPacket
+
 name: Brisbane Central Primary School
+
 address:
-availabilities: # Availability define specific time ranges along with availability status for scheduling purposes.
-  - action: Add # Add, Remove
-    add-type: WeeklyPeriod # DailyPeriod, WeeklyPeriod, MonthlyPeriod, YearlyPeriod, Blocks, Block
-    first-day-of-week: Monday # Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
-    time-cells:
-      - action: Add # Add, Remove
-        add-type: DailyPeriod
-        rules: []
-        time-cells:
-          # Session 1: 09:00 - 10:40
-          - action: Add # Add, Remove
-            add-type: Block
-            start: 09:00
-            end: 10:40
-            status: Available # Available, Unavailable, Preferred, Undesired
-            rules: []
-          
-          # Break 1: 10:40 - 11:25 (Excluded)
 
-          # Session 2: 11:30 - 13:00
-          - action: Add # Add, Remove
-            add-type: Block
-            start: 11:30
-            end: 13:00
-            status: Available # Available, Unavailable, Preferred, Undesired
-            rules: []
+cal:
+  avails:
+    - type: Weekly
+      start: 2026-01-28T00:00:00+10:00
+      end: 2026-12-12T23:59:59+10:00
+      time_cells:
+        - type: Daily
+          start:
+            day: Mon
+            time: 00:00:00
+          end:
+            day: Fri
+            time: 23:59:59
+          time_cells:
+            # Period 1: 08:30 - 09:20
+            - type: Basic
+              start: 08:30:00
+              end: 09:20:00
+              rules: []
+              status: Available
+              div_cap: 1
 
-          # Break 2: 13:00 - 13:30 (Excluded)
+            # Period 2: 09:20 - 10:10
+            - type: Basic
+              start: 09:20:00
+              end: 10:10:00
+              rules: []
+              status: Available
+              div_cap: 1
 
-          # Session 3: 13:30 - 15:00
-          - action: Add # Add, Remove
-            add-type: Block
-            start: 13:30
-            end: 15:00
-            status: Available # Available, Unavailable, Preferred, Undesired
-            rules: []
-        start: Monday
-        end: Friday
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
-  - action: Remove # Add, Remove
-    remove-type: Holidays
-    country: "au-qld"
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
-facilities: # Facilities represent physical spaces such as classrooms, labs, gyms, or conference halls that can be scheduled for use.
-learners: # Learners are individuals who enroll in courses to receive training or education.
-instructors: # Instructors are individuals responsible for teaching and guiding learners in one or more courses.
-supervisors: # Individuals assigned to supervise or manage the facility.
-resources: # Resources are educational materials such as books, videos, or documents linked to subjects.
-subjects: # Subjects define standard educational topics such as “Physics 2” that can be taught across multiple courses.
-courses: # Courses are scheduled offerings of a subject, typically linked to a specific instructor and academy.
-units: # Organizational units such as schools, departments, or training centers, each with their own scheduling and resources.
+            # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
+
+            # Period 3: 10:40 - 11:30
+            - type: Basic
+              start: 10:40:00
+              end: 11:30:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Consolidation: 12:20 - 13:00
+            - type: Basic
+              start: 12:20:00
+              end: 13:00:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
+
+            # Period 5: 13:30 - 14:20
+            - type: Basic
+              start: 13:30:00
+              end: 14:20:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Period 6: 14:20 - 15:10
+            - type: Basic
+              start: 14:20:00
+              end: 15:10:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+        - type: Basic
+          start:
+            day: Fri
+            time: 09:20:00
+          end:
+            day: Fri
+            time: 10:10:00
+          rules: []
+          status: Undesired
+          div_cap: 1
+
+    - type: Holiday
+      start: 2026-01-28T00:00:00+10:00
+      end: 2026-12-12T23:59:59+10:00
+      country: "au-qld"
+      status: Unavailable
+
+facilities:
+learners:
+instructors:
+supervisors:
+resources:
+subjects:
+courses:
+
+units:
   - name: Primary Years
     address:
-    availabilities:
+    cal:
+      avails:
     facilities:
     learners:
     instructors:
@@ -351,143 +394,312 @@ units: # Organizational units such as schools, departments, or training centers,
     subjects:
     courses:
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="availabilities"><a class="header" href="#availabilities">Availabilities</a></h1>
-<p>Availabilities define specific time ranges along with availability status for scheduling purposes. This system allows for complex scheduling rules including recurring patterns, specific date ranges, and exception handling (like holidays).</p>
+<p>The <code>calendar</code> field contains the institution's calendar. The calendar contains an <code>avails</code> collection whose entries define the institution's available and unavailable periods, scheduling preferences, holidays, and capacity divisions. The structure and semantics of the calendar are defined separately in the <a href="design/institution-packet/./availabilities.html">Calendar</a> documentation.</p>
+<p>A <code>Basic</code> time cell can use <code>div_cap</code> to define how its time range can be allocated for scheduling. A value of <code>1</code> represents a single scheduling capacity for the entire interval, while values greater than <code>1</code> allow the interval to provide multiple capacity divisions. A value of <code>0</code> makes the interval flexible, allowing a scheduled activity to use any portion of the defined time range.</p>
+<p>Units can also define their own calendar when scheduling information needs to be specified at the unit level.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="calendar"><a class="header" href="#calendar">Calendar</a></h1>
+<p>A calendar defines the time availability of an institution or other scheduling entity. It contains a collection of availability entries that describe when a period is active, unavailable, preferred, or undesired.</p>
 <h2 id="structure"><a class="header" href="#structure">Structure</a></h2>
-<p>An availability entry consists of a hierarchical structure of time definitions.</p>
-<h3 id="top-level-fields"><a class="header" href="#top-level-fields">Top-Level Fields</a></h3>
+<p>A calendar contains an <code>avails</code> collection.</p>
+<h3 id="calendar-1"><a class="header" href="#calendar-1">Calendar</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>avails</code></td><td>A list of availability entries. Each entry describes a time range and its scheduling behavior.</td></tr>
+</tbody></table>
+</div>
+<p>Example:</p>
+<pre><code class="language-yaml">avails:
+  - type: Weekly
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
+    ...
+</code></pre>
+<h2 id="availability-types"><a class="header" href="#availability-types">Availability Types</a></h2>
+<p>Each availability entry has a <code>type</code> that determines how its time definition is interpreted.</p>
+<p>The following types are supported:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>Yearly</code></td><td>Defines a recurring time pattern based on a month and day of the year.</td></tr>
+<tr><td><code>Monthly</code></td><td>Defines a recurring time pattern based on a day of the month.</td></tr>
+<tr><td><code>Weekly</code></td><td>Defines a recurring time pattern based on days of the week.</td></tr>
+<tr><td><code>Daily</code></td><td>Defines a recurring time pattern based on a time of day.</td></tr>
+<tr><td><code>Basic</code></td><td>Defines a direct time range without a recurring calendar pattern.</td></tr>
+<tr><td><code>Holiday</code></td><td>Defines a period associated with public holidays for a specific country or region.</td></tr>
+</tbody></table>
+</div>
+<p>The <code>Yearly</code>, <code>Monthly</code>, <code>Weekly</code>, and <code>Daily</code> types can contain nested time cells, allowing a calendar definition to progressively narrow a time range.</p>
+<h2 id="common-time-range"><a class="header" href="#common-time-range">Common Time Range</a></h2>
+<p>Recurring availability types contain a <code>start</code> and <code>end</code> that define the overall period during which the availability applies.</p>
+<p>For example:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+</code></pre>
+<p>The <code>start</code> and <code>end</code> values use ISO 8601 date-time notation.</p>
+<p>Within this range, nested time cells define the recurring portions of the schedule.</p>
+<h2 id="time-cells"><a class="header" href="#time-cells">Time Cells</a></h2>
+<p>Time cells are nested elements used to progressively describe a recurring schedule.</p>
+<p>A time cell has a <code>type</code> and may contain:</p>
 <ul>
-<li><strong>action</strong>: The operation to perform.
+<li><code>start</code></li>
+<li><code>end</code></li>
+<li><code>time_cells</code></li>
+</ul>
+<p>The available nested types depend on the parent time scope.</p>
+<h3 id="weekly"><a class="header" href="#weekly">Weekly</a></h3>
+<p>A <code>Weekly</code> availability describes a recurring schedule within a date-time range.</p>
+<p>Its nested time cells can be:</p>
 <ul>
-<li><code>Add</code>: Adds availability for the specified period.</li>
-<li><code>Remove</code>: Removes availability (e.g., for holidays or exceptions).</li>
+<li><code>Daily</code></li>
+<li><code>Basic</code></li>
 </ul>
-</li>
-<li><strong>add-type</strong> (for <code>Add</code> action): Defines the scope of the addition.
+<p>Example:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  time_cells:
+    - type: Daily
+      ...
+    - type: Basic
+      ...
+</code></pre>
+<h3 id="daily"><a class="header" href="#daily">Daily</a></h3>
+<p>A <code>Daily</code> time cell describes a range of days and contains time-based entries.</p>
+<p>Its <code>start</code> and <code>end</code> identify the boundaries of the day range. Each boundary contains:</p>
 <ul>
-<li><code>WeeklyPeriod</code>: A recurring weekly pattern.</li>
-<li><code>DailyPeriod</code>: A recurring daily pattern.</li>
-<li><code>MonthlyPeriod</code>: A recurring monthly pattern.</li>
-<li><code>YearlyPeriod</code>: A recurring yearly pattern.</li>
-<li><code>Blocks</code>: A collection of specific time blocks.</li>
-<li><code>Block</code>: A single specific time block.</li>
+<li><code>day</code>: The day of the week.</li>
+<li><code>time</code>: The time within that day.</li>
 </ul>
-</li>
-<li><strong>remove-type</strong> (for <code>Remove</code> action): Defines the scope of removal.
-<ul>
-<li><code>Holidays</code>: Removes time based on public holidays for a specific region.</li>
-</ul>
-</li>
-<li><strong>start</strong>: The start date/time of the availability period (ISO 8601 format).</li>
-<li><strong>end</strong>: The end date/time of the availability period (ISO 8601 format).</li>
-<li><strong>country</strong> (for <code>Holidays</code>): The country code (e.g., "ir", "au-qld") to fetch public holidays for.</li>
-</ul>
-<h3 id="time-cells"><a class="header" href="#time-cells">Time Cells</a></h3>
-<p>Time cells are nested units that define the granularity of the schedule.</p>
-<ul>
-<li><strong>action</strong>: <code>Add</code> or <code>Remove</code>.</li>
-<li><strong>add-type</strong>: The type of time cell (e.g., <code>DailyPeriod</code>, <code>Block</code>).</li>
-<li><strong>start</strong>: Start constraint for the cell (e.g., <code>08:00</code>, <code>Monday</code>).</li>
-<li><strong>end</strong>: End constraint for the cell.</li>
-<li><strong>status</strong>: The availability status for this slot.
-<ul>
-<li><code>Available</code>: The time is free to be booked.</li>
-<li><code>Unavailable</code>: The time cannot be booked.</li>
-<li><code>Preferred</code>: The time is preferred for booking.</li>
-<li><code>Undesired</code>: The time is not preferred but can be used if necessary.</li>
-</ul>
-</li>
-<li><strong>rules</strong>: A list of specific constraints or behaviors (optional).</li>
-</ul>
-<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
-<h3 id="brisbane-middle-school-schedule"><a class="header" href="#brisbane-middle-school-schedule">Brisbane Middle School Schedule</a></h3>
-<p>This example demonstrates a school schedule for a middle school in Brisbane, Australia.</p>
-<ul>
-<li><strong>Days</strong>: Monday to Friday.</li>
-<li><strong>Hours</strong>: 08:30 to 15:10.</li>
-<li><strong>Structure</strong>: 6 periods with 2 breaks (Morning Tea and Lunch).</li>
-<li><strong>Term</strong>: Term 1 (Jan 28) to Term 4 (Dec 12) for 2025.</li>
-<li><strong>Holidays</strong>: Queensland public holidays are excluded.</li>
-</ul>
-<pre><code class="language-yaml">availabilities:
-  # Define the main school term schedule for 2025
-  - action: Add
-    add-type: WeeklyPeriod
-    first-day-of-week: Monday
-    start: 2025-01-28T00:00:00+10:00 # Start of Term 1
-    end: 2025-12-12T23:59:59+10:00   # End of Term 4
-    time-cells:
-      - action: Add
-        add-type: DailyPeriod
-        start: Monday
-        end: Friday
-        time-cells:
+<p>For example:</p>
+<pre><code class="language-yaml">- type: Daily
+  start:
+    day: Mon
+    time: 00:00:00
+  end:
+    day: Fri
+    time: 23:59:59
+  time_cells:
+    ...
+</code></pre>
+<p>The supported day values are:</p>
+<div class="table-wrapper"><table><thead><tr><th>Value</th><th>Day</th></tr></thead><tbody>
+<tr><td><code>Mon</code></td><td>Monday</td></tr>
+<tr><td><code>Tue</code></td><td>Tuesday</td></tr>
+<tr><td><code>Wed</code></td><td>Wednesday</td></tr>
+<tr><td><code>Thu</code></td><td>Thursday</td></tr>
+<tr><td><code>Fri</code></td><td>Friday</td></tr>
+<tr><td><code>Sat</code></td><td>Saturday</td></tr>
+<tr><td><code>Sun</code></td><td>Sunday</td></tr>
+</tbody></table>
+</div>
+<p>A <code>Daily</code> time cell can contain <code>Basic</code> time cells.</p>
+<h3 id="basic"><a class="header" href="#basic">Basic</a></h3>
+<p>A <code>Basic</code> time cell represents a concrete time interval.</p>
+<p>It contains:</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>start</code></td><td>Start of the time interval.</td></tr>
+<tr><td><code>end</code></td><td>End of the time interval.</td></tr>
+<tr><td><code>rules</code></td><td>A list of rules associated with the time interval.</td></tr>
+<tr><td><code>status</code></td><td>The availability status of the time interval.</td></tr>
+<tr><td><code>div_cap</code></td><td>Defines how the time interval can be divided for scheduling. <code>0</code> means the interval is flexible and a scheduled activity may occupy any portion of the interval. <code>1</code> means the entire interval can accommodate only one activity. Values greater than <code>1</code> allow the interval to be divided for multiple scheduling allocations.</td></tr>
+</tbody></table>
+</div>
+<p>The <code>div_cap</code> field controls the capacity division of the time interval. It does not determine the duration of the individual scheduled activities.</p>
+<p>For example, a flexible interval can be defined as:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 07:30:00
+  end: 13:00:00
+  rules: []
+  status: Available
+  div_cap: 0
+</code></pre>
+<p>With <code>div_cap: 0</code>, an activity can be scheduled at any time within the <code>07:30</code>–<code>13:00</code> interval, subject to the other scheduling constraints. The interval is not required to be treated as a single fixed scheduling slot.</p>
+<p>A fixed single-capacity interval can be defined as:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 08:30:00
+  end: 09:20:00
+  rules: []
+  status: Available
+  div_cap: 1
+</code></pre>
+<p>With <code>div_cap: 1</code>, the entire interval represents one scheduling capacity and cannot be used for multiple simultaneous activities.</p>
+<p>A divisible interval can be defined with a value greater than <code>1</code>:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 08:30:00
+  end: 10:10:00
+  rules: []
+  status: Available
+  div_cap: 2
+</code></pre>
+<p>With <code>div_cap: 2</code>, the interval provides two units of scheduling capacity. Depending on the scheduling requirements, these capacities can be used to accommodate multiple activities within the interval, such as dividing the interval into separate portions or using it for activities that occur on alternating weeks.</p>
+<p>A <code>Basic</code> time cell does not contain further nested time cells.</p>
+<h2 id="availability-status"><a class="header" href="#availability-status">Availability Status</a></h2>
+<p>A basic time cell has a <code>status</code> describing how the time should be treated by the scheduler.</p>
+<div class="table-wrapper"><table><thead><tr><th>Status</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>Available</code></td><td>The time can be used for scheduling.</td></tr>
+<tr><td><code>Unavailable</code></td><td>The time cannot be used for scheduling.</td></tr>
+<tr><td><code>Preferred</code></td><td>The time is preferred for scheduling.</td></tr>
+<tr><td><code>Undesired</code></td><td>The time should generally be avoided but may be used when necessary.</td></tr>
+</tbody></table>
+</div>
+<p>For example:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 09:20:00
+  end: 10:10:00
+  rules: []
+  status: Available
+  div_cap: 1
+</code></pre>
+<p>A different status can be used to express a preference or restriction without removing the time range from the calendar:</p>
+<pre><code class="language-yaml">- type: Basic
+  start:
+    day: Fri
+    time: 09:20:00
+  end:
+    day: Fri
+    time: 10:10:00
+  rules: []
+  status: Undesired
+  div_cap: 1
+</code></pre>
+<h2 id="holidays"><a class="header" href="#holidays">Holidays</a></h2>
+<p>A <code>Holiday</code> availability represents a holiday-related period.</p>
+<p>Unlike the recurring time-cell types, a holiday entry directly defines a date-time range and identifies the country or region whose holiday calendar it represents.</p>
+<p>It contains:</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>start</code></td><td>Start of the holiday-related period.</td></tr>
+<tr><td><code>end</code></td><td>End of the holiday-related period.</td></tr>
+<tr><td><code>country</code></td><td>Country or regional identifier used for the holiday definition.</td></tr>
+<tr><td><code>status</code></td><td>Availability status applied to the holiday period.</td></tr>
+</tbody></table>
+</div>
+<p>Example:</p>
+<pre><code class="language-yaml">- type: Holiday
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  country: "au-qld"
+  status: Unavailable
+</code></pre>
+<p>For example, setting the status to <code>Unavailable</code> can prevent scheduling during the public holidays represented by the specified region.</p>
+<h2 id="nesting-rules"><a class="header" href="#nesting-rules">Nesting Rules</a></h2>
+<p>The hierarchy of time definitions allows a broad period to be progressively refined.</p>
+<p>A typical structure is:</p>
+<pre><code class="language-text">Calendar
+└── Availability
+    └── Weekly
+        ├── Daily
+        │   └── Basic
+        └── Basic
+</code></pre>
+<p>For example, the following structure:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  time_cells:
+    - type: Daily
+      start:
+        day: Mon
+        time: 00:00:00
+      end:
+        day: Fri
+        time: 23:59:59
+      time_cells:
+        - type: Basic
+          start: 08:30:00
+          end: 09:20:00
+          rules: []
+          status: Available
+          div_cap: 1
+</code></pre>
+<p>can be understood as:</p>
+<ol>
+<li>The availability applies during the specified date-time range.</li>
+<li>Within that range, it applies from Monday through Friday.</li>
+<li>Within those days, the specific time interval from <code>08:30</code> to <code>09:20</code> is available.</li>
+<li>The interval provides one scheduling capacity because <code>div_cap</code> is <code>1</code>.</li>
+</ol>
+<p>This hierarchical structure allows calendars to represent both broad recurring periods and specific scheduling intervals.</p>
+<h2 id="complete-example"><a class="header" href="#complete-example">Complete Example</a></h2>
+<p>The following example defines a school calendar for 2026. It contains a weekly schedule for Monday through Friday, individual class periods, excluded breaks, a separate undesired period, and a holiday period for Queensland.</p>
+<pre><code class="language-yaml">avails:
+  - type: Weekly
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
+    time_cells:
+      - type: Daily
+        start:
+          day: Mon
+          time: 00:00:00
+        end:
+          day: Fri
+          time: 23:59:59
+        time_cells:
           # Period 1: 08:30 - 09:20
-          - action: Add
-            add-type: Block
-            start: 08:30
-            end: 09:20
-            status: Available
+          - type: Basic
+            start: 08:30:00
+            end: 09:20:00
             rules: []
+            status: Available
+            div_cap: 1
 
           # Period 2: 09:20 - 10:10
-          - action: Add
-            add-type: Block
-            start: 09:20
-            end: 10:10
-            status: Available
+          - type: Basic
+            start: 09:20:00
+            end: 10:10:00
             rules: []
+            status: Available
+            div_cap: 1
 
           # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
 
           # Period 3: 10:40 - 11:30
-          - action: Add
-            add-type: Block
-            start: 10:40
-            end: 11:30
-            status: Available
+          - type: Basic
+            start: 10:40:00
+            end: 11:30:00
             rules: []
-
-          # Period 4: 11:30 - 12:20
-          - action: Add
-            add-type: Block
-            start: 11:30
-            end: 12:20
             status: Available
-            rules: []
+            div_cap: 1
 
           # Consolidation: 12:20 - 13:00
-          - action: Add
-            add-type: Block
-            start: 12:20
-            end: 13:00
-            status: Available
+          - type: Basic
+            start: 12:20:00
+            end: 13:00:00
             rules: []
+            status: Available
+            div_cap: 1
 
           # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
 
           # Period 5: 13:30 - 14:20
-          - action: Add
-            add-type: Block
-            start: 13:30
-            end: 14:20
-            status: Available
+          - type: Basic
+            start: 13:30:00
+            end: 14:20:00
             rules: []
+            status: Available
+            div_cap: 1
 
           # Period 6: 14:20 - 15:10
-          - action: Add
-            add-type: Block
-            start: 14:20
-            end: 15:10
-            status: Available
+          - type: Basic
+            start: 14:20:00
+            end: 15:10:00
             rules: []
+            status: Available
+            div_cap: 1
 
-  # Remove Queensland Public Holidays
-  - action: Remove
-    remove-type: Holidays
+      - type: Basic
+        start:
+          day: Fri
+          time: 09:20:00
+        end:
+          day: Fri
+          time: 10:10:00
+        rules: []
+        status: Undesired
+        div_cap: 1
+
+  - type: Holiday
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
     country: "au-qld"
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
+    status: Unavailable
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="facilities"><a class="header" href="#facilities">Facilities</a></h1>
 <p>Facilities represent physical spaces such as classrooms, labs, gyms, or conference halls that can be scheduled for use.</p>

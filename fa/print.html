@@ -266,83 +266,126 @@
 <tr><td><strong>واکنش‌گرا (Reactivity)</strong></td><td>سیستم با تغییرات وضعیت در لحظه سازگار می‌شود.</td></tr>
 <tr><td><strong>مقیاس‌پذیری</strong></td><td>افزودن حل‌کنندگان بیشتر، ظرفیت حل مسئله سیستم را به صورت خطی افزایش می‌دهد.</td></tr>
 </tbody></table>
-</div><div style="break-before: page; page-break-before: always;"></div><h1 id="بسته-موسسه-institution-packet"><a class="header" href="#بسته-موسسه-institution-packet">بسته موسسه (Institution Packet)</a></h1>
-<p>بسته موسسه ساختار کامل و داده‌ها را برای یک موسسه در سیستم DiTA تعریف می‌کند. این بسته به عنوان پیکربندی ریشه‌ای عمل می‌کند که تمام جنبه‌های زمان‌بندی و مدیریت منابع موسسه، از جمله در دسترس بودن‌ها، امکانات، یادگیرندگان، مدرسان و موارد دیگر را در بر می‌گیرد.</p>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="بسته-مؤسسه"><a class="header" href="#بسته-مؤسسه">بسته مؤسسه</a></h1>
+<p>Institution Packet ساختار و داده‌های کامل یک مؤسسه را در سیستم DITA تعریف می‌کند. این بسته به‌عنوان پیکربندی ریشه‌ای برای زمان‌بندی و مدیریت منابع یک مؤسسه عمل می‌کند و شامل تقویم، امکانات، یادگیرندگان، مدرسان، سرپرستان، منابع، موضوعات، دوره‌ها و واحدهای سازمانی آن است.</p>
 <h2 id="اجزا"><a class="header" href="#اجزا">اجزا</a></h2>
-<p>بسته موسسه از چندین بخش تشکیل شده است که هر کدام مسئول یک دامنه خاص از داده‌های موسسه هستند:</p>
+<p>Institution Packet از چندین aggregate تشکیل شده است که هرکدام مسئول یک حوزه مشخص از داده‌های مؤسسه هستند:</p>
 <ul>
-<li><strong><a href="design/institution-packet/availabilities.html">دسترسی‌ها</a></strong>: بازه‌های زمانی و وضعیت در دسترس بودن برای زمان‌بندی را تعریف می‌کند (مانند تاریخ‌های ترم، برنامه‌های روزانه، تعطیلات).</li>
-<li><strong><a href="design/institution-packet/facilities.html">امکانات</a></strong>: فضاهای فیزیکی مانند کلاس‌های درس، آزمایشگاه‌ها و سالن‌های کنفرانس.</li>
-<li><strong><a href="design/institution-packet/learners.html">یادگیرندگان</a></strong>: افرادی که در دوره‌ها ثبت نام کرده‌اند.</li>
-<li><strong><a href="design/institution-packet/instructors.html">مدرسان</a></strong>: افرادی که مسئول تدریس دوره‌ها هستند.</li>
-<li><strong><a href="design/institution-packet/supervisors.html">ناظران</a></strong>: افرادی که امکانات یا منابع دیگر را مدیریت می‌کنند.</li>
-<li><strong><a href="design/institution-packet/resources.html">منابع</a></strong>: مواد آموزشی مانند کتاب‌ها و تجهیزات.</li>
-<li><strong><a href="design/institution-packet/subjects.html">موضوعات</a></strong>: عناوین آموزشی استاندارد (مانند "فیزیک ۱").</li>
-<li><strong><a href="design/institution-packet/courses.html">دوره‌ها</a></strong>: ارائه‌های زمان‌بندی شده موضوعات.</li>
-<li><strong><a href="design/institution-packet/units.html">واحدها</a></strong>: واحدهای سازمانی مانند دپارتمان‌ها یا دانشکده‌ها.</li>
+<li><strong><a href="design/institution-packet/cal.html">Calendar</a></strong>: تقویم زمان‌بندی مؤسسه را تعریف می‌کند و شامل بازه‌های زمانی تکرارشونده، وضعیت‌های availability، تعطیلات و تقسیم‌بندی ظرفیت زمان‌بندی است.</li>
+<li><strong><a href="design/institution-packet/facilities.html">Facilities</a></strong>: فضاهای فیزیکی مانند کلاس‌های درس، آزمایشگاه‌ها و سالن‌های کنفرانس.</li>
+<li><strong><a href="design/institution-packet/learners.html">Learners</a></strong>: افرادی که در دوره‌ها ثبت‌نام کرده‌اند.</li>
+<li><strong><a href="design/institution-packet/instructors.html">Instructors</a></strong>: افرادی که مسئول تدریس دوره‌ها هستند.</li>
+<li><strong><a href="design/institution-packet/supervisors.html">Supervisors</a></strong>: افرادی که امکانات یا سایر منابع را مدیریت می‌کنند.</li>
+<li><strong><a href="design/institution-packet/resources.html">Resources</a></strong>: منابع آموزشی مانند کتاب‌ها و تجهیزات.</li>
+<li><strong><a href="design/institution-packet/subjects.html">Subjects</a></strong>: موضوعات آموزشی استاندارد مانند <code>"Physics 101"</code>.</li>
+<li><strong><a href="design/institution-packet/courses.html">Courses</a></strong>: ارائه‌های زمان‌بندی‌شده از موضوعات.</li>
+<li><strong><a href="design/institution-packet/units.html">Units</a></strong>: واحدهای سازمانی مانند دپارتمان‌ها یا مدارس.</li>
 </ul>
 <h2 id="مثال"><a class="header" href="#مثال">مثال</a></h2>
-<p>در زیر یک مثال از پیکربندی کامل بسته موسسه با فرمت YAML آورده شده است.</p>
-<pre><code class="language-yaml">apiVersion: apps/v1
+<p>در ادامه نمونه‌ای از پیکربندی یک Institution Packet در قالب YAML آمده است.</p>
+<pre><code class="language-yaml id=&quot;f2b6v1&quot;">apiVersion: apps/v1
 kind: InstitutionPacket
+
 name: Brisbane Central Primary School
+
 address:
-availabilities: # دسترسی‌ها بازه‌های زمانی خاص را همراه با وضعیت برای اهداف زمان‌بندی تعریف می‌کنند.
-  - action: Add # افزودن (Add)، حذف (Remove)
-    add-type: WeeklyPeriod # دوره روزانه، هفتگی، ماهانه، سالانه، بلوک‌ها، بلوک
-    first-day-of-week: Monday # یک‌شنبه تا شنبه (نام‌های انگلیسی)
-    time-cells:
-      - action: Add # افزودن، حذف
-        add-type: DailyPeriod
-        rules: []
-        time-cells:
-          # جلسه ۱: ۰۹:۰۰ - ۱۰:۴۰
-          - action: Add # افزودن، حذف
-            add-type: Block
-            start: 09:00
-            end: 10:40
-            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
-            rules: []
-          
-          # استراحت ۱: ۱۰:۴۰ - ۱۱:۲۵ (مستثنی شده)
 
-          # جلسه ۲: ۱۱:۳۰ - ۱۳:۰۰
-          - action: Add # افزودن، حذف
-            add-type: Block
-            start: 11:30
-            end: 13:00
-            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
-            rules: []
+cal:
+  avails:
+    - type: Weekly
+      start: 2026-01-28T00:00:00+10:00
+      end: 2026-12-12T23:59:59+10:00
+      time_cells:
+        - type: Daily
+          start:
+            day: Mon
+            time: 00:00:00
+          end:
+            day: Fri
+            time: 23:59:59
+          time_cells:
+            # Period 1: 08:30 - 09:20
+            - type: Basic
+              start: 08:30:00
+              end: 09:20:00
+              rules: []
+              status: Available
+              div_cap: 1
 
-          # استراحت ۲: ۱۳:۰۰ - ۱۳:۳۰ (مستثنی شده)
+            # Period 2: 09:20 - 10:10
+            - type: Basic
+              start: 09:20:00
+              end: 10:10:00
+              rules: []
+              status: Available
+              div_cap: 1
 
-          # جلسه ۳: ۱۳:۳۰ - ۱۵:۰۰
-          - action: Add # افزودن، حذف
-            add-type: Block
-            start: 13:30
-            end: 15:00
-            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
-            rules: []
-        start: Monday
-        end: Friday
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
-  - action: Remove # افزودن، حذف
-    remove-type: Holidays
-    country: "au-qld"
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
-facilities: # امکانات نشان‌دهنده فضاهای فیزیکی مانند کلاس‌ها، آزمایشگاه‌ها، سالن‌های ورزشی یا کنفرانس هستند که قابل زمان‌بندی می‌باشند.
-learners: # یادگیرندگان افرادی هستند که برای دریافت آموزش در دوره‌ها ثبت‌نام می‌کنند.
-instructors: # مدرسان افرادی هستند که مسئول آموزش و راهنمایی یادگیرندگان در یک یا چند دوره هستند.
-supervisors: # افرادی که برای نظارت یا مدیریت امکانات تعیین شده‌اند.
-resources: # منابع مواد آموزشی مانند کتاب‌ها، ویدئوها یا اسنادی هستند که به موضوعات مرتبط هستند.
-subjects: # موضوعات عناوین آموزشی استاندارد مانند "فیزیک ۲" را تعریف می‌کنند که می‌توانند در چندین دوره تدریس شوند.
-courses: # دوره‌ها ارائه‌های زمان‌بندی شده یک موضوع هستند که معمولاً به یک مدرس و آکادمی خاص مرتبط می‌باشند.
-units: # واحدهای سازمانی مانند مدارس، دپارتمان‌ها یا مراکز آموزشی که هر کدام زمان‌بندی و منابع خاص خود را دارند.
+            # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
+
+            # Period 3: 10:40 - 11:30
+            - type: Basic
+              start: 10:40:00
+              end: 11:30:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Consolidation: 12:20 - 13:00
+            - type: Basic
+              start: 12:20:00
+              end: 13:00:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
+
+            # Period 5: 13:30 - 14:20
+            - type: Basic
+              start: 13:30:00
+              end: 14:20:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Period 6: 14:20 - 15:10
+            - type: Basic
+              start: 14:20:00
+              end: 15:10:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+        - type: Basic
+          start:
+            day: Fri
+            time: 09:20:00
+          end:
+            day: Fri
+            time: 10:10:00
+          rules: []
+          status: Undesired
+          div_cap: 1
+
+    - type: Holiday
+      start: 2026-01-28T00:00:00+10:00
+      end: 2026-12-12T23:59:59+10:00
+      country: "au-qld"
+      status: Unavailable
+
+facilities:
+learners:
+instructors:
+supervisors:
+resources:
+subjects:
+courses:
+
+units:
   - name: Primary Years
     address:
-    availabilities:
+    cal:
+      avails:
     facilities:
     learners:
     instructors:
@@ -351,143 +394,312 @@ units: # واحدهای سازمانی مانند مدارس، دپارتمان�
     subjects:
     courses:
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="دسترسیها-availabilities"><a class="header" href="#دسترسیها-availabilities">دسترسی‌ها (Availabilities)</a></h1>
-<p>دسترسی‌ها بازه‌های زمانی خاص را همراه با وضعیت برای اهداف زمان‌بندی تعریف می‌کنند. این سیستم امکان ایجاد قوانین زمان‌بندی پیچیده شامل الگوهای تکرارشونده، محدوده‌های زمانی خاص و مدیریت استثناها (مانند تعطیلات) را فراهم می‌کند.</p>
+<p>فیلد <code>calendar</code> شامل تقویم مؤسسه است. این تقویم دارای مجموعه <code>avails</code> است که ورودی‌های آن دوره‌های در دسترس و غیرقابل‌استفاده، ترجیحات زمان‌بندی، تعطیلات و تقسیم‌بندی ظرفیت را تعریف می‌کنند. ساختار و معنای اجزای تقویم به‌صورت جداگانه در مستندات <a href="design/institution-packet/./availabilities.html">Calendar</a> تعریف شده است.</p>
+<p>یک time cell از نوع <code>Basic</code> می‌تواند از <code>div_cap</code> برای تعیین نحوه تخصیص بازه زمانی خود در زمان‌بندی استفاده کند. مقدار <code>1</code> نشان‌دهنده یک ظرفیت زمان‌بندی واحد برای کل بازه است، در حالی که مقادیر بزرگ‌تر از <code>1</code> به بازه اجازه می‌دهند چندین تقسیم ظرفیت فراهم کند. مقدار <code>0</code> بازه را انعطاف‌پذیر می‌کند و اجازه می‌دهد یک فعالیت زمان‌بندی‌شده هر بخشی از بازه زمانی تعریف‌شده را استفاده کند.</p>
+<p>واحدها نیز می‌توانند در صورتی که اطلاعات زمان‌بندی نیاز باشد در سطح واحد تعریف شود، تقویم مستقل خود را داشته باشند.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="تقویم"><a class="header" href="#تقویم">تقویم</a></h1>
+<p>یک تقویم، بازه‌های زمانی قابل استفاده برای یک مؤسسه یا سایر موجودیت‌های زمان‌بندی را تعریف می‌کند. تقویم شامل مجموعه‌ای از ورودی‌های دسترسی زمانی (<code>availability</code>) است که مشخص می‌کنند یک بازه چه زمانی فعال، غیرقابل‌استفاده، ترجیحی یا نامطلوب است.</p>
 <h2 id="ساختار"><a class="header" href="#ساختار">ساختار</a></h2>
-<p>یک ورودی دسترسی شامل ساختاری سلسله‌مراتبی از تعاریف زمانی است.</p>
-<h3 id="فیلدهای-سطح-بالا"><a class="header" href="#فیلدهای-سطح-بالا">فیلدهای سطح بالا</a></h3>
+<p>یک تقویم شامل مجموعه‌ای به نام <code>avails</code> است.</p>
+<h3 id="calendar"><a class="header" href="#calendar">Calendar</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>فیلد</th><th>توضیحات</th></tr></thead><tbody>
+<tr><td><code>avails</code></td><td>فهرستی از ورودی‌های دسترسی زمانی. هر ورودی یک بازه زمانی و نحوه رفتار آن در زمان‌بندی را مشخص می‌کند.</td></tr>
+</tbody></table>
+</div>
+<p>مثال:</p>
+<pre><code class="language-yaml">avails:
+  - type: Weekly
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
+    ...
+</code></pre>
+<h2 id="انواع-availability"><a class="header" href="#انواع-availability">انواع Availability</a></h2>
+<p>هر ورودی availability دارای یک <code>type</code> است که مشخص می‌کند تعریف زمانی آن چگونه تفسیر شود.</p>
+<p>انواع پشتیبانی‌شده عبارت‌اند از:</p>
+<div class="table-wrapper"><table><thead><tr><th>نوع</th><th>توضیحات</th></tr></thead><tbody>
+<tr><td><code>Yearly</code></td><td>یک الگوی زمانی تکرارشونده را بر اساس ماه و روز سال تعریف می‌کند.</td></tr>
+<tr><td><code>Monthly</code></td><td>یک الگوی زمانی تکرارشونده را بر اساس روز ماه تعریف می‌کند.</td></tr>
+<tr><td><code>Weekly</code></td><td>یک الگوی زمانی تکرارشونده را بر اساس روزهای هفته تعریف می‌کند.</td></tr>
+<tr><td><code>Daily</code></td><td>یک الگوی زمانی تکرارشونده را بر اساس ساعت روز تعریف می‌کند.</td></tr>
+<tr><td><code>Basic</code></td><td>یک بازه زمانی مستقیم را بدون الگوی تقویمی تکرارشونده تعریف می‌کند.</td></tr>
+<tr><td><code>Holiday</code></td><td>یک بازه زمانی مرتبط با تعطیلات رسمی یک کشور یا منطقه مشخص را تعریف می‌کند.</td></tr>
+</tbody></table>
+</div>
+<p>انواع <code>Yearly</code>، <code>Monthly</code>، <code>Weekly</code> و <code>Daily</code> می‌توانند شامل time cellهای تو‌در‌تو باشند و به این ترتیب به تقویم اجازه می‌دهند یک بازه زمانی را به‌صورت تدریجی محدودتر و دقیق‌تر تعریف کند.</p>
+<h2 id="بازه-زمانی-مشترک"><a class="header" href="#بازه-زمانی-مشترک">بازه زمانی مشترک</a></h2>
+<p>انواع availability تکرارشونده دارای <code>start</code> و <code>end</code> هستند که دوره کلی اعمال شدن availability را مشخص می‌کنند.</p>
+<p>برای مثال:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+</code></pre>
+<p>مقادیر <code>start</code> و <code>end</code> از قالب تاریخ-زمان ISO 8601 استفاده می‌کنند.</p>
+<p>درون این بازه، time cellهای تو‌در‌تو بخش‌های تکرارشونده برنامه را تعریف می‌کنند.</p>
+<h2 id="time-cellها"><a class="header" href="#time-cellها">Time Cellها</a></h2>
+<p>Time cellها عناصر تو‌در‌تویی هستند که برای توصیف تدریجی یک برنامه تکرارشونده استفاده می‌شوند.</p>
+<p>یک time cell دارای <code>type</code> است و می‌تواند شامل موارد زیر باشد:</p>
 <ul>
-<li><strong>action</strong>: عملیاتی که باید انجام شود.
+<li><code>start</code></li>
+<li><code>end</code></li>
+<li><code>time_cells</code></li>
+</ul>
+<p>انواع time cellهای قابل استفاده به محدوده زمانی والد آن بستگی دارند.</p>
+<h3 id="weekly"><a class="header" href="#weekly">Weekly</a></h3>
+<p>یک availability از نوع <code>Weekly</code> یک برنامه تکرارشونده را درون یک بازه تاریخ-زمان مشخص تعریف می‌کند.</p>
+<p>time cellهای تو‌در‌توی آن می‌توانند از انواع زیر باشند:</p>
 <ul>
-<li><code>Add</code>: افزودن دسترسی برای دوره مشخص شده.</li>
-<li><code>Remove</code>: حذف دسترسی (مثلاً برای تعطیلات یا استثناها).</li>
+<li><code>Daily</code></li>
+<li><code>Basic</code></li>
 </ul>
-</li>
-<li><strong>add-type</strong> (برای عمل <code>Add</code>): دامنه افزودن را تعریف می‌کند.
+<p>مثال:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  time_cells:
+    - type: Daily
+      ...
+    - type: Basic
+      ...
+</code></pre>
+<h3 id="daily"><a class="header" href="#daily">Daily</a></h3>
+<p>یک time cell از نوع <code>Daily</code> یک بازه از روزها را مشخص می‌کند و شامل ورودی‌های مبتنی بر زمان است.</p>
+<p><code>start</code> و <code>end</code> آن مرزهای بازه روزها را مشخص می‌کنند. هر مرز شامل موارد زیر است:</p>
 <ul>
-<li><code>WeeklyPeriod</code>: الگوی تکرارشونده هفتگی.</li>
-<li><code>DailyPeriod</code>: الگوی تکرارشونده روزانه.</li>
-<li><code>MonthlyPeriod</code>: الگوی تکرارشونده ماهانه.</li>
-<li><code>YearlyPeriod</code>: الگوی تکرارشونده سالانه.</li>
-<li><code>Blocks</code>: مجموعه‌ای از بلوک‌های زمانی خاص.</li>
-<li><code>Block</code>: یک بلوک زمانی خاص تکی.</li>
+<li><code>day</code>: روز هفته</li>
+<li><code>time</code>: زمان در آن روز</li>
 </ul>
-</li>
-<li><strong>remove-type</strong> (برای عمل <code>Remove</code>): دامنه حذف را تعریف می‌کند.
-<ul>
-<li><code>Holidays</code>: حذف زمان بر اساس تعطیلات رسمی برای یک منطقه خاص.</li>
-</ul>
-</li>
-<li><strong>start</strong>: تاریخ/زمان شروع دوره دسترسی (فرمت ISO 8601).</li>
-<li><strong>end</strong>: تاریخ/زمان پایان دوره دسترسی (فرمت ISO 8601).</li>
-<li><strong>country</strong> (برای <code>Holidays</code>): کد کشور (مثلاً "ir", "au-qld") برای دریافت تعطیلات رسمی.</li>
-</ul>
-<h3 id="سلولهای-زمانی-time-cells"><a class="header" href="#سلولهای-زمانی-time-cells">سلول‌های زمانی (Time Cells)</a></h3>
-<p>سلول‌های زمانی واحدهای تودرتویی هستند که دقت زمان‌بندی را تعریف می‌کنند.</p>
-<ul>
-<li><strong>action</strong>: <code>Add</code> یا <code>Remove</code>.</li>
-<li><strong>add-type</strong>: نوع سلول زمانی (مثلاً <code>DailyPeriod</code>, <code>Block</code>).</li>
-<li><strong>start</strong>: محدودیت شروع برای سلول (مثلاً <code>08:00</code>, <code>Monday</code>).</li>
-<li><strong>end</strong>: محدودیت پایان برای سلول.</li>
-<li><strong>status</strong>: وضعیت در دسترس بودن برای این جایگاه.
-<ul>
-<li><code>Available</code>: زمان آزاد است و می‌تواند رزرو شود.</li>
-<li><code>Unavailable</code>: زمان قابل رزرو نیست.</li>
-<li><code>Preferred</code>: زمان برای رزرو ترجیح داده می‌شود.</li>
-<li><code>Undesired</code>: زمان ترجیح داده نمی‌شود اما در صورت لزوم قابل استفاده است.</li>
-</ul>
-</li>
-<li><strong>rules</strong>: لیستی از محدودیت‌ها یا رفتارهای خاص (اختیاری).</li>
-</ul>
-<h2 id="مثالها"><a class="header" href="#مثالها">مثال‌ها</a></h2>
-<h3 id="برنامه-مدرسه-راهنمایی-بریزبن"><a class="header" href="#برنامه-مدرسه-راهنمایی-بریزبن">برنامه مدرسه راهنمایی بریزبن</a></h3>
-<p>این مثال یک برنامه مدرسه برای مدرسه راهنمایی در بریزبن، استرالیا را نشان می‌دهد.</p>
-<ul>
-<li><strong>روزها</strong>: دوشنبه تا جمعه.</li>
-<li><strong>ساعات</strong>: ۰۸:۳۰ تا ۱۵:۱۰.</li>
-<li><strong>ساختار</strong>: ۶ زنگ با ۲ وقت استراحت (چای صبحگاهی و ناهار).</li>
-<li><strong>ترم</strong>: ترم ۱ (۲۸ ژانویه) تا ترم ۴ (۱۲ دسامبر) برای سال ۲۰۲۵.</li>
-<li><strong>تعطیلات</strong>: تعطیلات رسمی کوئینزلند مستثنی شده‌اند.</li>
-</ul>
-<pre><code class="language-yaml">availabilities:
-  # تعریف برنامه اصلی مدرسه برای سال ۲۰۲۵
-  - action: Add
-    add-type: WeeklyPeriod
-    first-day-of-week: Monday
-    start: 2025-01-28T00:00:00+10:00 # شروع ترم ۱
-    end: 2025-12-12T23:59:59+10:00   # پایان ترم ۴
-    time-cells:
-      - action: Add
-        add-type: DailyPeriod
-        start: Monday
-        end: Friday
-        time-cells:
-          # زنگ ۱: ۰۸:۳۰ - ۰۹:۲۰
-          - action: Add
-            add-type: Block
-            start: 08:30
-            end: 09:20
-            status: Available
+<p>برای مثال:</p>
+<pre><code class="language-yaml">- type: Daily
+  start:
+    day: Mon
+    time: 00:00:00
+  end:
+    day: Fri
+    time: 23:59:59
+  time_cells:
+    ...
+</code></pre>
+<p>مقادیر قابل استفاده برای روز هفته عبارت‌اند از:</p>
+<div class="table-wrapper"><table><thead><tr><th>مقدار</th><th>روز</th></tr></thead><tbody>
+<tr><td><code>Mon</code></td><td>دوشنبه</td></tr>
+<tr><td><code>Tue</code></td><td>سه‌شنبه</td></tr>
+<tr><td><code>Wed</code></td><td>چهارشنبه</td></tr>
+<tr><td><code>Thu</code></td><td>پنج‌شنبه</td></tr>
+<tr><td><code>Fri</code></td><td>جمعه</td></tr>
+<tr><td><code>Sat</code></td><td>شنبه</td></tr>
+<tr><td><code>Sun</code></td><td>یکشنبه</td></tr>
+</tbody></table>
+</div>
+<p>یک time cell از نوع <code>Daily</code> می‌تواند شامل time cellهای <code>Basic</code> باشد.</p>
+<h3 id="basic"><a class="header" href="#basic">Basic</a></h3>
+<p>یک time cell از نوع <code>Basic</code> یک بازه زمانی مشخص و مستقیم را نشان می‌دهد.</p>
+<p>این نوع شامل موارد زیر است:</p>
+<div class="table-wrapper"><table><thead><tr><th>فیلد</th><th>توضیحات</th></tr></thead><tbody>
+<tr><td><code>start</code></td><td>شروع بازه زمانی.</td></tr>
+<tr><td><code>end</code></td><td>پایان بازه زمانی.</td></tr>
+<tr><td><code>rules</code></td><td>فهرستی از قوانین مرتبط با بازه زمانی.</td></tr>
+<tr><td><code>status</code></td><td>وضعیت availability بازه زمانی.</td></tr>
+<tr><td><code>div_cap</code></td><td>مشخص می‌کند بازه زمانی چگونه می‌تواند برای زمان‌بندی تقسیم شود. مقدار <code>0</code> یعنی بازه انعطاف‌پذیر است و یک فعالیت زمان‌بندی‌شده می‌تواند هر بخشی از آن را اشغال کند. مقدار <code>1</code> یعنی کل بازه تنها ظرفیت یک فعالیت را فراهم می‌کند. مقادیر بزرگ‌تر از <code>1</code> امکان تقسیم بازه برای چند تخصیص زمان‌بندی را فراهم می‌کنند.</td></tr>
+</tbody></table>
+</div>
+<p>فیلد <code>div_cap</code> نحوه تقسیم ظرفیت بازه زمانی را کنترل می‌کند. این فیلد مدت‌زمان فعالیت‌های زمان‌بندی‌شده را تعیین نمی‌کند.</p>
+<p>برای مثال، یک بازه انعطاف‌پذیر را می‌توان به‌صورت زیر تعریف کرد:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 07:30:00
+  end: 13:00:00
+  rules: []
+  status: Available
+  div_cap: 0
+</code></pre>
+<p>با <code>div_cap: 0</code>، یک فعالیت می‌تواند با توجه به سایر محدودیت‌های زمان‌بندی، در هر زمانی بین <code>07:30</code> تا <code>13:00</code> زمان‌بندی شود. این بازه الزامی نیست که به‌عنوان یک slot زمانی ثابت و واحد در نظر گرفته شود.</p>
+<p>یک بازه با یک ظرفیت ثابت و واحد را می‌توان به‌صورت زیر تعریف کرد:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 08:30:00
+  end: 09:20:00
+  rules: []
+  status: Available
+  div_cap: 1
+</code></pre>
+<p>با <code>div_cap: 1</code>، کل بازه یک ظرفیت زمان‌بندی را تشکیل می‌دهد و نمی‌توان از آن برای چند فعالیت هم‌زمان استفاده کرد.</p>
+<p>یک بازه قابل تقسیم را می‌توان با مقداری بزرگ‌تر از <code>1</code> تعریف کرد:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 08:30:00
+  end: 10:10:00
+  rules: []
+  status: Available
+  div_cap: 2
+</code></pre>
+<p>با <code>div_cap: 2</code>، این بازه دو واحد ظرفیت زمان‌بندی فراهم می‌کند. بسته به نیازهای زمان‌بندی، این ظرفیت‌ها می‌توانند برای قرار دادن چند فعالیت درون این بازه استفاده شوند؛ برای مثال با تقسیم بازه به بخش‌های جداگانه یا استفاده از آن برای فعالیت‌هایی که یک هفته در میان برگزار می‌شوند.</p>
+<p>یک time cell از نوع <code>Basic</code> شامل time cell تو‌در‌توی دیگری نیست.</p>
+<h2 id="وضعیت-availability"><a class="header" href="#وضعیت-availability">وضعیت Availability</a></h2>
+<p>یک time cell از نوع <code>Basic</code> دارای <code>status</code> است که مشخص می‌کند scheduler باید با آن بازه زمانی چگونه رفتار کند.</p>
+<div class="table-wrapper"><table><thead><tr><th>وضعیت</th><th>توضیحات</th></tr></thead><tbody>
+<tr><td><code>Available</code></td><td>زمان می‌تواند برای زمان‌بندی استفاده شود.</td></tr>
+<tr><td><code>Unavailable</code></td><td>زمان نمی‌تواند برای زمان‌بندی استفاده شود.</td></tr>
+<tr><td><code>Preferred</code></td><td>این زمان برای زمان‌بندی ترجیح داده می‌شود.</td></tr>
+<tr><td><code>Undesired</code></td><td>به‌طور کلی بهتر است از این زمان اجتناب شود، اما در صورت نیاز می‌توان از آن استفاده کرد.</td></tr>
+</tbody></table>
+</div>
+<p>برای مثال:</p>
+<pre><code class="language-yaml">- type: Basic
+  start: 09:20:00
+  end: 10:10:00
+  rules: []
+  status: Available
+  div_cap: 1
+</code></pre>
+<p>می‌توان از یک وضعیت دیگر برای بیان ترجیح یا محدودیت استفاده کرد، بدون اینکه بازه زمانی از تقویم حذف شود:</p>
+<pre><code class="language-yaml">- type: Basic
+  start:
+    day: Fri
+    time: 09:20:00
+  end:
+    day: Fri
+    time: 10:10:00
+  rules: []
+  status: Undesired
+  div_cap: 1
+</code></pre>
+<h2 id="تعطیلات"><a class="header" href="#تعطیلات">تعطیلات</a></h2>
+<p>یک availability از نوع <code>Holiday</code> یک دوره مرتبط با تعطیلات را نشان می‌دهد.</p>
+<p>برخلاف انواع time cellهای تکرارشونده، یک ورودی <code>Holiday</code> مستقیماً یک بازه تاریخ-زمان را تعریف می‌کند و کشور یا منطقه‌ای را که تقویم تعطیلات آن مورد استفاده قرار گرفته است مشخص می‌کند.</p>
+<p>این نوع شامل موارد زیر است:</p>
+<div class="table-wrapper"><table><thead><tr><th>فیلد</th><th>توضیحات</th></tr></thead><tbody>
+<tr><td><code>start</code></td><td>شروع دوره مرتبط با تعطیلات.</td></tr>
+<tr><td><code>end</code></td><td>پایان دوره مرتبط با تعطیلات.</td></tr>
+<tr><td><code>country</code></td><td>شناسه کشور یا منطقه مورد استفاده برای تعریف تعطیلات.</td></tr>
+<tr><td><code>status</code></td><td>وضعیت availability اعمال‌شده بر دوره تعطیلات.</td></tr>
+</tbody></table>
+</div>
+<p>مثال:</p>
+<pre><code class="language-yaml">- type: Holiday
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  country: "au-qld"
+  status: Unavailable
+</code></pre>
+<p>برای مثال، قرار دادن <code>Unavailable</code> به‌عنوان وضعیت می‌تواند از زمان‌بندی در طول تعطیلات رسمی مربوط به منطقه مشخص‌شده جلوگیری کند.</p>
+<h2 id="قوانین-تودرتویی"><a class="header" href="#قوانین-تودرتویی">قوانین تو‌در‌تویی</a></h2>
+<p>سلسله‌مراتب تعاریف زمانی این امکان را فراهم می‌کند که یک بازه گسترده به‌صورت تدریجی دقیق‌تر و محدودتر شود.</p>
+<p>یک ساختار معمول به شکل زیر است:</p>
+<pre><code class="language-text">Calendar
+└── Availability
+    └── Weekly
+        ├── Daily
+        │   └── Basic
+        └── Basic
+</code></pre>
+<p>برای مثال، ساختار زیر:</p>
+<pre><code class="language-yaml">- type: Weekly
+  start: 2026-01-28T00:00:00+10:00
+  end: 2026-12-12T23:59:59+10:00
+  time_cells:
+    - type: Daily
+      start:
+        day: Mon
+        time: 00:00:00
+      end:
+        day: Fri
+        time: 23:59:59
+      time_cells:
+        - type: Basic
+          start: 08:30:00
+          end: 09:20:00
+          rules: []
+          status: Available
+          div_cap: 1
+</code></pre>
+<p>را می‌توان به این صورت تفسیر کرد:</p>
+<ol>
+<li>availability در بازه تاریخ-زمان مشخص‌شده اعمال می‌شود.</li>
+<li>درون این بازه، از دوشنبه تا جمعه اعمال می‌شود.</li>
+<li>درون این روزها، بازه زمانی مشخص‌شده از <code>08:30</code> تا <code>09:20</code> در دسترس است.</li>
+<li>این بازه یک ظرفیت زمان‌بندی فراهم می‌کند، زیرا <code>div_cap</code> برابر <code>1</code> است.</li>
+</ol>
+<p>این ساختار سلسله‌مراتبی به تقویم‌ها اجازه می‌دهد هم بازه‌های گسترده و تکرارشونده و هم بازه‌های زمانی مشخص و دقیق برای زمان‌بندی را نمایش دهند.</p>
+<h2 id="مثال-کامل"><a class="header" href="#مثال-کامل">مثال کامل</a></h2>
+<p>مثال زیر یک تقویم مدرسه برای سال 2026 را تعریف می‌کند. این تقویم شامل یک برنامه هفتگی از دوشنبه تا جمعه، دوره‌های کلاسی مجزا، زمان‌های استراحت حذف‌شده، یک بازه زمانی جداگانه با وضعیت نامطلوب و یک دوره تعطیلات برای کوئینزلند است.</p>
+<pre><code class="language-yaml">avails:
+  - type: Weekly
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
+    time_cells:
+      - type: Daily
+        start:
+          day: Mon
+          time: 00:00:00
+        end:
+          day: Fri
+          time: 23:59:59
+        time_cells:
+          # Period 1: 08:30 - 09:20
+          - type: Basic
+            start: 08:30:00
+            end: 09:20:00
             rules: []
-
-          # زنگ ۲: ۰۹:۲۰ - ۱۰:۱۰
-          - action: Add
-            add-type: Block
-            start: 09:20
-            end: 10:10
             status: Available
+            div_cap: 1
+
+          # Period 2: 09:20 - 10:10
+          - type: Basic
+            start: 09:20:00
+            end: 10:10:00
             rules: []
-
-          # استراحت ۱ (چای صبحگاهی): ۱۰:۱۰ - ۱۰:۴۰ (مستثنی شده)
-
-          # زنگ ۳: ۱۰:۴۰ - ۱۱:۳۰
-          - action: Add
-            add-type: Block
-            start: 10:40
-            end: 11:30
             status: Available
-            rules: []
+            div_cap: 1
 
-          # زنگ ۴: ۱۱:۳۰ - ۱۲:۲۰
-          - action: Add
-            add-type: Block
-            start: 11:30
-            end: 12:20
+          # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
+
+          # Period 3: 10:40 - 11:30
+          - type: Basic
+            start: 10:40:00
+            end: 11:30:00
+            rules: []
             status: Available
-            rules: []
+            div_cap: 1
 
-          # جمع‌بندی: ۱۲:۲۰ - ۱۳:۰۰
-          - action: Add
-            add-type: Block
-            start: 12:20
-            end: 13:00
+          # Consolidation: 12:20 - 13:00
+          - type: Basic
+            start: 12:20:00
+            end: 13:00:00
+            rules: []
             status: Available
+            div_cap: 1
+
+          # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
+
+          # Period 5: 13:30 - 14:20
+          - type: Basic
+            start: 13:30:00
+            end: 14:20:00
             rules: []
-
-          # استراحت ۲ (ناهار): ۱۳:۰۰ - ۱۳:۳۰ (مستثنی شده)
-
-          # زنگ ۵: ۱۳:۳۰ - ۱۴:۲۰
-          - action: Add
-            add-type: Block
-            start: 13:30
-            end: 14:20
             status: Available
-            rules: []
+            div_cap: 1
 
-          # زنگ ۶: ۱۴:۲۰ - ۱۵:۱۰
-          - action: Add
-            add-type: Block
-            start: 14:20
-            end: 15:10
+          # Period 6: 14:20 - 15:10
+          - type: Basic
+            start: 14:20:00
+            end: 15:10:00
+            rules: []
             status: Available
-            rules: []
+            div_cap: 1
 
-  # حذف تعطیلات رسمی کوئینزلند
-  - action: Remove
-    remove-type: Holidays
+      - type: Basic
+        start:
+          day: Fri
+          time: 09:20:00
+        end:
+          day: Fri
+          time: 10:10:00
+        rules: []
+        status: Undesired
+        div_cap: 1
+
+  - type: Holiday
+    start: 2026-01-28T00:00:00+10:00
+    end: 2026-12-12T23:59:59+10:00
     country: "au-qld"
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
+    status: Unavailable
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="امکانات"><a class="header" href="#امکانات">امکانات</a></h1>
 <p>امکانات به فضاهای فیزیکی مانند کلاس‌ها، آزمایشگاه‌ها، سالن‌های ورزشی یا سالن‌های همایش اشاره دارند که می‌توان آن‌ها را برای استفاده زمان‌بندی کرد.</p>

@@ -175,83 +175,126 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="بسته-موسسه-institution-packet"><a class="header" href="#بسته-موسسه-institution-packet">بسته موسسه (Institution Packet)</a></h1>
-<p>بسته موسسه ساختار کامل و داده‌ها را برای یک موسسه در سیستم DiTA تعریف می‌کند. این بسته به عنوان پیکربندی ریشه‌ای عمل می‌کند که تمام جنبه‌های زمان‌بندی و مدیریت منابع موسسه، از جمله در دسترس بودن‌ها، امکانات، یادگیرندگان، مدرسان و موارد دیگر را در بر می‌گیرد.</p>
+                        <h1 id="بسته-مؤسسه"><a class="header" href="#بسته-مؤسسه">بسته مؤسسه</a></h1>
+<p>Institution Packet ساختار و داده‌های کامل یک مؤسسه را در سیستم DITA تعریف می‌کند. این بسته به‌عنوان پیکربندی ریشه‌ای برای زمان‌بندی و مدیریت منابع یک مؤسسه عمل می‌کند و شامل تقویم، امکانات، یادگیرندگان، مدرسان، سرپرستان، منابع، موضوعات، دوره‌ها و واحدهای سازمانی آن است.</p>
 <h2 id="اجزا"><a class="header" href="#اجزا">اجزا</a></h2>
-<p>بسته موسسه از چندین بخش تشکیل شده است که هر کدام مسئول یک دامنه خاص از داده‌های موسسه هستند:</p>
+<p>Institution Packet از چندین aggregate تشکیل شده است که هرکدام مسئول یک حوزه مشخص از داده‌های مؤسسه هستند:</p>
 <ul>
-<li><strong><a href="availabilities.html">دسترسی‌ها</a></strong>: بازه‌های زمانی و وضعیت در دسترس بودن برای زمان‌بندی را تعریف می‌کند (مانند تاریخ‌های ترم، برنامه‌های روزانه، تعطیلات).</li>
-<li><strong><a href="facilities.html">امکانات</a></strong>: فضاهای فیزیکی مانند کلاس‌های درس، آزمایشگاه‌ها و سالن‌های کنفرانس.</li>
-<li><strong><a href="learners.html">یادگیرندگان</a></strong>: افرادی که در دوره‌ها ثبت نام کرده‌اند.</li>
-<li><strong><a href="instructors.html">مدرسان</a></strong>: افرادی که مسئول تدریس دوره‌ها هستند.</li>
-<li><strong><a href="supervisors.html">ناظران</a></strong>: افرادی که امکانات یا منابع دیگر را مدیریت می‌کنند.</li>
-<li><strong><a href="resources.html">منابع</a></strong>: مواد آموزشی مانند کتاب‌ها و تجهیزات.</li>
-<li><strong><a href="subjects.html">موضوعات</a></strong>: عناوین آموزشی استاندارد (مانند "فیزیک ۱").</li>
-<li><strong><a href="courses.html">دوره‌ها</a></strong>: ارائه‌های زمان‌بندی شده موضوعات.</li>
-<li><strong><a href="units.html">واحدها</a></strong>: واحدهای سازمانی مانند دپارتمان‌ها یا دانشکده‌ها.</li>
+<li><strong><a href="cal.html">Calendar</a></strong>: تقویم زمان‌بندی مؤسسه را تعریف می‌کند و شامل بازه‌های زمانی تکرارشونده، وضعیت‌های availability، تعطیلات و تقسیم‌بندی ظرفیت زمان‌بندی است.</li>
+<li><strong><a href="facilities.html">Facilities</a></strong>: فضاهای فیزیکی مانند کلاس‌های درس، آزمایشگاه‌ها و سالن‌های کنفرانس.</li>
+<li><strong><a href="learners.html">Learners</a></strong>: افرادی که در دوره‌ها ثبت‌نام کرده‌اند.</li>
+<li><strong><a href="instructors.html">Instructors</a></strong>: افرادی که مسئول تدریس دوره‌ها هستند.</li>
+<li><strong><a href="supervisors.html">Supervisors</a></strong>: افرادی که امکانات یا سایر منابع را مدیریت می‌کنند.</li>
+<li><strong><a href="resources.html">Resources</a></strong>: منابع آموزشی مانند کتاب‌ها و تجهیزات.</li>
+<li><strong><a href="subjects.html">Subjects</a></strong>: موضوعات آموزشی استاندارد مانند <code>"Physics 101"</code>.</li>
+<li><strong><a href="courses.html">Courses</a></strong>: ارائه‌های زمان‌بندی‌شده از موضوعات.</li>
+<li><strong><a href="units.html">Units</a></strong>: واحدهای سازمانی مانند دپارتمان‌ها یا مدارس.</li>
 </ul>
 <h2 id="مثال"><a class="header" href="#مثال">مثال</a></h2>
-<p>در زیر یک مثال از پیکربندی کامل بسته موسسه با فرمت YAML آورده شده است.</p>
-<pre><code class="language-yaml">apiVersion: apps/v1
+<p>در ادامه نمونه‌ای از پیکربندی یک Institution Packet در قالب YAML آمده است.</p>
+<pre><code class="language-yaml id=&quot;f2b6v1&quot;">apiVersion: apps/v1
 kind: InstitutionPacket
+
 name: Brisbane Central Primary School
+
 address:
-availabilities: # دسترسی‌ها بازه‌های زمانی خاص را همراه با وضعیت برای اهداف زمان‌بندی تعریف می‌کنند.
-  - action: Add # افزودن (Add)، حذف (Remove)
-    add-type: WeeklyPeriod # دوره روزانه، هفتگی، ماهانه، سالانه، بلوک‌ها، بلوک
-    first-day-of-week: Monday # یک‌شنبه تا شنبه (نام‌های انگلیسی)
-    time-cells:
-      - action: Add # افزودن، حذف
-        add-type: DailyPeriod
-        rules: []
-        time-cells:
-          # جلسه ۱: ۰۹:۰۰ - ۱۰:۴۰
-          - action: Add # افزودن، حذف
-            add-type: Block
-            start: 09:00
-            end: 10:40
-            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
-            rules: []
-          
-          # استراحت ۱: ۱۰:۴۰ - ۱۱:۲۵ (مستثنی شده)
 
-          # جلسه ۲: ۱۱:۳۰ - ۱۳:۰۰
-          - action: Add # افزودن، حذف
-            add-type: Block
-            start: 11:30
-            end: 13:00
-            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
-            rules: []
+cal:
+  avails:
+    - type: Weekly
+      start: 2026-01-28T00:00:00+10:00
+      end: 2026-12-12T23:59:59+10:00
+      time_cells:
+        - type: Daily
+          start:
+            day: Mon
+            time: 00:00:00
+          end:
+            day: Fri
+            time: 23:59:59
+          time_cells:
+            # Period 1: 08:30 - 09:20
+            - type: Basic
+              start: 08:30:00
+              end: 09:20:00
+              rules: []
+              status: Available
+              div_cap: 1
 
-          # استراحت ۲: ۱۳:۰۰ - ۱۳:۳۰ (مستثنی شده)
+            # Period 2: 09:20 - 10:10
+            - type: Basic
+              start: 09:20:00
+              end: 10:10:00
+              rules: []
+              status: Available
+              div_cap: 1
 
-          # جلسه ۳: ۱۳:۳۰ - ۱۵:۰۰
-          - action: Add # افزودن، حذف
-            add-type: Block
-            start: 13:30
-            end: 15:00
-            status: Available # موجود، ناموجود، ترجیحی، نامطلوب
-            rules: []
-        start: Monday
-        end: Friday
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
-  - action: Remove # افزودن، حذف
-    remove-type: Holidays
-    country: "au-qld"
-    start: 2025-01-28T00:00:00+10:00
-    end: 2025-12-12T23:59:59+10:00
-facilities: # امکانات نشان‌دهنده فضاهای فیزیکی مانند کلاس‌ها، آزمایشگاه‌ها، سالن‌های ورزشی یا کنفرانس هستند که قابل زمان‌بندی می‌باشند.
-learners: # یادگیرندگان افرادی هستند که برای دریافت آموزش در دوره‌ها ثبت‌نام می‌کنند.
-instructors: # مدرسان افرادی هستند که مسئول آموزش و راهنمایی یادگیرندگان در یک یا چند دوره هستند.
-supervisors: # افرادی که برای نظارت یا مدیریت امکانات تعیین شده‌اند.
-resources: # منابع مواد آموزشی مانند کتاب‌ها، ویدئوها یا اسنادی هستند که به موضوعات مرتبط هستند.
-subjects: # موضوعات عناوین آموزشی استاندارد مانند "فیزیک ۲" را تعریف می‌کنند که می‌توانند در چندین دوره تدریس شوند.
-courses: # دوره‌ها ارائه‌های زمان‌بندی شده یک موضوع هستند که معمولاً به یک مدرس و آکادمی خاص مرتبط می‌باشند.
-units: # واحدهای سازمانی مانند مدارس، دپارتمان‌ها یا مراکز آموزشی که هر کدام زمان‌بندی و منابع خاص خود را دارند.
+            # Break 1 (Morning Tea): 10:10 - 10:40 (Excluded)
+
+            # Period 3: 10:40 - 11:30
+            - type: Basic
+              start: 10:40:00
+              end: 11:30:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Consolidation: 12:20 - 13:00
+            - type: Basic
+              start: 12:20:00
+              end: 13:00:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Break 2 (Lunch): 13:00 - 13:30 (Excluded)
+
+            # Period 5: 13:30 - 14:20
+            - type: Basic
+              start: 13:30:00
+              end: 14:20:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+            # Period 6: 14:20 - 15:10
+            - type: Basic
+              start: 14:20:00
+              end: 15:10:00
+              rules: []
+              status: Available
+              div_cap: 1
+
+        - type: Basic
+          start:
+            day: Fri
+            time: 09:20:00
+          end:
+            day: Fri
+            time: 10:10:00
+          rules: []
+          status: Undesired
+          div_cap: 1
+
+    - type: Holiday
+      start: 2026-01-28T00:00:00+10:00
+      end: 2026-12-12T23:59:59+10:00
+      country: "au-qld"
+      status: Unavailable
+
+facilities:
+learners:
+instructors:
+supervisors:
+resources:
+subjects:
+courses:
+
+units:
   - name: Primary Years
     address:
-    availabilities:
+    cal:
+      avails:
     facilities:
     learners:
     instructors:
@@ -260,6 +303,9 @@ units: # واحدهای سازمانی مانند مدارس، دپارتمان�
     subjects:
     courses:
 </code></pre>
+<p>فیلد <code>calendar</code> شامل تقویم مؤسسه است. این تقویم دارای مجموعه <code>avails</code> است که ورودی‌های آن دوره‌های در دسترس و غیرقابل‌استفاده، ترجیحات زمان‌بندی، تعطیلات و تقسیم‌بندی ظرفیت را تعریف می‌کنند. ساختار و معنای اجزای تقویم به‌صورت جداگانه در مستندات <a href="./availabilities.html">Calendar</a> تعریف شده است.</p>
+<p>یک time cell از نوع <code>Basic</code> می‌تواند از <code>div_cap</code> برای تعیین نحوه تخصیص بازه زمانی خود در زمان‌بندی استفاده کند. مقدار <code>1</code> نشان‌دهنده یک ظرفیت زمان‌بندی واحد برای کل بازه است، در حالی که مقادیر بزرگ‌تر از <code>1</code> به بازه اجازه می‌دهند چندین تقسیم ظرفیت فراهم کند. مقدار <code>0</code> بازه را انعطاف‌پذیر می‌کند و اجازه می‌دهد یک فعالیت زمان‌بندی‌شده هر بخشی از بازه زمانی تعریف‌شده را استفاده کند.</p>
+<p>واحدها نیز می‌توانند در صورتی که اطلاعات زمان‌بندی نیاز باشد در سطح واحد تعریف شود، تقویم مستقل خود را داشته باشند.</p>
 
                     </main>
 
@@ -269,7 +315,7 @@ units: # واحدهای سازمانی مانند مدارس، دپارتمان�
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../design/institution-packet/availabilities.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../design/institution-packet/cal.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -283,7 +329,7 @@ units: # واحدهای سازمانی مانند مدارس، دپارتمان�
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../design/institution-packet/availabilities.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../design/institution-packet/cal.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
